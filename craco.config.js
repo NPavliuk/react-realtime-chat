@@ -12,7 +12,7 @@ module.exports = {
       '@styles': resolvePath('./src/styles'),
       '@helpers': resolvePath('./src/utils/helpers'),
       '@constants': resolvePath('./src/utils/constants'),
-      '@views': resolvePath('./src/views')
+      '@views': resolvePath('./src/views'),
     }
   }
 }

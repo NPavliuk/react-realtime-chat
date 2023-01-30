@@ -6,7 +6,7 @@ import { signUpStart } from '@store/reducers/userReducer/userActions'
 
 export const SignUp = () => {
   const dispatch = useDispatch()
-  const {register, watch, handleSubmit, reset, formState: {errors, isValid}} = useForm({mode: 'onBlur'})
+  const {register, watch, handleSubmit, reset, formState: {errors}} = useForm({mode: 'onBlur'})
   const onSubmit = (data) => {
     dispatch(signUpStart(data))
     reset()
@@ -16,6 +16,14 @@ export const SignUp = () => {
     <div>
       Sign Up
       <form onSubmit={handleSubmit(onSubmit)}>
+        <div>
+          <label htmlFor="displayName">Name</label>
+          <input type="displayName"
+                 {...register('displayName', {
+                   required: messages.requiredField,
+                 })}/>
+          {errors?.displayName && <p>{errors?.displayName?.message}</p>}
+        </div>
         <div>
           <label htmlFor="email">Email</label>
           <input type="email"

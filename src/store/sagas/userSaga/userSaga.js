@@ -1,6 +1,7 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
-import { signUpFail, signUpSuccess } from '@store/reducers/userReducer/userActions'
+import { signUpFail, signUpSuccess, signInSuccess, signInFail } from '@store/reducers/userReducer/userActions'
 import { setUserToDb, signUpWithEmailPassword } from '@api/auth/signUp'
+import { signInWithEmailPassword } from '@api/auth/signIn'
 import { actionTypes } from '@constants/actionTypes'
 
 export function* signUpWithEmailPasswordSaga(props) {
@@ -20,6 +21,21 @@ export function* signUpWithEmailPasswordSaga(props) {
   }
 }
 
+export function* signInWithEmailPasswordSaga(props) {
+  const email = props.payload.email
+  const password = props.payload.password
+
+  try {
+    if (email && password) {
+      const user = yield call(signInWithEmailPassword, email, password)
+      yield put(signInSuccess(user))
+    }
+  } catch (err) {
+    yield put(signInFail(err.message))
+  }
+}
+
 export const userSaga = [
-  takeLatest(actionTypes.SIGNUP_START, signUpWithEmailPasswordSaga)
+  takeLatest(actionTypes.SIGNUP_START, signUpWithEmailPasswordSaga),
+  takeLatest(actionTypes.SIGNIN_START, signInWithEmailPasswordSaga)
 ]

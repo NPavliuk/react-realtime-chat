@@ -4,15 +4,19 @@ import { patterns } from '@constants/validationPatterns'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { signInStart } from '@store/reducers/userReducer/userActions'
+import { useNavigate } from 'react-router-dom'
+import { routeNames } from '@constants/routeNames'
 
 export const SignIn = () => {
   const pageTitle = 'Chat - Sign in'
+
   const dispatch = useDispatch()
-  const {register, handleSubmit, reset, formState: {errors}} = useForm({mode: 'onBlur'})
+  const navigate = useNavigate()
+  const {register, handleSubmit, formState: {errors}} = useForm({mode: 'onBlur'})
 
   const onSubmit = (data) => {
     dispatch(signInStart(data))
-    reset()
+    navigate(routeNames.HOME)
   }
 
   return (

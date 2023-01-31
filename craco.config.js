@@ -13,6 +13,7 @@ module.exports = {
       '@helpers': resolvePath('./src/utils/helpers'),
       '@constants': resolvePath('./src/utils/constants'),
       '@views': resolvePath('./src/views'),
+      '@hooks': resolvePath('./src/hooks'),
     }
   }
 }

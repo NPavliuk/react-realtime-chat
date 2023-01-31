@@ -9,7 +9,8 @@
       "@styles/*": ["styles/*"],
       "@helpers/*": ["utils/helpers/*"],
       "@constants/*": ["utils/constants/*"],
-      "@views/*": ["views/*"]
+      "@views/*": ["views/*"],
+      "@hooks/*": ["hooks/*"]
     }
   }
 }

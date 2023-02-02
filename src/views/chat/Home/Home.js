@@ -1,5 +1,7 @@
 import { useDispatch } from 'react-redux'
-import { signOutStart } from '@store/reducers/userReducer/userActions'
+import { Link } from 'react-router-dom'
+import { signOutStart } from '@store/reducers/authReducer/authActions'
+import { routeNames } from '@constants/routeNames'
 
 export const Home = () => {
   const dispatch = useDispatch()
@@ -7,9 +9,10 @@ export const Home = () => {
     dispatch(signOutStart())
   }
 
-  return(
+  return (
     <div>
       <button onClick={handleClick}>logout</button>
+      <Link to={routeNames.SETTINGS}>Setings</Link>
     </div>
   )
 }

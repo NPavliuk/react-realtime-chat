@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { patterns } from '@constants/validationPatterns'
 import { messages } from '@constants/validationMessages'
-import { signUpStart } from '@store/reducers/userReducer/userActions'
+import { signUpStart } from '@store/reducers/authReducer/authActions'
 
 export const SignUp = () => {
   const dispatch = useDispatch()

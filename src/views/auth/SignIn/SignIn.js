@@ -3,7 +3,7 @@ import { messages } from '@constants/validationMessages'
 import { patterns } from '@constants/validationPatterns'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
-import { signInStart } from '@store/reducers/userReducer/userActions'
+import { signInStart } from '@store/reducers/authReducer/authActions'
 import { useNavigate } from 'react-router-dom'
 import { routeNames } from '@constants/routeNames'
 

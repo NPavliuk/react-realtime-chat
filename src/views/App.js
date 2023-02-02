@@ -32,15 +32,13 @@ function App() {
 
   return (
     user ?
-      <>
+      <PrivateLayout>
         <PrivateRouter/>
-        <PrivateLayout/>
-      </>
+      </PrivateLayout>
       :
-      <>
+      <PublicLayout>
         <PublicRouter/>
-        <PublicLayout/>
-      </>
+      </PublicLayout>
   )
 }
 

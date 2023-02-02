@@ -4,7 +4,19 @@ module.exports = {
     './src/views/**/*.{js,jsx,ts,tsx}'
   ],
   theme: {
-    extend: {}
+    extend: {
+      colors: {
+        'primary': '#7740AE',
+        'primary-hover': '#6B28AE',
+        'primary-dark': '#352747',
+        'secondary': '#F7F7F7',
+        'secondary-hover': '#F2F2F4',
+        'secondary-dark': '#CECFCF'
+      }
+    }
   },
-  plugins: []
+  plugins: [
+    require('tailwindcss'),
+    require('autoprefixer'),
+  ]
 }

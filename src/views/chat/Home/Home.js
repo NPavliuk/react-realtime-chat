@@ -12,7 +12,7 @@ export const Home = () => {
   return (
     <div>
       <button onClick={handleClick}>logout</button>
-      <Link to={routeNames.SETTINGS}>Setings</Link>
+      <Link to={routeNames.SETTINGS}>Settings</Link>
     </div>
   )
 }

@@ -1,52 +1,32 @@
 import { Helmet } from 'react-helmet'
-import { messages } from '@constants/validationMessages'
-import { patterns } from '@constants/validationPatterns'
-import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
-import { signInStart } from '@store/reducers/authReducer/authActions'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { SignInForm } from '@components/forms'
 import { routeNames } from '@constants/routeNames'
+import styles from './SignIn.module.scss'
 
 export const SignIn = () => {
-  const pageTitle = 'Chat - Sign in'
-
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const {register, handleSubmit, formState: {errors}} = useForm({mode: 'onBlur'})
-
-  const onSubmit = (data) => {
-    dispatch(signInStart(data))
-    navigate(routeNames.HOME)
+  const data = {
+    title: 'Chat - Sign in',
+    logo: {
+      alt: 'some text',
+      src: 'https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600'
+    }
   }
 
   return (
     <div>
       <Helmet>
-        <title>{pageTitle}</title>
+        <title>{data.title}</title>
       </Helmet>
-      <div>
-        <form onSubmit={handleSubmit(onSubmit)}>
+      <div className={styles.container}>
+        <div className={styles.block}>
           <div>
-            <label htmlFor="email">Email</label>
-            <input type="email"
-                   {...register('email', {
-                     required: messages.requiredField,
-                     pattern: {value: patterns.email, message: messages.invalidEmail}
-                   })}/>
-            {errors?.email && <p>{errors?.email?.message}</p>}
+            <img className={styles.logo} src={data.logo.src} alt={data.logo.alt}/>
+            <h2 className={styles.title}>Sign in to your account</h2>
+            <p className={styles.subTitle}>Or{' '}<Link to={routeNames.SIGN_UP} className={styles.subTitleLink}>create new account</Link></p>
           </div>
-          <div>
-            <label htmlFor="password">Password</label>
-            <input
-              {...register('password', {
-                required: messages.requiredField,
-                minLength: {value: 8, message: messages.shortPassword},
-                pattern: {value: patterns.password, message: messages.invalidPassword}
-              })}/>
-            {errors?.password && <p>{errors?.password?.message}</p>}
-          </div>
-          <button type="submit">Submit</button>
-        </form>
+          <SignInForm/>
+        </div>
       </div>
     </div>
   )

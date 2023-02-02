@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet'
+import styles from './PublicLayout.module.scss'
 
 export const PublicLayout = ({children}) => {
   const appTitle = 'Chat'
@@ -8,10 +9,12 @@ export const PublicLayout = ({children}) => {
       <Helmet>
         <title>{appTitle}</title>
       </Helmet>
-      <main>
-        {children}
-      </main>
-      <footer></footer>
+      <div className={styles.page}>
+        <main className={styles.content}>
+          {children}
+        </main>
+        <footer className={styles.footer}></footer>
+      </div>
     </>
   )
 }

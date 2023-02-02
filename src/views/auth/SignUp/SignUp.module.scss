@@ -1,0 +1,23 @@
+.container {
+  @apply mt-[12vh] flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8;
+}
+
+.block {
+  @apply w-full max-w-md;
+}
+
+.logo {
+  @apply mx-auto h-12 w-auto;
+}
+
+.title {
+  @apply mt-6 text-center text-3xl font-bold tracking-tight text-gray-900;
+}
+
+.subTitle {
+  @apply mt-2 text-center text-sm text-gray-600;
+}
+
+.subTitleLink {
+  @apply font-medium text-indigo-600 hover:text-indigo-500;
+}

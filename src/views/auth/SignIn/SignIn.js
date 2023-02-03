@@ -23,7 +23,8 @@ export const SignIn = () => {
           <div>
             <img className={styles.logo} src={data.logo.src} alt={data.logo.alt}/>
             <h2 className={styles.title}>Sign in to your account</h2>
-            <p className={styles.subTitle}>Or{' '}<Link to={routeNames.SIGN_UP} className={styles.subTitleLink}>create new account</Link></p>
+            <p className={styles.subTitle}>Or{' '}<Link to={routeNames.SIGN_UP} className={styles.subTitleLink}>create
+              new account</Link></p>
           </div>
           <SignInForm/>
         </div>

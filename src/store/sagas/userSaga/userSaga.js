@@ -8,7 +8,6 @@ export function* userDataSaga(props) {
 
   try {
     const data = yield call(getUserData, uid)
-    console.log(data)
     yield put(getUserDataSuccess(data))
   } catch (err) {
     yield put(getUserDataFail(err.message))

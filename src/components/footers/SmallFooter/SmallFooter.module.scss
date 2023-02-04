@@ -1,0 +1,11 @@
+.footer {
+  @apply p-4 md:px-6 md:py-8;
+}
+
+.copyright {
+  @apply block text-sm text-gray-500 text-center text-gray-400;
+}
+
+.link {
+  @apply hover:underline;
+}

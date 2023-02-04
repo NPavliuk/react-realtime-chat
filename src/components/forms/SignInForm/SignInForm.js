@@ -14,7 +14,7 @@ export const SignInForm = () => {
 
   const onSubmit = (data) => {
     dispatch(signInStart(data))
-    navigate(routeNames.HOME)
+    navigate(routeNames.DIALOGS)
   }
 
   return (

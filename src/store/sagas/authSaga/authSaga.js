@@ -8,6 +8,8 @@ import { auth } from '@api/firebase'
 import { signOut } from 'firebase/auth'
 import toast from 'react-hot-toast'
 import { messages } from '@constants/validationMessages'
+import { setLocationUrl } from '@helpers/locationUrl'
+import { routeNames } from '@constants/routeNames'
 
 export function* signUpWithEmailPasswordSaga(props) {
   const email = props.payload.email
@@ -53,7 +55,7 @@ export function* signOutSaga() {
   try {
     yield signOut(auth)
     yield put(signOutSuccess())
-    toast.success(messages.signOutSuccess)
+    setLocationUrl(routeNames.HOME)
   } catch (err) {
     yield put(signOutFail(err.message))
     toast.error(err.message)

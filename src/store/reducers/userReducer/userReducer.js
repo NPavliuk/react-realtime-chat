@@ -1,7 +1,11 @@
 import { actionTypes } from '@constants/actionTypes'
 
 const initialState = {
-  data: null,
+  data: {
+    email: null,
+    avatar: null,
+    displayName: '',
+  },
   error: null,
   loading: false,
 }

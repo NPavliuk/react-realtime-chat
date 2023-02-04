@@ -1,17 +1,20 @@
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { signUpStart } from '@store/reducers/authReducer/authActions'
 import { PasswordInput, EmailInput, TextInput, PasswordConfirmInput } from '@components/ui/form/inputs'
 import { SubmitButton } from '@components/ui/buttons'
+import { routeNames } from '@constants/routeNames'
 import styles from './SignUpForm.module.scss'
 
 export const SignUpForm = () => {
   const dispatch = useDispatch()
-  const {register, watch, handleSubmit, reset, formState: {errors}} = useForm({mode: 'onBlur'})
+  const navigate = useNavigate()
+  const {register, watch, handleSubmit, formState: {errors}} = useForm({mode: 'onBlur'})
 
   const onSubmit = (data) => {
     dispatch(signUpStart(data))
-    reset()
+    navigate(routeNames.DIALOGS)
   }
 
   return (

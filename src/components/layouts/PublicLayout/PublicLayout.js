@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet'
+import { SmallFooter } from '@components/footers'
 import styles from './PublicLayout.module.scss'
 
 export const PublicLayout = ({children}) => {
@@ -13,7 +14,7 @@ export const PublicLayout = ({children}) => {
         <main className={styles.content}>
           {children}
         </main>
-        <footer className={styles.footer}></footer>
+        <SmallFooter />
       </div>
     </>
   )

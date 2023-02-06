@@ -4,11 +4,14 @@ import { getUserDataStart } from '@store/reducers/userReducer/userActions'
 import { setAuthStatus } from '@store/reducers/authReducer/authActions'
 import { PrivateLayout, PublicLayout } from '@components/layouts'
 import { PrivateRouter, PublicRouter } from '@components/routers'
-import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '@api/firebase'
+import { onAuthStateChanged } from 'firebase/auth'
 import { getUserFromLocalStorage, removeUserFromLocalStorage, saveUserToLocalStorage } from '@helpers/localStorage'
+import { useNavigate } from 'react-router-dom'
+import { routeNames } from '@constants/routeNames'
 
 function App() {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const user = useSelector(state => state.auth.uid)
 
@@ -29,6 +32,9 @@ function App() {
       })
     }
   }, [])
+
+  document.addEventListener('sign-in', () => navigate(routeNames.HOME))
+  document.addEventListener('sign-out', () => navigate(routeNames.HOME))
 
   return (
     user ?

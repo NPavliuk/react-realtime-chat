@@ -1,19 +1,18 @@
-import { Link } from 'react-router-dom'
-import { routeNames } from '@constants/routeNames'
 import { classNames } from '@helpers/classNames'
-import styles from './UserAvatar.module.scss'
+import styles from './MemberAvatar.module.scss'
 
-export const UserAvatar = ({name, image, status, handler, classes}) => {
+export const MemberAvatar = ({image, name, classes, status, hiddenUsers, active}) => {
   return (
-    <Link className={classNames({
+    <div className={classNames({
       [styles.link]: true,
       [styles.small]: classes === 'small',
-      [styles.little]: classes === 'little'
-    })} to={routeNames.USER} onClick={handler ? handler : null}>
+      [styles.active]: active,
+      [styles.hiddenUsers]: hiddenUsers
+    })}>
       <div className={styles.avatar}>
         {image
           ? <img className={styles.avatarImage} src={image} alt={name}/>
-          : <span className={styles.avatarPlaceholder}>{name.charAt(0)}</span>
+          : <span className={styles.avatarPlaceholder}>{hiddenUsers ? name : name.charAt(0)}</span>
         }
         {status ? <span className={classNames({
           [styles.indicator]: true,
@@ -22,6 +21,6 @@ export const UserAvatar = ({name, image, status, handler, classes}) => {
           [styles.out]: status === 'pending'
         })}></span> : null}
       </div>
-    </Link>
+    </div>
   )
 }

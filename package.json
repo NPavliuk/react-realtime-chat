@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@heroicons/react": "^2.0.14",
+    "@tailwindcss/line-clamp": "^0.4.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -24,6 +25,7 @@
     "redux": "^4.2.0",
     "redux-devtools-extension": "^2.13.9",
     "redux-saga": "^1.2.2",
+    "tailwind-scrollbar-hide": "^1.1.7",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

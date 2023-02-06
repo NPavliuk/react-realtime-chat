@@ -1,5 +1,4 @@
 import { Helmet } from 'react-helmet'
-import { InfoBar, NavBar } from '@components/sidebars'
 import styles from './PrivateLayout.module.scss'
 
 export const PrivateLayout = ({children}) => {
@@ -11,11 +10,9 @@ export const PrivateLayout = ({children}) => {
         <title>{appTitle}</title>
       </Helmet>
       <div className={styles.page}>
-        <NavBar/>
         <main className={styles.content}>
           {children}
         </main>
-        <InfoBar/>
       </div>
     </>
   )

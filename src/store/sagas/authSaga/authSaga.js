@@ -8,8 +8,7 @@ import { auth } from '@api/firebase'
 import { signOut } from 'firebase/auth'
 import toast from 'react-hot-toast'
 import { messages } from '@constants/validationMessages'
-import { setLocationUrl } from '@helpers/locationUrl'
-import { routeNames } from '@constants/routeNames'
+import { createAndDispatchSignInEvent, createAndDispatchSignOutEvent } from '@helpers/customEvents'
 
 export function* signUpWithEmailPasswordSaga(props) {
   const email = props.payload.email
@@ -22,11 +21,12 @@ export function* signUpWithEmailPasswordSaga(props) {
       user.displayName = displayName
       yield call(setUserToDb, user)
       yield put(signUpSuccess(user.uid))
-      toast.success(messages.signUpSuccess)
+      yield call(createAndDispatchSignInEvent)
+      yield call(toast.success, messages.signUpSuccess)
     }
   } catch (err) {
     yield put(signUpFail(err.message))
-    toast.error(err.message)
+    yield call(toast.success, err.message)
   }
 }
 
@@ -39,15 +39,16 @@ export function* signInWithEmailPasswordSaga(props) {
       const res = yield call(signInWithEmailPassword, email, password)
       if (res.uid) {
         yield put(signInSuccess(res))
-        toast.success(messages.signInSuccess)
+        yield call(createAndDispatchSignInEvent)
+        yield call(toast.success, messages.signInSuccess)
       } else {
         yield put(signInFail(res))
-        toast.error(res)
+        yield call(toast.success, res)
       }
     }
   } catch (err) {
     yield put(signInFail(err.message))
-    toast.error(err.message)
+    yield call(toast.success, err.message)
   }
 }
 
@@ -55,10 +56,10 @@ export function* signOutSaga() {
   try {
     yield signOut(auth)
     yield put(signOutSuccess())
-    setLocationUrl(routeNames.HOME)
+    yield call(createAndDispatchSignOutEvent)
   } catch (err) {
     yield put(signOutFail(err.message))
-    toast.error(err.message)
+    yield call(toast.success, err.message)
   }
 }
 

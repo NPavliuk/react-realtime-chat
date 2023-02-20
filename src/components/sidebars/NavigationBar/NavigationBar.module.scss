@@ -1,0 +1,31 @@
+.mainBar {
+  @apply relative flex flex-col justify-between align-middle -ml-14 w-16 min-h-screen py-5 flex bg-indigo-800 transition-[margin] ease-in-out duration-150;
+
+  @screen sm {
+    @apply ml-0;
+  }
+
+  &.open {
+    @apply ml-0;
+  }
+
+  .mainBarItem {
+    @apply flex justify-center;
+  }
+
+  .mainBarNav {
+    @apply flex-auto py-10;
+  }
+
+  .openButton {
+    @apply absolute top-1 -right-2 flex justify-center items-center w-4 h-4 border-2 border-indigo-800 rounded-full bg-gray-100;
+
+    @screen sm {
+      @apply hidden;
+    }
+
+    svg {
+      @apply w-4 h-4;
+    }
+  }
+}

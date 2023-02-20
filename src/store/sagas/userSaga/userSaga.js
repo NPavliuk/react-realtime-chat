@@ -14,6 +14,6 @@ export function* userDataSaga(props) {
   }
 }
 
-export const userSaga = [,
+export const userSaga = [
   takeLatest(actionTypes.GET_USER_DATA_START, userDataSaga)
 ]

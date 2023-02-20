@@ -1,0 +1,23 @@
+.button {
+  @apply relative flex justify-center items-center w-10 h-10;
+
+  &:hover {
+    svg {
+      @apply opacity-100;
+    }
+  }
+
+  &.active {
+    svg {
+      @apply opacity-100;
+    }
+  }
+
+  svg {
+    @apply w-5 h-5 fill-white opacity-80;
+  }
+
+  .indicator {
+    @apply absolute right-1 top-1 w-2 h-2 rounded-full bg-rose-500;
+  }
+}

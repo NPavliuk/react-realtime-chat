@@ -9,7 +9,7 @@ export const UserAvatar = ({name, image, status, handler, classes}) => {
       [styles.link]: true,
       [styles.small]: classes === 'small',
       [styles.little]: classes === 'little'
-    })} to={routeNames.USER} onClick={handler ? handler : null}>
+    })} to={''} onClick={handler ? handler : null}>
       <div className={styles.avatar}>
         {image
           ? <img className={styles.avatarImage} src={image} alt={name}/>

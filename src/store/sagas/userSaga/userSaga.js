@@ -1,7 +1,7 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
-import { actionTypes } from '@constants/actionTypes'
 import { getUserDataSuccess, getUserDataFail } from '@store/reducers/userReducer/userActions'
-import { getUserData } from '@api/user/user'
+import { getUserData } from '@api/user/getUser'
+import { actionTypes } from '@constants/actionTypes'
 
 export function* userDataSaga(props) {
   const uid = props.payload

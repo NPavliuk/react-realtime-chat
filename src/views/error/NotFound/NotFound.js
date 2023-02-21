@@ -6,7 +6,7 @@ import styles from './NotFound.module.scss'
 
 export const NotFound = () => {
   const data = {
-    title: 'Chat - Page Not Found'
+    title: 'Conversations - Page Not Found'
   }
 
   return (

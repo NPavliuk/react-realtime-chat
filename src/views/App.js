@@ -33,7 +33,7 @@ function App() {
     }
   }, [])
 
-  document.addEventListener('sign-in', () => navigate(routeNames.HOME))
+  document.addEventListener('sign-in', () => navigate(routeNames.CONVERSATIONS))
   document.addEventListener('sign-out', () => navigate(routeNames.HOME))
 
   return (

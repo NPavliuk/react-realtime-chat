@@ -45,7 +45,7 @@ export const NavigationBar = () => {
         </div>
         <div className={styles.mainBarNav}>
           <div className={styles.mainBarItem}>
-            <NavigationButton route={routeNames.CHAT} icon={<RiDiscussLine/>} activeIcon={<RiDiscussFill/>}
+            <NavigationButton route={routeNames.CONVERSATIONS} icon={<RiDiscussLine/>} activeIcon={<RiDiscussFill/>}
                               indicator={true} handler={handleClick}/>
           </div>
           <div className={styles.mainBarItem}>
@@ -53,7 +53,7 @@ export const NavigationBar = () => {
                               indicator={false} handler={handleClick}/>
           </div>
           <div className={styles.mainBarItem}>
-            <NavigationButton route={routeNames.BOOKMARKED} icon={<RiBookmarkLine/>} activeIcon={<RiBookmarkFill/>}
+            <NavigationButton route={routeNames.BOOKMARKS} icon={<RiBookmarkLine/>} activeIcon={<RiBookmarkFill/>}
                               indicator={false} handler={handleClick}/>
           </div>
         </div>

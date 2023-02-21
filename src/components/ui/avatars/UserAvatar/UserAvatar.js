@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { routeNames } from '@constants/routeNames'
 import { classNames } from '@helpers/classNames'
 import styles from './UserAvatar.module.scss'
 

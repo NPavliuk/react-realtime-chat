@@ -1,12 +1,12 @@
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
-import { SignInForm } from '@components/forms'
+import { SignInForm } from './SignInForm/SignInForm'
 import { routeNames } from '@constants/routeNames'
 import styles from './SignIn.module.scss'
 
 export const SignIn = () => {
   const data = {
-    title: 'Chat - Sign in',
+    title: 'Conversations - Sign in',
     logo: {
       alt: 'some text',
       src: 'https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600'

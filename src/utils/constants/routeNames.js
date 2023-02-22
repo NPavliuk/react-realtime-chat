@@ -6,7 +6,8 @@ export const routeNames = {
   NOT_FOUND: '/not_found',
   CONVERSATIONS: '/conversations',
   CONVERSATION: '/conversations/:id',
-  CONTACTS: '/contactsReducer',
+  CONTACTS: '/contacts',
+  CONTACT: '/contacts/:id',
   BOOKMARKS: '/bookmarks',
   SETTINGS: '/settings'
 }

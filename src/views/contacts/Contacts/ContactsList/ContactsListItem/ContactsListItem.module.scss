@@ -1,0 +1,31 @@
+.card {
+  @apply w-full h-full bg-white border border-gray-200 rounded-lg;
+
+  &:hover {
+    @apply shadow-lg;
+  }
+
+  .inner {
+    @apply h-full flex flex-col items-center px-2 pt-3 pb-2 sm:pb-5;
+  }
+
+  .avatar {
+    @apply mb-2;
+  }
+
+  .content {
+    @apply flex-auto;
+
+    .title {
+      @apply mb-0 text-lg font-medium text-gray-900 text-center line-clamp-2;
+    }
+
+    .description {
+      @apply text-sm text-gray-400 text-center line-clamp-3;
+    }
+  }
+
+  .controls {
+    @apply flex w-full sm:w-auto flex-col sm:flex-row gap-1 sm:gap-2 mt-4;
+  }
+}

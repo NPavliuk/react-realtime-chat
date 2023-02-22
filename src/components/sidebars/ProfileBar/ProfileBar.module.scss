@@ -1,0 +1,7 @@
+.wrapper {
+  @apply hidden w-full max-w-[375px] h-screen border-l border-gray-200 sm:py-3 sm:px-4;
+
+  &.active {
+    @apply block;
+  }
+}

@@ -45,3 +45,11 @@ export const getContactsFail = (error) => ({
   type: actionTypes.GET_CONTACTS_FAIL,
   payload: error
 })
+
+export const openAddContactModal = () => ({
+  type: actionTypes.OPEN_ADD_CONTACT_MODAL
+})
+
+export const closeAddContactModal = () => ({
+  type: actionTypes.CLOSE_ADD_CONTACT_MODAL
+})

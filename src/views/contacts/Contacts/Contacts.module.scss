@@ -1,0 +1,19 @@
+.layout {
+  display: flex;
+
+  .wrapper {
+    @apply max-h-screen w-full overflow-y-auto py-1 px-3 sm:py-3 sm:px-4;
+
+    .title {
+      @apply mb-2 text-2xl sm:text-3xl font-bold text-gray-800;
+    }
+
+    .search {
+      @apply mb-5;
+    }
+
+    .description {
+      @apply text-sm text-gray-400;
+    }
+  }
+}

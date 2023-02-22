@@ -2,6 +2,9 @@ import { actionTypes } from '@constants/actionTypes'
 
 const initialState = {
   contacts: [],
+  modals: {
+    addContactModal: false,
+  },
   error: null,
   loading: false,
 }
@@ -30,6 +33,22 @@ export const contactsReducer = (state = initialState, {type, payload}) => {
         ...state,
         loading: false,
         error: payload
+      }
+    case actionTypes.OPEN_ADD_CONTACT_MODAL:
+      return {
+        ...state,
+        modals: {
+          ...state.modals,
+          addContact: true
+        }
+      }
+    case actionTypes.CLOSE_ADD_CONTACT_MODAL:
+      return {
+        ...state,
+        modals: {
+          ...state.modals,
+          addContact: false
+        }
       }
     default:
       return state

@@ -1,5 +1,7 @@
 import { SubmitButton } from '@components/ui/buttons/SubmitButton/SubmitButton'
 import { NavigationButton } from '@components/ui/buttons/NavigationButton/NavigationButton'
-import { LogoutButton} from '@components/ui/buttons/LogoutButton/LogoutButton'
+import { LogoutButton } from '@components/ui/buttons/LogoutButton/LogoutButton'
+import { CancelButton } from '@components/ui/buttons/CancelButton/CancelButton'
+import { PrimaryButton } from '@components/ui/buttons/PrimaryButton/PrimaryButton'
 
-export { SubmitButton, NavigationButton, LogoutButton }
+export { SubmitButton, NavigationButton, LogoutButton, CancelButton, PrimaryButton }

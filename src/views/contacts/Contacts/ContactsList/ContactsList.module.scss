@@ -1,0 +1,19 @@
+.wrapper {
+  @apply items-center grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2 sm:gap-4;
+}
+
+.button {
+  @apply flex items-center justify-center w-full h-full border-4 border-dashed rounded-lg;
+
+  &:hover {
+    @apply border-gray-400 shadow-lg;
+
+    .buttonIcon {
+      @apply bg-gray-400;
+    }
+  }
+
+  .buttonIcon {
+    @apply bg-gray-300 text-8xl text-white rounded-full leading-none;
+  }
+}

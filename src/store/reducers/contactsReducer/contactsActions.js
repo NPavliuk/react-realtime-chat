@@ -30,7 +30,6 @@ export const removeContactFail = (error) => ({
   payload: error
 })
 
-
 export const getContactsStart = (data) => ({
   type: actionTypes.GET_CONTACTS_START,
   payload: data
@@ -52,4 +51,14 @@ export const openAddContactModal = () => ({
 
 export const closeAddContactModal = () => ({
   type: actionTypes.CLOSE_ADD_CONTACT_MODAL
+})
+
+export const setContactsSearchValue = (value) => ({
+  type: actionTypes.SET_CONTACT_SEARCH_VALUE,
+  payload: value
+})
+
+export const clearContactsSearchValue = () => ({
+  type: actionTypes.CLEAR_CONTACT_SEARCH_VALUE,
+  payload: ''
 })

@@ -1,11 +1,11 @@
 .page {
   @apply flex w-full min-h-screen p-0 m-0 overflow-x-hidden bg-secondary;
-}
 
-.content {
-  @apply flex-auto min-w-[calc(100vw-8px)];
+  .inner {
+    @apply relative flex flex-auto min-w-[calc(100vw-8px)] sm:min-w-0;
 
-  @screen sm {
-    @apply min-w-0;
+    .content {
+      @apply w-full;
+    }
   }
 }

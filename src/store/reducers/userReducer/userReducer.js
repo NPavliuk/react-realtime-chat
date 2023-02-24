@@ -4,6 +4,7 @@ const initialState = {
   data: {
     email: null,
     avatar: null,
+    phone: null,
     displayName: '',
   },
   error: null,

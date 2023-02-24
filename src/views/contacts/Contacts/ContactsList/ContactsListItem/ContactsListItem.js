@@ -3,7 +3,7 @@ import { removeContactStart } from '@store/reducers/contactsReducer/contactsActi
 import styles from './ContactsListItem.module.scss'
 import { UserAvatar } from '@components/ui/avatars'
 import { CancelButton, PrimaryButton } from '@components/ui/buttons'
-import { openProfileBar } from '@store/reducers/profileReducer/profileActions'
+import { getProfileInfoStart, openProfileBar } from '@store/reducers/profileReducer/profileActions'
 
 export const ContactsListItem = ({contact}) => {
   const dispatch = useDispatch()
@@ -19,13 +19,14 @@ export const ContactsListItem = ({contact}) => {
 
   const openContactBarHandler = () => {
     dispatch(openProfileBar())
+    dispatch(getProfileInfoStart(contact.uid))
   }
 
   return (
     <div className={styles.card}>
       <div className={styles.inner}>
         <div className={styles.avatar}>
-          <UserAvatar image={contact.avatar} name={contact.displayName} classes={'medium'} handler={openContactBarHandler}/>
+          <UserAvatar image={contact.avatar} name={contact.displayName} modifyClass={'medium'} handler={openContactBarHandler}/>
         </div>
         <div className={styles.content}>
           <h5 className={styles.title}>{contact.displayName}</h5>
@@ -33,7 +34,7 @@ export const ContactsListItem = ({contact}) => {
         </div>
         <div className={styles.controls}>
           <PrimaryButton title={'Message'}/>
-          <CancelButton title={'Delete'} handler={removeContactHandler}/>
+          <CancelButton title={'Remove'} handler={removeContactHandler}/>
         </div>
       </div>
     </div>

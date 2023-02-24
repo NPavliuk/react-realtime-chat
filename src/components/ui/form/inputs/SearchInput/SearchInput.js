@@ -1,13 +1,17 @@
 import styles from './SearchInput.module.scss'
 import { RiSearch2Line } from 'react-icons/ri'
 
-export const SearchInput = ({id, placeholder}) => {
+export const SearchInput = ({id, placeholder, handler, value}) => {
   return (
     <div className={styles.search}>
       <div className={styles.icon}>
-        <RiSearch2Line />
+        <RiSearch2Line/>
       </div>
-      <input type="text" id={id} placeholder={placeholder}/>
+      <input id={id}
+             type="text"
+             placeholder={placeholder}
+             onInput={handler ? handler : null}
+             value={value ? value : ''}/>
     </div>
   )
 }

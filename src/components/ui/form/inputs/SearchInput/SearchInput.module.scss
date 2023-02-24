@@ -2,11 +2,7 @@
   @apply relative w-full;
 
   input {
-    @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-10 p-2;
-
-    &:focus {
-      @apply ring-blue-500 border-blue-500;
-    }
+    @apply  block w-full pl-10 p-2 bg-gray-50 border border-gray-300 rounded-lg text-sm text-gray-900;
   }
 
   .icon {

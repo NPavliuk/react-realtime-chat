@@ -12,10 +12,12 @@ export const PrivateLayout = ({children}) => {
       </Helmet>
       <div className={styles.page}>
         <NavigationBar/>
-        <main className={styles.content}>
-          {children}
+        <main className={styles.inner}>
+          <div className={styles.content}>
+            {children}
+          </div>
+          <ProfileBar/>
         </main>
-        <ProfileBar/>
       </div>
     </>
   )

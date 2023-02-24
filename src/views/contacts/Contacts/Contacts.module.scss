@@ -1,19 +1,27 @@
 .layout {
-  display: flex;
-
   .wrapper {
-    @apply max-h-screen w-full overflow-y-auto py-1 px-3 sm:py-3 sm:px-4;
+    @apply max-h-screen w-full overflow-y-auto py-3 px-3 sm:py-3 sm:px-4;
 
-    .title {
-      @apply mb-2 text-2xl sm:text-3xl font-bold text-gray-800;
+    .header {
+      @apply mb-3 flex items-center justify-between;
+
+      .title {
+        @apply text-3xl font-bold text-gray-800;
+      }
     }
 
-    .search {
-      @apply mb-5;
-    }
+    .content {
+      .search {
+        @apply flex items-center gap-3;
+      }
 
-    .description {
-      @apply text-sm text-gray-400;
+      .emptyState {
+        @apply flex min-h-[calc(100vh-112px)] w-full items-center justify-center py-4 sm:py-12 px-4 sm:px-6 lg:px-8;
+      }
     }
+  }
+
+  .emptyState {
+    @apply flex min-h-screen w-full items-center justify-center py-4 sm:py-12 px-4 sm:px-6 lg:px-8;
   }
 }

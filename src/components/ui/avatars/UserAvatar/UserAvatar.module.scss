@@ -67,15 +67,33 @@
 
   &.medium {
     .avatar {
-      @apply w-16 h-16
+      @apply w-16 h-16;
     }
 
     .avatarPlaceholder {
-      @apply text-2xl
+      @apply text-2xl;
     }
 
     .avatarImage {
-      @apply w-16 h-16
+      @apply w-16 h-16;
+    }
+
+    .indicator {
+      @apply -right-0.5 top-0 w-2 h-2 border-none;
+    }
+  }
+
+  &.big {
+    .avatar {
+      @apply w-32 h-32 bg-gray-200;
+    }
+
+    .avatarPlaceholder {
+      @apply text-6xl;
+    }
+
+    .avatarImage {
+      @apply w-32 h-32;
     }
 
     .indicator {

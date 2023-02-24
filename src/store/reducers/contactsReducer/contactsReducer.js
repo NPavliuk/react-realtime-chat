@@ -2,9 +2,8 @@ import { actionTypes } from '@constants/actionTypes'
 
 const initialState = {
   contacts: [],
-  modals: {
-    addContactModal: false,
-  },
+  addModal: false,
+  searchValue: '',
   error: null,
   loading: false,
 }
@@ -37,18 +36,22 @@ export const contactsReducer = (state = initialState, {type, payload}) => {
     case actionTypes.OPEN_ADD_CONTACT_MODAL:
       return {
         ...state,
-        modals: {
-          ...state.modals,
-          addContact: true
-        }
+        addModal: true
       }
     case actionTypes.CLOSE_ADD_CONTACT_MODAL:
       return {
         ...state,
-        modals: {
-          ...state.modals,
-          addContact: false
-        }
+        addModal: false
+      }
+    case actionTypes.SET_CONTACT_SEARCH_VALUE:
+      return {
+        ...state,
+        searchValue: payload
+      }
+    case actionTypes.CLEAR_CONTACT_SEARCH_VALUE:
+      return {
+        ...state,
+        searchValue: ''
       }
     default:
       return state

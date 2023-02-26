@@ -27,16 +27,21 @@ export function* addContactSaga(props) {
 
     if (existUser.length > 0) {
       contactId = existUser[0]
-      const existContact = yield call(checkContact, userId, contactId)
 
-      if (!existContact) {
-        yield call(setContact, userId, contactId)
-        const contacts = yield call(getContacts, userId)
-        yield call(toast.success, `${contactEmail} now your contact`)
-        yield put(addContactSuccess(contacts))
-        yield put(closeAddContactModal())
+      if(contactId !== userId) {
+        const existContact = yield call(checkContact, userId, contactId)
+
+        if (!existContact) {
+          yield call(setContact, userId, contactId)
+          const contacts = yield call(getContacts, userId)
+          yield call(toast.success, `${contactEmail} now your contact`)
+          yield put(addContactSuccess(contacts))
+          yield put(closeAddContactModal())
+        } else {
+          yield call(toast.error, `${contactEmail} user already your contact`)
+        }
       } else {
-        yield call(toast.error, `${contactEmail} user already your contact`)
+        yield call(toast.error, `You can't add yourself to contacts`)
       }
     } else {
       yield call(toast.error, `User with ${contactEmail} email does not exist`)

@@ -1,4 +1,4 @@
-.link {
+.avatarWrapper {
   @apply relative inline-flex items-center justify-center;
 
   .avatar {
@@ -27,6 +27,10 @@
 
   .out {
     @apply bg-yellow-500;
+  }
+
+  &.pointer {
+    @apply cursor-pointer;
   }
 
   &.small {

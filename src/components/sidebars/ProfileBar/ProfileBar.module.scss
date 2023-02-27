@@ -1,5 +1,5 @@
 .wrapper {
-  @apply hidden absolute sm:relative top-0 left-0  w-full min-w-[calc(100vw-8px)] sm:min-w-0 sm:max-w-[325px] h-screen py-3 px-4 border-l border-gray-200 bg-secondary;
+  @apply hidden absolute sm:relative top-0 left-0 w-full min-w-[calc(100vw-8px)] sm:min-w-0 sm:max-w-[325px] py-3 px-4 border-l border-gray-200 bg-secondary;
 
   &.active {
     @apply block;

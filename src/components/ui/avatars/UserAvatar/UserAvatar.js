@@ -1,16 +1,16 @@
-import { Link } from 'react-router-dom'
 import { classNames } from '@helpers/classNames'
 import styles from './UserAvatar.module.scss'
 
-export const UserAvatar = ({name, image, status, handler, modifyClass, link}) => {
+export const UserAvatar = ({name, image, status, handler, modifyClass}) => {
   return (
-    <Link className={classNames({
-      [styles.link]: true,
+    <div className={classNames({
+      [styles.avatarWrapper]: true,
+      [styles.pointer]: handler,
       [styles.small]: modifyClass === 'small',
       [styles.little]: modifyClass === 'little',
       [styles.medium]: modifyClass === 'medium',
       [styles.big]: modifyClass === 'big',
-    })} to={link ? link : ''} onClick={handler ? handler : null}>
+    })} onClick={handler ? handler : null}>
       <div className={styles.avatar}>
         {image
           ? <img className={styles.avatarImage} src={image} alt={name}/>
@@ -23,6 +23,6 @@ export const UserAvatar = ({name, image, status, handler, modifyClass, link}) =>
           [styles.out]: status === 'pending'
         })}></span> : null}
       </div>
-    </Link>
+    </div>
   )
 }

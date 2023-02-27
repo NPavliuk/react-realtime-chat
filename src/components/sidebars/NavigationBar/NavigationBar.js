@@ -16,7 +16,7 @@ import {
 import { classNames } from '@helpers/classNames'
 import { routeNames } from '@constants/routeNames'
 import styles from './NavigationBar.module.scss'
-import { closeProfileBar } from '@store/reducers/profileReducer/profileActions'
+import { closeProfileBar, getProfileInfoStart, openProfileBar } from '@store/reducers/profileReducer/profileActions'
 import { checkIfMobile } from '@helpers/checkMobile'
 
 export const NavigationBar = () => {
@@ -50,6 +50,11 @@ export const NavigationBar = () => {
     }
   }
 
+  const openContactBarHandler = () => {
+    dispatch(openProfileBar())
+    dispatch(getProfileInfoStart(user.uid))
+  }
+
   return (
     <aside>
       <div className={classNames({
@@ -60,7 +65,7 @@ export const NavigationBar = () => {
           {open ? <GrFormPrevious/> : <GrFormNext/>}
         </div>
         <div className={styles.mainBarItem}>
-          <UserAvatar name={user.displayName} image={user.avatar} status={'online'} handler={() => {handleClick(); closeProfileBarHandler()}}/>
+          <UserAvatar name={user.displayName} image={user.avatar} status={'online'} handler={() => {handleClick(); openContactBarHandler()}}/>
         </div>
         <div className={styles.mainBarNav}>
           <div className={styles.mainBarItem}>

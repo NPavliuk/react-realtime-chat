@@ -1,7 +1,19 @@
 .form {
   @apply mt-6;
-}
 
-.link {
-  @apply block mb-7 text-sm font-medium text-indigo-600 hover:text-indigo-500;
+  .group {
+    @apply mb-1;
+
+    .item {
+      @apply mb-3 last:mb-0;
+    }
+  }
+
+  .link {
+    @apply block text-sm font-medium text-indigo-600 hover:text-indigo-500;
+  }
+
+  .button {
+    @apply mt-7;
+  }
 }

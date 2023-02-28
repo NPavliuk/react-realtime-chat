@@ -17,10 +17,20 @@ export const SignInForm = () => {
   return (
     <div>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <EmailInput classes={'mb-3'} register={register} errors={errors}/>
-        <PasswordInput classes={'mb-1'} register={register} errors={errors}/>
+        <div className={styles.group}>
+          <div className={styles.item}>
+            <EmailInput register={register} errors={errors}/>
+          </div>
+          <div className={styles.item}>
+            <PasswordInput register={register} errors={errors}/>
+          </div>
+        </div>
+
         <Link to="#" className={styles.link}>Forgot your password?</Link>
-        <SubmitButton title={'Sign In'}/>
+
+        <div className={styles.button}>
+          <SubmitButton title={'Sign In'}/>
+        </div>
       </form>
     </div>
   )

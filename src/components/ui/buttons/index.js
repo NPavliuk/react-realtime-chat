@@ -3,5 +3,6 @@ import { NavigationButton } from '@components/ui/buttons/NavigationButton/Naviga
 import { LogoutButton } from '@components/ui/buttons/LogoutButton/LogoutButton'
 import { CancelButton } from '@components/ui/buttons/CancelButton/CancelButton'
 import { PrimaryButton } from '@components/ui/buttons/PrimaryButton/PrimaryButton'
+import { NavigationSettingButton } from '@components/ui/buttons/NavigationSettingButton/NavigationSettingButton'
 
-export { SubmitButton, NavigationButton, LogoutButton, CancelButton, PrimaryButton }
+export { SubmitButton, NavigationButton, LogoutButton, CancelButton, PrimaryButton, NavigationSettingButton }

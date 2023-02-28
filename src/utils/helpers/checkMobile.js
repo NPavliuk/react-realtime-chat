@@ -7,3 +7,13 @@ export const checkIfMobile = () => {
     return true
   }
 }
+
+export const checkIfTablet = () => {
+  const width = window.innerWidth
+
+  if (width > 767) {
+    return false
+  } else {
+    return true
+  }
+}

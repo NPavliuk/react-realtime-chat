@@ -32,8 +32,10 @@ export const ContactsAddModal = () => {
           Please set email the user you would like to add to your contacts
         </p>
         <form className={styles.form} onSubmit={handleSubmit(submitHandler)}>
-          <EmailInput classes={styles.formInput} register={register} errors={errors}/>
-          <div className={styles.formControls}>
+          <div className={styles.item}>
+            <EmailInput register={register} errors={errors}/>
+          </div>
+          <div className={styles.controls}>
             <CancelButton title={'Cancel'} handler={clickHandler}/>
             <SubmitButton title={'Add contact'}/>
           </div>

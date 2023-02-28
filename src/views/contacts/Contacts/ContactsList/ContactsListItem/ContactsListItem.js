@@ -30,7 +30,11 @@ export const ContactsListItem = ({contact}) => {
         </div>
         <div className={styles.content}>
           <h5 className={styles.title}>{contact.displayName}</h5>
-          <p className={styles.description}>Visual Designer</p>
+          {
+            contact.role ?
+              <p className={styles.description}>{contact.role}</p>
+              : null
+          }
         </div>
         <div className={styles.controls}>
           <PrimaryButton title={'Message'}/>

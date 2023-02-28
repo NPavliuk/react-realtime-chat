@@ -16,11 +16,21 @@ export const SignUpForm = () => {
   return (
     <div>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <TextInput classes={'mb-3'} register={register} errors={errors} title={'User name'} id={'displayName'}/>
-        <EmailInput classes={'mb-3'} register={register} errors={errors}/>
-        <PasswordInput classes={'mb-3'} register={register} errors={errors}/>
-        <PasswordConfirmInput classes={'mb-7'} register={register} errors={errors} watch={watch}/>
-        <SubmitButton title={'Sign Up'}/>
+        <div className={styles.item}>
+          <TextInput register={register} errors={errors} title={'User name'} id={'displayName'} required={true}/>
+        </div>
+        <div className={styles.item}>
+          <EmailInput register={register} errors={errors}/>
+        </div>
+        <div className={styles.item}>
+          <PasswordInput register={register} errors={errors}/>
+        </div>
+        <div className={styles.item}>
+          <PasswordConfirmInput register={register} errors={errors} watch={watch}/>
+        </div>
+        <div className={styles.button}>
+          <SubmitButton title={'Sign Up'}/>
+        </div>
       </form>
     </div>
   )

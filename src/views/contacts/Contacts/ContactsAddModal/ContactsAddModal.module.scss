@@ -15,11 +15,11 @@
     .form {
       @apply mt-3;
 
-      .formInput {
+      .item {
         @apply mb-5;
       }
 
-      .formControls {
+      .controls {
         @apply flex flex-col-reverse sm:flex-row gap-2 sm:gap-3;
       }
     }

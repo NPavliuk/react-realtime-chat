@@ -1,0 +1,27 @@
+.form {
+  @apply w-full lg:max-w-xl pb-5;
+
+  .group {
+    @apply mb-8;
+
+    .header {
+      @apply mb-5;
+
+      .title {
+        @apply text-xl font-bold text-gray-800;
+      }
+
+      .description {
+        @apply text-xs text-gray-400 line-clamp-3;
+      }
+    }
+
+    .item {
+      @apply mb-4 last:mb-0;
+    }
+  }
+
+  .controls {
+    @apply flex gap-3;
+  }
+}

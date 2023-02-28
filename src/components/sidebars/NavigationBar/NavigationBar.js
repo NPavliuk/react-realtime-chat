@@ -23,6 +23,7 @@ export const NavigationBar = () => {
   const navBarRef = useRef()
   const user = useSelector(state => state.user.data)
   const [open, setOpen] = useState(false)
+  const isMobile = checkIfMobile()
 
   const dispatch = useDispatch()
 
@@ -83,7 +84,7 @@ export const NavigationBar = () => {
         </div>
         <div>
           <div className={styles.mainBarItem}>
-            <NavigationButton route={routeNames.SETTINGS} icon={<RiSettings4Line/>} activeIcon={<RiSettings4Fill/>}
+            <NavigationButton route={isMobile ? routeNames.SETTINGS : routeNames.PROFILE_SETTINGS} icon={<RiSettings4Line/>} activeIcon={<RiSettings4Fill/>}
                               indicator={false} handler={() => {handleClick(); closeProfileBarHandler()}}/>
           </div>
           <div className={styles.mainBarItem}>

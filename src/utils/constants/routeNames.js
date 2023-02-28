@@ -9,5 +9,7 @@ export const routeNames = {
   CONTACTS: '/contacts',
   CONTACT: '/contacts/:id',
   BOOKMARKS: '/bookmarks',
-  SETTINGS: '/settings'
+  SETTINGS: '/settings',
+  PROFILE_SETTINGS: '/settings/profile',
+  ACCOUNT_SETTINGS: '/settings/account',
 }

@@ -16,7 +16,7 @@ export const SettingsBar = () => {
         <NavigationSettingButton route={routeNames.PROFILE_SETTINGS} title={'Profile'}
                                  description={'Here you can manage and customize your personal profile information'}
                                  icon={<RiUserSettingsLine/>}/>
-        <NavigationSettingButton route={routeNames.ACCOUNT_SETTINGS} title={'Security'}
+        <NavigationSettingButton route={routeNames.SECURITY_SETTINGS} title={'Security'}
                                  description={'Here you can update your login credentials such as password and email'}
                                  icon={<VscKey/>}/>
       </nav>

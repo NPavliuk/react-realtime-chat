@@ -5,6 +5,7 @@ import { Conversation } from '@views/chat/Conversation/Conversation'
 import { Conversations } from '@views/chat/Conversations/Conversations'
 import { Settings } from '@views/settings/Settings/Settings'
 import { ProfileSettings } from '@views/settings/ProfileSettings/ProfileSettings'
+import { SecuritySettings } from '@views/settings/SecuritySettings/SecuritySettings'
 
 export const privateRoutes = [
   {path: routeNames.ANY, exact: true, element: <NotFound/>},
@@ -13,5 +14,5 @@ export const privateRoutes = [
   {path: routeNames.CONVERSATIONS, exact: true, element: <Conversations/>},
   {path: routeNames.SETTINGS, exact: true, element: <Settings/>},
   {path: routeNames.PROFILE_SETTINGS, exact: true, element: <ProfileSettings/>},
-  {path: routeNames.ACCOUNT_SETTINGS, exact: true, element: <ProfileSettings/>},
+  {path: routeNames.SECURITY_SETTINGS, exact: true, element: <SecuritySettings/>},
 ]

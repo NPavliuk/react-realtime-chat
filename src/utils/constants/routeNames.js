@@ -11,5 +11,5 @@ export const routeNames = {
   BOOKMARKS: '/bookmarks',
   SETTINGS: '/settings',
   PROFILE_SETTINGS: '/settings/profile',
-  ACCOUNT_SETTINGS: '/settings/account',
+  SECURITY_SETTINGS: '/settings/security',
 }

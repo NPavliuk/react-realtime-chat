@@ -38,7 +38,7 @@ export function* signInWithEmailPasswordSaga(props) {
     if (email && password) {
       const res = yield call(signInWithEmailPassword, email, password)
       if (res.uid) {
-        yield put(signInSuccess(res))
+        yield put(signInSuccess(res.uid))
         yield call(createAndDispatchSignInEvent)
         yield call(toast.success, messages.signInSuccess)
       } else {

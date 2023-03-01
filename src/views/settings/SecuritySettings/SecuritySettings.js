@@ -1,5 +1,6 @@
 import styles from './SecuritySettings.module.scss'
 import { Settings } from '@views/settings/Settings/Settings'
+import { SecuritySettingsForm } from '@views/settings/SecuritySettings/SecuritySettingsForm/SecuritySettingsForm'
 import { checkIfMobile } from '@helpers/checkMobile'
 
 export const SecuritySettings = () => {
@@ -10,16 +11,20 @@ export const SecuritySettings = () => {
       <div className={styles.wrapper}>
         <div className={styles.header}>
           <h1 className={styles.title}>Security</h1>
-          <p className={styles.description}>This is private information and will be not displayed publicly</p>
+          <p className={styles.description}>This information will be displayed publicly so be careful what you share</p>
         </div>
+
+        <SecuritySettingsForm />
       </div>
       :
       <Settings>
         <div className={styles.wrapper}>
           <div className={styles.header}>
             <h1 className={styles.title}>Security</h1>
-            <p className={styles.description}>This is private information and will be not displayed publicly</p>
+            <p className={styles.description}>This information will be displayed publicly so be careful what you share</p>
           </div>
+
+          <SecuritySettingsForm />
         </div>
       </Settings>
   )

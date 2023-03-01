@@ -1,23 +1,27 @@
 import { messages } from '@constants/validationMessages'
 import styles from './PasswordConfirmInput.module.scss'
+import { classNames } from '@helpers/classNames'
 
-export const PasswordConfirmInput = ({classes, register, errors, watch}) => {
+export const PasswordConfirmInput = ({register, errors, watch, label, title, placeholder, required, id, passwordId}) => {
   return (
-    <div className={classes}>
-      <label className={styles.label} htmlFor="passwordConfirm">Confirm password</label>
+    <div className={styles.group}>
+      <label className={classNames({
+        [styles.label]: true,
+        [styles.show]: label
+      })} htmlFor={id}>{title ? title : 'Confirm password'}</label>
       <input type="password"
+             autoComplete={id}
              className={styles.input}
-             autoComplete="passwordConfirm"
-             placeholder="Confirm password"
-             {...register('passwordConfirm', {
-               required: messages.requiredField,
+             placeholder={placeholder ? placeholder : 'Confirm password'}
+             {...register(id, {
+               required: required ? messages.requiredField : false,
                validate: (value) => {
-                 if (watch('password') !== value) {
+                 if (watch(passwordId) !== value) {
                    return messages.notMatchedPasswords
                  }
                }
              })}/>
-      {errors?.passwordConfirm && <p className={styles.error}>{errors?.passwordConfirm?.message}</p>}
+      {errors?.[id] && <p className={styles.error}>{errors?.[id]?.message}</p>}
     </div>
   )
 }

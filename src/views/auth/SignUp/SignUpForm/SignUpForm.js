@@ -23,10 +23,11 @@ export const SignUpForm = () => {
           <EmailInput register={register} errors={errors}/>
         </div>
         <div className={styles.item}>
-          <PasswordInput register={register} errors={errors}/>
+          <PasswordInput register={register} errors={errors} id={'password'} required={true}/>
         </div>
         <div className={styles.item}>
-          <PasswordConfirmInput register={register} errors={errors} watch={watch}/>
+          <PasswordConfirmInput register={register} errors={errors} watch={watch} id={'passwordConfirm'}
+                                passwordId={'password'} required={true}/>
         </div>
         <div className={styles.button}>
           <SubmitButton title={'Sign Up'}/>

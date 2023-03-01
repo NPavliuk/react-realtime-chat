@@ -49,7 +49,7 @@ export const ProfileSettingsForm = () => {
       <div className={styles.group}>
         <div className={styles.header}>
           <h5 className={styles.title}>Personal Information</h5>
-          <p className={styles.description}>This information will be displayed publicly so be careful what you share</p>
+          <p className={styles.description}>Please do not share your password with anyone</p>
         </div>
         <div className={styles.item}>
           <EmailInput register={register} errors={errors} label={true}

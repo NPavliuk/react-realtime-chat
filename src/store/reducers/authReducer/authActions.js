@@ -48,3 +48,17 @@ export const setAuthStatus = (user) => ({
   payload: user,
   type: actionTypes.SET_AUTH_STATUS
 })
+
+export const updatePasswordStart = (data) => ({
+  payload: data,
+  type: actionTypes.UPDATE_PASSWORD_START
+})
+
+export const updatePasswordSuccess = () => ({
+  type: actionTypes.UPDATE_PASSWORD_SUCCESS
+})
+
+export const updatePasswordFail = (error) => ({
+  payload: error,
+  type: actionTypes.UPDATE_USER_DATA_FAIL
+})

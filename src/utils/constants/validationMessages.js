@@ -15,5 +15,6 @@ export const messages = {
   alreadyExistingContact: 'This user already your contact',
   somethingWrong: 'Something go wrong. Please try again',
   removedContact: 'This user has been removed from your contacts',
-  profileUpdated: 'Profile successful updated'
+  profileUpdated: 'Profile successful updated',
+  passwordUpdated: 'Password successful updated'
 }

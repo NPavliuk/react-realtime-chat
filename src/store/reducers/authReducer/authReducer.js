@@ -11,6 +11,7 @@ export const authReducer = (state = initialState, {type, payload}) => {
     case actionTypes.SIGN_IN_START:
     case actionTypes.SIGN_UP_START:
     case actionTypes.SIGN_OUT_START:
+    case actionTypes.UPDATE_USER_DATA_START:
       return {
         ...state,
         loading: true
@@ -24,6 +25,12 @@ export const authReducer = (state = initialState, {type, payload}) => {
         uid: payload,
         loading: false
       }
+    case actionTypes.UPDATE_USER_DATA_SUCCESS:
+      return {
+        ...state,
+        loading: false
+      }
+    case actionTypes.UPDATE_USER_DATA_FAIL:
     case actionTypes.SIGN_IN_FAIL:
     case actionTypes.SIGN_UP_FAIL:
     case actionTypes.SIGN_OUT_FAIL:

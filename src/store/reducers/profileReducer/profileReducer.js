@@ -2,10 +2,13 @@ import { actionTypes } from '@constants/actionTypes'
 
 const initialState = {
   data: {
+    displayName: '',
     email: null,
     avatar: null,
     phone: null,
-    displayName: '',
+    bio: null,
+    birthday: null,
+    role: null,
   },
   isOpen: false,
   loading: false,

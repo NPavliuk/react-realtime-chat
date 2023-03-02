@@ -11,8 +11,8 @@ export const ContactsListItem = ({contact}) => {
 
   const removeContactHandler = () => {
     const data = {
-      currentUserID: userId,
-      contactUserID: contact.uid
+      userId: userId,
+      contact: contact
     }
     dispatch(removeContactStart(data))
   }

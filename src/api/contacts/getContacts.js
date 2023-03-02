@@ -1,5 +1,5 @@
 import { db } from '@api/firebase'
-import { collection, getDocs, query, where, documentId, doc } from 'firebase/firestore'
+import { collection, getDocs, query, where, documentId } from 'firebase/firestore'
 
 export const getContacts = async (uid) => {
   const contactsUIDs = []

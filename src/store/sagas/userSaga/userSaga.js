@@ -1,14 +1,9 @@
-import { call, put, takeLatest } from 'redux-saga/effects'
-import {
-  getUserDataSuccess,
-  getUserDataFail,
-  updateUserDataSuccess,
-  updateUserDataFail
-} from '@store/reducers/userReducer/userActions'
-import { getUserData } from '@api/user/getUser'
-import { actionTypes } from '@constants/actionTypes'
-import { updateUserData } from '@api/user/updateUser'
 import toast from 'react-hot-toast'
+import { call, put, takeLatest } from 'redux-saga/effects'
+import { getUserData } from '@api/user/getUser'
+import { updateUserData } from '@api/user/updateUser'
+import { getUserDataSuccess, getUserDataFail, updateUserDataSuccess, updateUserDataFail } from '@store/reducers/userReducer/userActions'
+import { actionTypes } from '@constants/actionTypes'
 import { messages } from '@constants/validationMessages'
 
 export function* userDataSaga(props) {

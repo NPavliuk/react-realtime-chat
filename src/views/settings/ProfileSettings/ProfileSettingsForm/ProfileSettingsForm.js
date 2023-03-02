@@ -28,13 +28,14 @@ export const ProfileSettingsForm = () => {
   return (
     <form className={styles.form} onSubmit={handleSubmit(submitFormHandler)}>
       <div className={styles.group}>
+
+        <div className={styles.item}>
+          <TextInput register={register} errors={errors} label={true} id={'avatar'}
+                     placeholder={'Enter your avatar URL'} title={'Avatar'} required={false}/>
+        </div>
         <div className={styles.item}>
           <TextInput register={register} errors={errors} label={true} id={'displayName'}
                      placeholder={'Enter your name'} title={'User name'} required={true}/>
-        </div>
-        <div className={styles.item}>
-          <TextInput register={register} errors={errors} label={true} id={'avatar'}
-                     placeholder={'Enter your avatar URL'} title={'Avatar URL'} required={false}/>
         </div>
         <div className={styles.item}>
           <TextInput register={register} errors={errors} label={true} id={'role'}

@@ -1,7 +1,7 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
-import { actionTypes } from '@constants/actionTypes'
 import { getUsers } from '@api/users/getUsers'
 import { getUsersFail, getUsersSuccess } from '@store/reducers/usersReducer/usersActions'
+import { actionTypes } from '@constants/actionTypes'
 
 export function* getUsersSaga() {
   try {

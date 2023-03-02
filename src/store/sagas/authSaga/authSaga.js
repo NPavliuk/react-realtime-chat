@@ -1,23 +1,15 @@
 import toast from 'react-hot-toast'
 import { signOut } from 'firebase/auth'
 import { call, put, takeLatest } from 'redux-saga/effects'
-import {
-  signUpFail,
-  signUpSuccess,
-  signInSuccess,
-  signInFail,
-  signOutFail,
-  signOutSuccess,
-  updatePasswordFail, updatePasswordSuccess
-} from '@store/reducers/authReducer/authActions'
+import { auth } from '@api/firebase'
+import { setUserToDb } from '@api/user/setUser'
 import { signUpWithEmailPassword } from '@api/auth/signUp'
 import { signInWithEmailPassword } from '@api/auth/signIn'
-import { setUserToDb } from '@api/user/setUser'
-import { auth } from '@api/firebase'
+import { updateUserPassword } from '@api/auth/updatePassword'
+import { signUpFail, signUpSuccess, signInSuccess, signInFail, signOutFail, signOutSuccess, updatePasswordFail, updatePasswordSuccess } from '@store/reducers/authReducer/authActions'
 import { createAndDispatchSignInEvent, createAndDispatchSignOutEvent } from '@helpers/customEvents'
 import { actionTypes } from '@constants/actionTypes'
 import { messages } from '@constants/validationMessages'
-import { updateUserPassword } from '@api/auth/updatePassword'
 
 export function* signUpWithEmailPasswordSaga(props) {
   const email = props.payload.email
@@ -52,7 +44,7 @@ export function* signInWithEmailPasswordSaga(props) {
         yield call(toast.success, messages.signInSuccess)
       } else {
         yield put(signInFail(res))
-        yield call(toast.success, res)
+        yield call(toast.error, messages.signInFailed)
       }
     }
   } catch (err) {
@@ -63,7 +55,7 @@ export function* signInWithEmailPasswordSaga(props) {
 
 export function* signOutSaga() {
   try {
-    yield signOut(auth)
+    yield call(signOut, auth)
     yield put(signOutSuccess())
     yield call(createAndDispatchSignOutEvent)
   } catch (err) {
@@ -78,9 +70,8 @@ export function* updatePasswordSaga(props) {
   try {
     const response = yield call(updateUserPassword, newPassword)
     yield put(updatePasswordSuccess())
-
     if (response) {
-      yield call(toast.error, response)
+      yield call(toast.error, messages.passwordUpdateFailed)
     } else {
       yield call(toast.success, messages.passwordUpdated)
     }
@@ -89,7 +80,6 @@ export function* updatePasswordSaga(props) {
     yield call(toast.error, messages.somethingWrong)
   }
 }
-
 
 export const authSaga = [
   takeLatest(actionTypes.SIGN_UP_START, signUpWithEmailPasswordSaga),

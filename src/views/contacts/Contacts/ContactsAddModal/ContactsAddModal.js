@@ -13,7 +13,6 @@ export const ContactsAddModal = () => {
 
   const submitHandler = (data) => {
     data.uid = userId
-    console.log(data)
     dispatch(addContactStart(data))
   }
 

@@ -22,7 +22,7 @@ export const ProfileBar = () => {
   const removeContactHandler = () => {
     const data = {
       currentUserID: userId,
-      contactUserID: profile.uid
+      contactUserID: profile
     }
     dispatch(removeContactStart(data))
   }

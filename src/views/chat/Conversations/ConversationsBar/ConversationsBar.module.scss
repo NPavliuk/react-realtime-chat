@@ -1,0 +1,11 @@
+.wrapper {
+  @apply w-full lg:h-screen min-w-[calc(100vw-8px)] sm:min-w-0 lg:max-w-[325px] py-3 px-4 overflow-y-auto sm:border-b lg:border-b-0 lg:border-r border-gray-200 bg-secondary;
+
+  .header {
+    @apply mb-3;
+
+    .title {
+      @apply text-3xl font-bold text-gray-800;
+    }
+  }
+}

@@ -1,0 +1,23 @@
+.wrapper {
+  @apply sm:flex sm:items-start;
+
+  .content {
+    @apply mt-3 sm:mt-0 w-full text-center sm:text-left;
+
+    .title {
+      @apply text-lg font-medium leading-6 text-gray-900;
+    }
+
+    .note {
+      @apply text-sm text-gray-500;
+    }
+
+    .controls {
+      @apply flex flex-col gap-2 mt-4;
+
+      .cancel {
+        @apply mt-2;
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+.form {
+  .select {
+    @apply mt-4;
+  }
+
+  .controls {
+    @apply flex flex-col-reverse sm:flex-row gap-2 sm:gap-3 mt-4;
+  }
+}

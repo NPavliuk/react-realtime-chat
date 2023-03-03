@@ -1,0 +1,67 @@
+.control {
+  @apply text-left shadow-none rounded-md border border-gray-300 text-sm text-gray-900 placeholder-gray-500 hover:border-gray-300 hover:cursor-text;
+
+  &.focused {
+    @apply shadow-none outline-none border border-indigo-500 ring-indigo-500 hover:border-indigo-500;
+  }
+}
+
+.dropdownIndicator {
+  @apply hidden #{!important};
+}
+
+.indicatorSeparator {
+  @apply hidden #{!important};
+}
+
+.menu {
+  @apply shadow-none mt-1 border border-gray-300 overflow-hidden #{!important};
+}
+
+.menuList {
+  @apply p-0 #{!important};
+}
+
+.option {
+  @apply flex gap-3 p-1.5 hover:bg-gray-100 cursor-pointer rounded-sm #{!important};
+
+  .content {
+    .title {
+      @apply text-left text-base font-semibold leading-5 text-gray-900;
+    }
+
+    .email {
+      @apply text-sm text-gray-500;
+    }
+  }
+
+  &.focused {
+    @apply bg-gray-100 #{!important};
+  }
+
+  &.selected {
+    @apply bg-indigo-700 hover:bg-indigo-700 #{!important};
+
+    .content {
+      .title {
+        @apply text-white;
+      }
+
+      .email {
+        @apply text-white;
+      }
+    }
+  }
+}
+
+.noOptionsMessage {
+  @apply text-left text-sm text-gray-500;
+
+  .title {
+    @apply text-center text-sm font-semibold leading-5 text-gray-900;
+  }
+
+  .note {
+    @apply text-center text-xs sm:text-sm text-gray-500;
+  }
+}

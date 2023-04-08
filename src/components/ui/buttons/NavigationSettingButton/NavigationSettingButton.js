@@ -2,7 +2,6 @@ import styles from './NavigationSettingButton.module.scss'
 import { NavLink } from 'react-router-dom'
 import { classNames } from '@helpers/classNames'
 
-
 export const NavigationSettingButton = ({route, icon, title, description}) => {
   return (
     <NavLink to={route} className={({isActive}) => classNames({

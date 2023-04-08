@@ -1,0 +1,13 @@
+.button {
+  .buttonName {
+    @apply py-1 px-5 rounded text-sm font-medium text-gray-400 hover:text-gray-500 hover:cursor-pointer text-center;
+  }
+
+  input {
+    @apply hidden;
+  }
+
+  input:checked + .buttonName {
+    @apply text-white bg-indigo-600;
+  }
+}

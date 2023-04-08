@@ -4,11 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { ContactsEmptyState } from './ContactsEmptyState/ContactsEmptyState'
 import { PrimaryModal } from '@components/ui/modals'
 import { getUsersStart } from '@store/reducers/usersReducer/usersActions'
-import {
-  clearContactsSearchValue,
-  getContactsStart,
-  setContactsSearchValue
-} from '@store/reducers/contactsReducer/contactsActions'
+import {clearContactsSearchValue,getContactsStart,setContactsSearchValue} from '@store/reducers/contactsReducer/contactsActions'
 import { closeAddContactModal, openAddContactModal } from '@store/reducers/contactsReducer/contactsActions'
 import { ContactsAddModal } from '@views/contacts/Contacts/ContactsAddModal/ContactsAddModal'
 import styles from './Contacts.module.scss'

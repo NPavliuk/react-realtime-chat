@@ -3,7 +3,7 @@ import { UserAvatar } from '@components/ui/avatars'
 import { classNames } from '@helpers/classNames'
 import styles from './SingleContactSelect.module.scss'
 
-export const SingleContactSelect = ({options}) => {
+export const SingleContactSelect = ({options, value, handleChange, error}) => {
   const selectStyles = {
     control: ({isFocused}) => classNames({
       [styles.control]: true,
@@ -53,7 +53,12 @@ export const SingleContactSelect = ({options}) => {
   }
 
   return (
-    <Select components={{Option: CustomOption}} options={options} classNames={selectStyles}
-            placeholder={'Choose contact'} noOptionsMessage={() => EmptyState()}/>
+    <div>
+      <Select components={{Option: CustomOption}} options={options} classNames={selectStyles}
+              placeholder={'Choose contact'} noOptionsMessage={() => EmptyState()}
+              value={options.find(o => o.value === value)}
+              onChange={val => handleChange(val.value)}/>
+      {error && <p className={styles.error}>{error.message}</p>}
+    </div>
   )
 }

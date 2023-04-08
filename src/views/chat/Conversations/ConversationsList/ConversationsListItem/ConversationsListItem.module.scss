@@ -1,0 +1,43 @@
+.wrapper {
+  @apply grid grid-cols-[32px_1fr_28px] gap-x-2 w-full bg-white rounded-lg p-2 pb-3 pr-3 mb-2.5 last-of-type:mb-0 cursor-pointer hover:shadow;
+
+  .head {
+    @apply grid grid-cols-[32px_1fr_28px] gap-x-2 col-start-1 col-end-4 items-center;
+
+    .info {
+      @apply flex items-center;
+
+      .name {
+        @apply text-base font-bold text-gray-600 leading-5 line-clamp-1;
+      }
+
+      .time {
+        @apply text-[11px] font-light text-gray-400 leading-5 ml-1.5;
+      }
+    }
+  }
+
+  .message {
+    @apply col-start-2 col-end-4 text-xs font-light text-gray-500 line-clamp-2;
+  }
+
+  &.active {
+    @apply bg-indigo-700;
+
+    .head {
+      .info {
+        .name {
+          @apply text-white;
+        }
+
+        .time {
+          @apply text-white;
+        }
+      }
+    }
+
+    .message {
+      @apply text-white;
+    }
+  }
+}

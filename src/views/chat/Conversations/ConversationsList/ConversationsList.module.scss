@@ -1,0 +1,11 @@
+.wrapper {
+  @apply flex flex-col flex-auto mb-4;
+
+  .filter {
+    @apply flex gap-2;
+  }
+
+  .list {
+    @apply pr-4 mt-4 overflow-y-auto h-[calc(100vh-166px)] scrollbar-hide;
+  }
+}

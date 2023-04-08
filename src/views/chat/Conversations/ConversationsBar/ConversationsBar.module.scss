@@ -1,11 +1,15 @@
 .wrapper {
-  @apply w-full lg:h-screen min-w-[calc(100vw-8px)] sm:min-w-0 lg:max-w-[325px] py-3 px-4 overflow-y-auto sm:border-b lg:border-b-0 lg:border-r border-gray-200 bg-secondary;
+  @apply flex flex-col w-full lg:h-screen min-w-[calc(100vw-8px)] sm:min-w-0 lg:max-w-[325px] py-3 pl-4 sm:border-b lg:border-b-0 lg:border-r border-gray-200 bg-secondary;
 
   .header {
-    @apply mb-3;
+    @apply mb-3 pr-4;
 
     .title {
       @apply text-3xl font-bold text-gray-800;
     }
+  }
+
+  .button {
+    @apply mr-4
   }
 }

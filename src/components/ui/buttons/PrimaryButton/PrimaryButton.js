@@ -1,6 +1,6 @@
-import styles from './PrimaryButton.module.scss'
-import { classNames } from '@helpers/classNames'
 import { Link } from 'react-router-dom'
+import { classNames } from '@helpers/classNames'
+import styles from './PrimaryButton.module.scss'
 
 export const PrimaryButton = ({handler, title, modifyClass, link}) => {
   return (

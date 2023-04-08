@@ -65,3 +65,7 @@
     @apply text-center text-xs sm:text-sm text-gray-500;
   }
 }
+
+.error {
+  @apply font-medium text-xs text-red-500;
+}

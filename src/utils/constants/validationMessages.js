@@ -20,6 +20,9 @@ export const messages = {
   contactYourself: 'You can\'t add yourself to contacts',
   contactRemoved: '[] successful removed from your contacts',
 
+	// Add Conversation messages
+	conversationAlreadyExist: 'Conversation with this user already exist',
+
   // Settings messages
   profileUpdated: 'Profile successful updated',
   passwordUpdated: 'Password successful updated',

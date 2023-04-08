@@ -31,9 +31,9 @@ export const ContactsListItem = ({contact}) => {
         <div className={styles.content}>
           <h5 className={styles.title}>{contact.displayName}</h5>
           {
-            contact.role ?
-              <p className={styles.description}>{contact.role}</p>
-              : null
+            contact.role
+							? <p className={styles.description}>{contact.role}</p>
+              : <p className={styles.description}>{contact.email}</p>
           }
         </div>
         <div className={styles.controls}>

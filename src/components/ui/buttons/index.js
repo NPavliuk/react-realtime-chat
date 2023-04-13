@@ -15,5 +15,5 @@ export {
 	PrimaryButton,
 	NavigationSettingButton,
 	TypeButton,
-	FilterButton
+	FilterButton,
 }

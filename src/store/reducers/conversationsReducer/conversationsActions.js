@@ -42,3 +42,17 @@ export const getAllConversationsFail = (error) => ({
 	type: actionTypes.GET_ALL_CONVERSATIONS_FAIL,
 	payload: error
 })
+
+export const removeConversationsStart = (data) => ({
+	type: actionTypes.REMOVE_CONVERSATION_START,
+	payload: data
+})
+
+export const removeConversationsSuccess = () => ({
+	type: actionTypes.REMOVE_CONVERSATION_SUCCESS
+})
+
+export const removeConversationsFail = (error) => ({
+	type: actionTypes.REMOVE_CONVERSATION_FAIL,
+	payload: error
+})

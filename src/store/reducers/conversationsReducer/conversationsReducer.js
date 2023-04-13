@@ -27,6 +27,7 @@ export const conversationsReducer = (state = initialState, {type, payload}) => {
 				conversations: payload,
 				loading: true
 			}
+		case actionTypes.REMOVE_CONVERSATION_FAIL:
 		case actionTypes.GET_ALL_CONVERSATIONS_FAIL:
 		case actionTypes.CREATE_DIRECT_CONVERSATION_FAIL:
 			return {

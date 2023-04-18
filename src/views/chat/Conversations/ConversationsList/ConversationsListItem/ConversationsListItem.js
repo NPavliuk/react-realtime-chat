@@ -26,7 +26,7 @@ export const ConversationsListItem = ({conversation}) => {
 
 	return (
 		isDirectConversation ?
-			<NavLink to={`/conversations/${conversationalists[0].uid}`} className={({isActive}) => classNames({
+			<NavLink to={`/conversations/${conversation.id}`} className={({isActive}) => classNames({
 				[styles.wrapper]: true,
 				[styles.active]: isActive
 			})}>

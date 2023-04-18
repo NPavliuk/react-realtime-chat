@@ -20,14 +20,12 @@ export const Conversations = ({children}) => {
 
 	return (
 		<>
-
 			<Helmet>
 				<title>{data.title}</title>
 			</Helmet>
-			<div children={styles.wrapper}>
-				<ConversationsBar/>
-				{children}
-
+			<div className={styles.wrapper}>
+					<ConversationsBar/>
+					{children}
 				{
 					addConversationModal ?
 						<PrimaryModal isOpen={addConversationModal} closeHandler={closeAddConversationModalHandler}>

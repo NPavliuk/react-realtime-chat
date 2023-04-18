@@ -2,8 +2,8 @@ import { actionTypes } from '@constants/actionTypes'
 
 const initialState = {
   contacts: [],
-  addModal: false,
   searchValue: '',
+	addModal: false,
   error: null,
   loading: false,
 }

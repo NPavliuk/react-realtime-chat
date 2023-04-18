@@ -28,6 +28,9 @@ export const messages = {
   passwordUpdated: 'Password successful updated',
   passwordUpdateFailed: 'Update password failed. Please try again',
 
+	//Send message
+
+
   // General messages
   somethingWrong: 'Something go wrong. Please try again',
 }

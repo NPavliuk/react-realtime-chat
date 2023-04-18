@@ -6,11 +6,11 @@ import { useEffect } from 'react'
 import { ConversationsList } from '@views/chat/Conversations/ConversationsList/ConversationsList'
 import { collection, query, where, documentId, onSnapshot } from 'firebase/firestore'
 import { db } from '@api/firebase'
-import { getUsers } from '@api/user/getUsers'
+import { getUsers } from '@api/users/getUsers'
 
 export const ConversationsBar = () => {
 	const dispatch = useDispatch()
-	const userId = useSelector(state => state.auth.uid)
+	const userID = useSelector(state => state.auth.id)
 
 	// TODO: Transfer listeners to separate file
 	useEffect(() => {
@@ -18,7 +18,7 @@ export const ConversationsBar = () => {
 			let unsubConversations
 			let unsubUserConversations
 			const conversationsDbRef = collection(db, 'conversations')
-			const userConversationsDbRef = collection(db, `relations/${userId}/conversations`)
+			const userConversationsDbRef = collection(db, `relations/${userID}/conversations`)
 
 			unsubUserConversations = onSnapshot(userConversationsDbRef, async (querySnapshot) => {
 				let conversationsUIDs = []
@@ -48,12 +48,12 @@ export const ConversationsBar = () => {
 			}
 		}
 
-		userId && getConversations()
-	}, [userId])
+		userID && getConversations()
+	}, [userID])
 
 	// useEffect(() => {
-	// 	dispatch(getAllConversationsStart(userId))
-	// }, [userId])
+	// 	dispatch(getAllConversationsStart(userID))
+	// }, [userID])
 
 	const openAddConversationModalHandler = () => {
 		dispatch(openAddConversationModal())

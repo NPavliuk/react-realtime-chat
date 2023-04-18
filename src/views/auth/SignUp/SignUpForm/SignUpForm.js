@@ -17,7 +17,7 @@ export const SignUpForm = () => {
     <div>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.item}>
-          <TextInput register={register} errors={errors} title={'User name'} id={'displayName'} required={true}/>
+          <TextInput register={register} errors={errors} title={'User name'} id={'name'} required={true}/>
         </div>
         <div className={styles.item}>
           <EmailInput register={register} errors={errors}/>

@@ -1,8 +1,8 @@
 import { db } from '@api/firebase'
 import { doc, setDoc } from 'firebase/firestore'
 
-export const setContact = async (currentUID, contactUID) => {
-  const docRef = doc(db, `relations/${currentUID}/contacts`, contactUID)
+export const setContact = async (userID, contactID) => {
+  const docRef = doc(db, `relations/${userID}/contacts`, contactID)
 
   try {
     await setDoc(docRef, {})

@@ -4,10 +4,11 @@ import { getProfileInfoFail, getProfileInfoSuccess } from '@store/reducers/profi
 import { actionTypes } from '@constants/actionTypes'
 
 export function* profileInfoSaga(props) {
-  const uid = props.payload
+  const userID = props.payload
+	console.log(userID)
 
   try {
-    const data = yield call(getUserData, uid)
+    const data = yield call(getUserData, userID)
     yield put(getProfileInfoSuccess(data))
   } catch (err) {
     yield put(getProfileInfoFail(err.message))

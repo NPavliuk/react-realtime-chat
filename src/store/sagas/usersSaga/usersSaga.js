@@ -1,11 +1,11 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
-import { getUsers } from '@api/users/getUsers'
+import { getAllUsers } from '@api/users/getAllUsers'
 import { getUsersFail, getUsersSuccess } from '@store/reducers/usersReducer/usersActions'
 import { actionTypes } from '@constants/actionTypes'
 
 export function* getUsersSaga() {
   try {
-    const data = yield call(getUsers)
+    const data = yield call(getAllUsers)
     yield put(getUsersSuccess(data))
   } catch (err) {
     yield put(getUsersFail(err.message))

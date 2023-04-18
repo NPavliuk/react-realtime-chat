@@ -34,7 +34,7 @@ export const ProfileSettingsForm = () => {
                      placeholder={'Enter your avatar URL'} title={'Avatar'} required={false}/>
         </div>
         <div className={styles.item}>
-          <TextInput register={register} errors={errors} label={true} id={'displayName'}
+          <TextInput register={register} errors={errors} label={true} id={'name'}
                      placeholder={'Enter your name'} title={'User name'} required={true}/>
         </div>
         <div className={styles.item}>

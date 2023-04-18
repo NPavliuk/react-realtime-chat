@@ -1,11 +1,11 @@
-export const saveUserToLocalStorage = (uid) => {
-  localStorage.setItem('react-realtime-chat-user', uid)
+export const saveSessionToLocalStorage = (session) => {
+  localStorage.setItem('react-realtime-chat-session', session)
 }
 
-export const removeUserFromLocalStorage = () => {
-  localStorage.removeItem('react-realtime-chat-user')
+export const removeSessionFromLocalStorage = () => {
+  localStorage.removeItem('react-realtime-chat-session')
 }
 
-export const getUserFromLocalStorage = () => {
-  return localStorage.getItem('react-realtime-chat-user')
+export const getSessionFromLocalStorage = () => {
+  return localStorage.getItem('react-realtime-chat-session')
 }

@@ -11,20 +11,20 @@ import styles from './AddDirectConversationForm.module.scss'
 
 export const AddDirectConversationForm = ({closeHandler}) => {
 	const selectOptions = []
-	const userId = useSelector(state => state.auth.uid)
+	const userID = useSelector(state => state.auth.id)
 	const contacts = useSelector(state => state.contacts.contacts)
 	const {control, handleSubmit} = useForm({mode: 'onBlur'})
 
 	const dispatch = useDispatch()
 
 	useEffect(() => {
-		dispatch(getContactsStart(userId))
+		dispatch(getContactsStart(userID))
 	}, [])
 
 	const addConversationSubmitHandler = (data) => {
 		const allData = {
 			...data,
-			currentUID: userId
+			userID: userID
 		}
 
 		dispatch(createDirectConversationStart(allData))
@@ -32,8 +32,8 @@ export const AddDirectConversationForm = ({closeHandler}) => {
 
 	contacts.map(contact => {
 		const selectOption = {
-			label: contact.displayName,
-			value: contact.uid,
+			label: contact.name,
+			value: contact.id,
 			contact: contact
 		}
 
@@ -48,7 +48,7 @@ export const AddDirectConversationForm = ({closeHandler}) => {
 															 handleChange={onChange}
 															 value={value}
 															 error={error}/>)}
-										name="interlocutorUID"
+										name="interlocutorID"
 										control={control}
 										rules={{required: messages.requiredField}}
 				/>

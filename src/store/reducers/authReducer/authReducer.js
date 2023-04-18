@@ -1,7 +1,7 @@
 import { actionTypes } from '@constants/actionTypes'
 
 const initialState = {
-  uid: null,
+  id: null,
   loading: false,
   error: null,
 }
@@ -16,13 +16,13 @@ export const authReducer = (state = initialState, {type, payload}) => {
         ...state,
         loading: true
       }
-    case actionTypes.SET_AUTH_STATUS:
+		case actionTypes.SET_SESSION:
     case actionTypes.SIGN_IN_SUCCESS:
     case actionTypes.SIGN_UP_SUCCESS:
     case actionTypes.SIGN_OUT_SUCCESS:
       return {
         ...state,
-        uid: payload,
+        id: payload,
         loading: false
       }
     case actionTypes.UPDATE_USER_DATA_SUCCESS:

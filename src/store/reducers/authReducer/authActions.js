@@ -44,9 +44,9 @@ export const signOutFail = (error) => ({
   type: actionTypes.SIGN_OUT_FAIL
 })
 
-export const setAuthStatus = (user) => ({
-  payload: user,
-  type: actionTypes.SET_AUTH_STATUS
+export const setSession = (session) => ({
+  type: actionTypes.SET_SESSION,
+	payload: session
 })
 
 export const updatePasswordStart = (data) => ({

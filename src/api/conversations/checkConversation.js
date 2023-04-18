@@ -1,20 +1,20 @@
 import { collection, query, where, getDocs, documentId } from 'firebase/firestore'
 import { db } from '@api/firebase'
 
-export const checkConversation = async (currentUID, interlocutorUID) => {
-	const conversationsUIDs = []
-	const userConversationsDbRef = collection(db, `relations/${currentUID}/conversations`)
+export const checkConversation = async (currentID, interlocutorID) => {
+	const conversationsIDs = []
+	const userConversationsDbRef = collection(db, `relations/${currentID}/conversations`)
 
 	try {
 		const userConversationsData = await getDocs(userConversationsDbRef)
 		userConversationsData.forEach((userConversation) => {
-			conversationsUIDs.push(userConversation.id)
+			conversationsIDs.push(userConversation.id)
 		})
 
-		if (conversationsUIDs.length > 0) {
+		if (conversationsIDs.length > 0) {
 			const conversations = []
-			const isConversationExist = where(documentId(), 'in', conversationsUIDs)
-			const isConversationContainUser = where('conversationalists', 'array-contains', interlocutorUID)
+			const isConversationExist = where(documentId(), 'in', conversationsIDs)
+			const isConversationContainUser = where('conversationalists', 'array-contains', interlocutorID)
 			const isDirectConversation = where('directConversation', '==', true)
 
 			const q = query(collection(db, 'conversations'), isConversationExist, isConversationContainUser, isDirectConversation)

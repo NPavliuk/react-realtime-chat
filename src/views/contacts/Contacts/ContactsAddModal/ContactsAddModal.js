@@ -8,11 +8,12 @@ import styles from './ContactsAddModal.module.scss'
 
 export const ContactsAddModal = () => {
   const dispatch = useDispatch()
-  const userId = useSelector(state => state.auth.uid)
+  const userID = useSelector(state =>  state.auth.id)
   const {register, handleSubmit, reset, formState: {errors}} = useForm({mode: 'onSubmit'})
 
   const submitHandler = (data) => {
-    data.uid = userId
+    data.userID = userID
+
     dispatch(addContactStart(data))
   }
 

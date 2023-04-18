@@ -13,23 +13,23 @@ import { routeNames } from '@constants/routeNames'
 
 export const ProfileBar = () => {
   const dispatch = useDispatch()
-  const userId = useSelector(state => state.auth.uid)
+  const userID = useSelector(state => state.auth.id)
   const profile = useSelector(state => state.profile.data)
   const contacts = useSelector(state => state.contacts.contacts)
   const isOpen = useSelector(state => state.profile.isOpen)
-  const isContact = checkIsContact(profile.uid, contacts)
+  const isContact = checkIsContact(profile.id, contacts)
 
   const removeContactHandler = () => {
     const data = {
-      currentUserID: userId,
-      contactUserID: profile
+      userID: userID,
+      contactID: profile.id
     }
     dispatch(removeContactStart(data))
   }
 
   const addContactHandler = () => {
     const data = {
-      uid: userId,
+			userID: userID,
       email: profile.email
     }
     dispatch(addContactStart(data))
@@ -52,11 +52,11 @@ export const ProfileBar = () => {
       </div>
 
       <div className={styles.avatar}>
-        <UserAvatar name={profile.displayName} image={profile.avatar} modifyClass={'big'}/>
+        <UserAvatar name={profile.name} image={profile.avatar} modifyClass={'big'}/>
       </div>
 
       <div className={styles.info}>
-        <h4 className={styles.name}>{profile.displayName}</h4>
+        <h4 className={styles.name}>{profile.name}</h4>
         {
           profile.role ?
             <p className={styles.description}>{profile.role}</p>
@@ -65,7 +65,7 @@ export const ProfileBar = () => {
       </div>
 
       {
-        userId !== profile.uid ?
+        userID !== profile.id ?
           <div className={styles.controls}>
             <PrimaryButton title={'Message'}/>
             {

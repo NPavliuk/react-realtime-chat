@@ -2,7 +2,7 @@ import { actionTypes } from '@constants/actionTypes'
 
 const initialState = {
   data: {
-    displayName: '',
+    name: '',
     email: null,
     avatar: null,
     phone: null,

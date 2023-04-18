@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setConversationMessageStart } from '@store/reducers/conversationReducer/conversationActions'
 
 export const ConversationInput = () => {
-	const userID = useSelector(state => state.auth.uid)
+	const userID = useSelector(state =>  state.auth.id)
 	const conversationID = useSelector(state => state.conversation.id)
 	const {handleSubmit, register} = useForm()
 	const dispatch = useDispatch()

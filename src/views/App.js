@@ -1,12 +1,12 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserDataStart } from '@store/reducers/userReducer/userActions'
-import { setAuthStatus } from '@store/reducers/authReducer/authActions'
+import { setSession } from '@store/reducers/authReducer/authActions'
 import { PrivateLayout, PublicLayout } from '@components/layouts'
 import { PrivateRouter, PublicRouter } from '@components/routers'
 import { auth } from '@api/firebase'
 import { onAuthStateChanged } from 'firebase/auth'
-import { getUserFromLocalStorage, removeUserFromLocalStorage, saveUserToLocalStorage } from '@helpers/localStorage'
+import { getSessionFromLocalStorage, removeSessionFromLocalStorage, saveSessionToLocalStorage } from '@helpers/localStorage'
 import { useNavigate } from 'react-router-dom'
 import { routeNames } from '@constants/routeNames'
 import { getContactsStart } from '@store/reducers/contactsReducer/contactsActions'
@@ -14,22 +14,22 @@ import { getContactsStart } from '@store/reducers/contactsReducer/contactsAction
 function App() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const user = useSelector(state => state.auth.uid)
+  const session = useSelector(state => state.auth.id)
 
   useEffect(() => {
-    const userFromStorage = getUserFromLocalStorage()
-    dispatch(setAuthStatus(userFromStorage))
+    const userFromStorage = getSessionFromLocalStorage()
+    dispatch(setSession(userFromStorage))
 
-    if (!user) {
+    if (!session) {
       onAuthStateChanged(auth, (user) => {
         if (user) {
-          dispatch(setAuthStatus(user.uid))
+          dispatch(setSession(user.uid))
           dispatch(getUserDataStart(user.uid))
-          dispatch(getContactsStart(user.uid))
-          saveUserToLocalStorage(user.uid)
+					dispatch(getContactsStart(user.uid))
+          saveSessionToLocalStorage(user.uid)
         } else {
-          dispatch(setAuthStatus(null))
-          removeUserFromLocalStorage()
+          dispatch(setSession(null))
+          removeSessionFromLocalStorage()
         }
       })
     }
@@ -39,7 +39,7 @@ function App() {
   document.addEventListener('sign-out', () => navigate(routeNames.HOME))
 
   return (
-    user ?
+    session ?
       <PrivateLayout>
         <PrivateRouter/>
       </PrivateLayout>

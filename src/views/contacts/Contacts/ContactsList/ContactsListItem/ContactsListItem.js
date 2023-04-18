@@ -7,29 +7,30 @@ import { getProfileInfoStart, openProfileBar } from '@store/reducers/profileRedu
 
 export const ContactsListItem = ({contact}) => {
   const dispatch = useDispatch()
-  const userId = useSelector(state => state.auth.uid)
+  const userID = useSelector(state =>  state.auth.id)
 
   const removeContactHandler = () => {
     const data = {
-      userId: userId,
+      userID: userID,
       contact: contact
     }
+
     dispatch(removeContactStart(data))
   }
 
   const openContactBarHandler = () => {
     dispatch(openProfileBar())
-    dispatch(getProfileInfoStart(contact.uid))
+    dispatch(getProfileInfoStart(contact.id))
   }
 
   return (
     <div className={styles.card}>
       <div className={styles.inner}>
         <div className={styles.avatar}>
-          <UserAvatar image={contact.avatar} name={contact.displayName} modifyClass={'medium'} handler={openContactBarHandler}/>
+          <UserAvatar image={contact.avatar} name={contact.name} modifyClass={'medium'} handler={openContactBarHandler}/>
         </div>
         <div className={styles.content}>
-          <h5 className={styles.title}>{contact.displayName}</h5>
+          <h5 className={styles.title}>{contact.name}</h5>
           {
             contact.role
 							? <p className={styles.description}>{contact.role}</p>

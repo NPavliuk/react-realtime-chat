@@ -1,21 +1,21 @@
 import { db } from '@api/firebase'
 import { collection, getDocs, query, where, documentId } from 'firebase/firestore'
-import { getUsers } from '@api/user/getUsers'
+import { getUsers } from '@api/users/getUsers'
 
-export const getConversations = async (uid) => {
+export const getConversations = async (userID) => {
 	let conversations = []
-	const conversationsUIDs = []
+	const conversationsIDs = []
 	const conversationsDbRef = collection(db, 'conversations')
-	const userConversationsDbRef = collection(db, `relations/${uid}/conversations`)
+	const userConversationsDbRef = collection(db, `relations/${userID}/conversations`)
 
 	try {
 		const userConversationsData = await getDocs(userConversationsDbRef)
 		userConversationsData.forEach((userConversation) => {
-			conversationsUIDs.push(userConversation.id)
+			conversationsIDs.push(userConversation.id)
 		})
 
-		if (conversationsUIDs.length > 0) {
-			const conversationsData = query(conversationsDbRef, where(documentId(), 'in', conversationsUIDs))
+		if (conversationsIDs.length > 0) {
+			const conversationsData = query(conversationsDbRef, where(documentId(), 'in', conversationsIDs))
 			const querySnapshot = await getDocs(conversationsData)
 
 			conversations = querySnapshot.docs.map(doc => doc.data())

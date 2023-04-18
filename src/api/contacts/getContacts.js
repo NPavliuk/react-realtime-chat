@@ -1,19 +1,19 @@
 import { db } from '@api/firebase'
 import { collection, getDocs, query, where, documentId } from 'firebase/firestore'
 
-export const getContacts = async (uid) => {
-  const contactsUIDs = []
+export const getContacts = async (userID) => {
+  const contactsIDs = []
   const contacts = []
   const usersDbRef = collection(db, 'users')
-  const contactsDbRef = collection(db, `relations/${uid}/contacts`)
+  const contactsDbRef = collection(db, `relations/${userID}/contacts`)
   const contactsData = await getDocs(contactsDbRef)
 
   contactsData.forEach((contact) => {
-    contactsUIDs.push(contact.id)
+    contactsIDs.push(contact.id)
   })
 
-  if(contactsUIDs.length > 0) {
-    const usersData = query(usersDbRef, where(documentId(), 'in', contactsUIDs))
+  if(contactsIDs.length > 0) {
+    const usersData = query(usersDbRef, where(documentId(), 'in', contactsIDs))
     const querySnapshot = await getDocs(usersData)
 
     querySnapshot.forEach((doc) => {

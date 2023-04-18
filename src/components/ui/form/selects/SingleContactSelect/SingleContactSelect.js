@@ -34,9 +34,9 @@ export const SingleContactSelect = ({options, value, handleChange, error}) => {
   const CustomOption = (props) => {
     return (
       <components.Option {...props}>
-        <UserAvatar name={props.data.contact.displayName} image={props.data.contact.avatar}/>
+        <UserAvatar name={props.data.contact.name} image={props.data.contact.avatar}/>
         <div className={styles.content}>
-          <p className={styles.title}>{props.data.contact.displayName}</p>
+          <p className={styles.title}>{props.data.contact.name}</p>
           <p className={styles.email}>{props.data.contact.email}</p>
         </div>
       </components.Option>

@@ -18,7 +18,7 @@ const data = {
 }
 
 export const Contacts = () => {
-  const userId = useSelector(state => state.auth.uid)
+  const userID = useSelector(state => state.auth.id)
   const contacts = useSelector(state => state.contacts.contacts)
   const addContactModal = useSelector(state => state.contacts.addModal)
   const searchValue = useSelector(state => state.contacts.searchValue)
@@ -26,7 +26,7 @@ export const Contacts = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getContactsStart(userId))
+    dispatch(getContactsStart(userID))
     dispatch(getUsersStart())
   }, [])
 
@@ -49,7 +49,7 @@ export const Contacts = () => {
 
   const searchContacts = () => {
     const res = contacts.filter(contact =>
-      contact.displayName.toLowerCase().includes(searchValue.toLowerCase()) ||
+      contact.name.toLowerCase().includes(searchValue.toLowerCase()) ||
       contact.email.toLowerCase().includes(searchValue.toLowerCase()) ?
         contact : null)
     return res

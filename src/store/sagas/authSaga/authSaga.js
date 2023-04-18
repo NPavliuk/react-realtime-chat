@@ -12,14 +12,14 @@ import { actionTypes } from '@constants/actionTypes'
 import { messages } from '@constants/validationMessages'
 
 export function* signUpWithEmailPasswordSaga(props) {
+	const name = props.payload.name
   const email = props.payload.email
   const password = props.payload.password
-  const displayName = props.payload.displayName
 
   try {
     if (email && password) {
       const user = yield call(signUpWithEmailPassword, email, password)
-      user.displayName = displayName
+      user.name = name
       yield call(setUserToDb, user)
       yield put(signUpSuccess(user.uid))
       yield call(createAndDispatchSignInEvent)

@@ -53,7 +53,7 @@ export const NavigationBar = () => {
 
   const openContactBarHandler = () => {
     dispatch(openProfileBar())
-    dispatch(getProfileInfoStart(user.uid))
+    dispatch(getProfileInfoStart(user.id))
   }
 
   return (
@@ -66,7 +66,7 @@ export const NavigationBar = () => {
           {open ? <GrFormPrevious/> : <GrFormNext/>}
         </div>
         <div className={styles.mainBarItem}>
-          <UserAvatar name={user.displayName} image={user.avatar} status={'online'} handler={() => {handleClick(); openContactBarHandler()}}/>
+          <UserAvatar name={user.name} image={user.avatar} status={'online'} handler={() => {handleClick(); openContactBarHandler()}}/>
         </div>
         <div className={styles.mainBarNav}>
           <div className={styles.mainBarItem}>

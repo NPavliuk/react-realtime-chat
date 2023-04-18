@@ -7,10 +7,10 @@ import { actionTypes } from '@constants/actionTypes'
 import { messages } from '@constants/validationMessages'
 
 export function* userDataSaga(props) {
-  const uid = props.payload
+  const userID = props.payload
 
   try {
-    const data = yield call(getUserData, uid)
+    const data = yield call(getUserData, userID)
     yield put(getUserDataSuccess(data))
   } catch (err) {
     yield put(getUserDataFail(err.message))

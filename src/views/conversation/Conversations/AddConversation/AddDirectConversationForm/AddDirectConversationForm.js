@@ -3,22 +3,21 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useForm, Controller } from 'react-hook-form'
 import { CancelButton, SubmitButton } from '@components/ui/buttons'
 import { SingleContactSelect } from '@components/ui/form/selects'
-import { getContactsStart } from '@store/reducers/contactsReducer/contactsActions'
 import { createDirectConversationStart } from '@store/reducers/conversationsReducer/conversationsActions'
 import { messages } from '@constants/validationMessages'
 import styles from './AddDirectConversationForm.module.scss'
+import { getUsersStart } from '@store/reducers/usersReducer/usersActions'
 
 
 export const AddDirectConversationForm = ({closeHandler}) => {
-	const selectOptions = []
 	const userID = useSelector(state => state.auth.id)
-	const contacts = useSelector(state => state.contacts.contacts)
+	const users = useSelector(state => state.users.users)
 	const {control, handleSubmit} = useForm({mode: 'onBlur'})
 
 	const dispatch = useDispatch()
 
 	useEffect(() => {
-		dispatch(getContactsStart(userID))
+		dispatch(getUsersStart())
 	}, [])
 
 	const addConversationSubmitHandler = (data) => {
@@ -30,14 +29,17 @@ export const AddDirectConversationForm = ({closeHandler}) => {
 		dispatch(createDirectConversationStart(allData))
 	}
 
-	contacts.map(contact => {
-		const selectOption = {
-			label: contact.name,
-			value: contact.id,
-			contact: contact
-		}
+	const selectOptions = []
+	users.map(user => {
+		if(user.id !== userID) {
+			const selectOption = {
+				label: user.name,
+				value: user.id,
+				user: user
+			}
 
-		selectOptions.push(selectOption)
+			selectOptions.push(selectOption)
+		}
 	})
 
 	return (

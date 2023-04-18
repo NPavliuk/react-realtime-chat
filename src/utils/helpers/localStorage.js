@@ -1,11 +1,11 @@
 export const saveSessionToLocalStorage = (session) => {
-  localStorage.setItem('react-realtime-chat-session', session)
+  localStorage.setItem('react-realtime-conversation-session', session)
 }
 
 export const removeSessionFromLocalStorage = () => {
-  localStorage.removeItem('react-realtime-chat-session')
+  localStorage.removeItem('react-realtime-conversation-session')
 }
 
 export const getSessionFromLocalStorage = () => {
-  return localStorage.getItem('react-realtime-chat-session')
+  return localStorage.getItem('react-realtime-conversation-session')
 }

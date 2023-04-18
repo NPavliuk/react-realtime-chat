@@ -1,8 +1,8 @@
 import styles from './ConversationsList.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { FilterButton } from '@components/ui/buttons'
-import { ConversationsListItem } from '@views/chat/Conversations/ConversationsList/ConversationsListItem/ConversationsListItem'
-import { ConversationsListEmptyState } from '@views/chat/Conversations/ConversationsList/ConversationsListEmptyState/ConversationsListEmptyState'
+import { ConversationsListItem } from '@views/conversation/Conversations/ConversationsBar/ConversationsList/ConversationsListItem/ConversationsListItem'
+import { ConversationsListEmptyState } from '@views/conversation/Conversations/ConversationsEmptyState/ConversationsListEmptyState'
 import { setConversationFilter } from '@store/reducers/conversationsReducer/conversationsActions'
 import { filterConversations } from '@helpers/filterConversations'
 

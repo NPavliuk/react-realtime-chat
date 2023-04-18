@@ -34,10 +34,10 @@ export const SingleContactSelect = ({options, value, handleChange, error}) => {
   const CustomOption = (props) => {
     return (
       <components.Option {...props}>
-        <UserAvatar name={props.data.contact.name} image={props.data.contact.avatar}/>
+        <UserAvatar name={props.data.user.name} image={props.data.user.avatar}/>
         <div className={styles.content}>
-          <p className={styles.title}>{props.data.contact.name}</p>
-          <p className={styles.email}>{props.data.contact.email}</p>
+          <p className={styles.title}>{props.data.user.name}</p>
+          <p className={styles.email}>{props.data.user.email}</p>
         </div>
       </components.Option>
     )

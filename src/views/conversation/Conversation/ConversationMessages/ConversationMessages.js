@@ -8,7 +8,7 @@ import { DefaultMessage } from '@components/messages'
 
 export const ConversationMessages = ({conversationID}) => {
 	const dispatch = useDispatch()
-	const userId = useSelector(state =>  state.auth.id)
+	const userId = useSelector(state => state.auth.id)
 	const messages = useSelector(state => state.conversation.messages)
 
 	useEffect(() => {

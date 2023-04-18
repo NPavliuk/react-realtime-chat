@@ -9,7 +9,6 @@ import { onAuthStateChanged } from 'firebase/auth'
 import { getSessionFromLocalStorage, removeSessionFromLocalStorage, saveSessionToLocalStorage } from '@helpers/localStorage'
 import { useNavigate } from 'react-router-dom'
 import { routeNames } from '@constants/routeNames'
-import { getContactsStart } from '@store/reducers/contactsReducer/contactsActions'
 
 function App() {
   const navigate = useNavigate()
@@ -25,7 +24,6 @@ function App() {
         if (user) {
           dispatch(setSession(user.uid))
           dispatch(getUserDataStart(user.uid))
-					dispatch(getContactsStart(user.uid))
           saveSessionToLocalStorage(user.uid)
         } else {
           dispatch(setSession(null))

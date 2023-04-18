@@ -7,33 +7,13 @@ import { RiCloseFill, RiMailLine, RiPhoneLine } from 'react-icons/ri'
 import { FaBirthdayCake } from 'react-icons/fa'
 import { UserAvatar } from '@components/ui/avatars'
 import { CancelButton, PrimaryButton } from '@components/ui/buttons'
-import { checkIsContact } from '@helpers/checkContact'
-import { addContactStart, removeContactStart } from '@store/reducers/contactsReducer/contactsActions'
 import { routeNames } from '@constants/routeNames'
 
 export const ProfileBar = () => {
   const dispatch = useDispatch()
   const userID = useSelector(state => state.auth.id)
   const profile = useSelector(state => state.profile.data)
-  const contacts = useSelector(state => state.contacts.contacts)
   const isOpen = useSelector(state => state.profile.isOpen)
-  const isContact = checkIsContact(profile.id, contacts)
-
-  const removeContactHandler = () => {
-    const data = {
-      userID: userID,
-      contactID: profile.id
-    }
-    dispatch(removeContactStart(data))
-  }
-
-  const addContactHandler = () => {
-    const data = {
-			userID: userID,
-      email: profile.email
-    }
-    dispatch(addContactStart(data))
-  }
 
   const closeContactBarHandler = () => {
     dispatch(closeProfileBar())
@@ -68,11 +48,6 @@ export const ProfileBar = () => {
         userID !== profile.id ?
           <div className={styles.controls}>
             <PrimaryButton title={'Message'}/>
-            {
-              isContact ?
-                <CancelButton title={'Remove'} handler={removeContactHandler}/>
-                : <PrimaryButton title={'Add to Contact'} handler={addContactHandler}/>
-            }
           </div>
           :
           <div className={styles.controls}>

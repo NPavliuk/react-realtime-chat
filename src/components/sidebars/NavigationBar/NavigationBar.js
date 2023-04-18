@@ -74,10 +74,6 @@ export const NavigationBar = () => {
                               indicator={true} handler={() => {handleClick(); closeProfileBarHandler()}}/>
           </div>
           <div className={styles.mainBarItem}>
-            <NavigationButton route={routeNames.CONTACTS} icon={<RiGroupLine/>} activeIcon={<RiGroupFill/>}
-                              indicator={false} handler={() => {handleClick(); closeProfileBarHandler()}}/>
-          </div>
-          <div className={styles.mainBarItem}>
             <NavigationButton route={routeNames.BOOKMARKS} icon={<RiBookmarkLine/>} activeIcon={<RiBookmarkFill/>}
                               indicator={false} handler={() => {handleClick(); closeProfileBarHandler()}}/>
           </div>

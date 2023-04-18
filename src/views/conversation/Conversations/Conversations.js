@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet'
 import { useDispatch, useSelector } from 'react-redux'
 import { PrimaryModal } from '@components/ui/modals'
 import { ConversationsBar } from './ConversationsBar/ConversationsBar'
-import { ConversationAddModal } from '@views/chat/Conversations/ConversationAddModal/ConversationAddModal'
+import { AddConversation } from '@views/conversation/Conversations/AddConversation/AddConversation'
 import { closeAddConversationModal } from '@store/reducers/conversationsReducer/conversationsActions'
 import styles from './Conversations.module.scss'
 
@@ -29,7 +29,7 @@ export const Conversations = ({children}) => {
 				{
 					addConversationModal ?
 						<PrimaryModal isOpen={addConversationModal} closeHandler={closeAddConversationModalHandler}>
-							<ConversationAddModal closeHandler={closeAddConversationModalHandler}/>
+							<AddConversation closeHandler={closeAddConversationModalHandler}/>
 						</PrimaryModal>
 						:
 						null

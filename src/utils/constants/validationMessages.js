@@ -13,13 +13,6 @@ export const messages = {
   notMatchedPasswords: 'Passwords doesn\'t matched',
   toManyCharacters: 'Too many characters',
 
-  // Add Contact messages
-  contactAdded: '[] successful added to your contacts',
-  contactAlreadyExist: '[] already your contact',
-  contactNotExist: 'User with [] email does not exist',
-  contactYourself: 'You can\'t add yourself to contacts',
-  contactRemoved: '[] successful removed from your contacts',
-
 	// Add Conversation messages
 	conversationAlreadyExist: 'Conversation with this user already exist',
 
@@ -27,9 +20,6 @@ export const messages = {
   profileUpdated: 'Profile successful updated',
   passwordUpdated: 'Password successful updated',
   passwordUpdateFailed: 'Update password failed. Please try again',
-
-	//Send message
-
 
   // General messages
   somethingWrong: 'Something go wrong. Please try again',

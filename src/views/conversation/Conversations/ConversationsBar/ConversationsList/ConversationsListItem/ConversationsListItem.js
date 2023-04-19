@@ -1,10 +1,13 @@
 import styles from './ConversationsListItem.module.scss'
-import { UserAvatar } from '@components/ui/avatars'
-import { useDispatch, useSelector } from 'react-redux'
-import { classNames } from '@helpers/classNames'
-import { HiOutlineDotsHorizontal } from 'react-icons/hi'
-import { removeConversationsStart } from '@store/reducers/conversationsReducer/conversationsActions'
+import Moment from 'react-moment'
 import { NavLink } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { HiOutlineDotsHorizontal } from 'react-icons/hi'
+import { UserAvatar } from '@components/ui/avatars'
+import { removeConversationsStart } from '@store/reducers/conversationsReducer/conversationsActions'
+import { getProfileInfoStart, openProfileBar } from '@store/reducers/profileReducer/profileActions'
+import { classNames } from '@helpers/classNames'
+import { routeNames } from '@constants/routeNames'
 
 export const ConversationsListItem = ({conversation}) => {
 	const dispatch = useDispatch()
@@ -24,20 +27,30 @@ export const ConversationsListItem = ({conversation}) => {
 		dispatch(removeConversationsStart(data))
 	}
 
+	const openProfileBarHandler = () => {
+		dispatch(openProfileBar())
+		dispatch(getProfileInfoStart(conversationalists[0].id))
+	}
+
 	return (
 		isDirectConversation ?
-			<NavLink to={`/conversations/${conversation.id}`} className={({isActive}) => classNames({
+			<NavLink to={`${routeNames.CONVERSATIONS}/${conversation.id}`} className={({isActive}) => classNames({
 				[styles.wrapper]: true,
 				[styles.active]: isActive
 			})}>
 				<div className={styles.head}>
 					<div className={styles.avatar}>
 						<UserAvatar name={conversationalists[0].name} image={conversationalists[0].avatar}
-												modifyClass={'small'}/>
+												modifyClass={'small'} handler={openProfileBarHandler}/>
 					</div>
 					<div className={styles.info}>
 						<h5 className={styles.name}>{conversationalists[0].name}</h5>
-						<span className={styles.time}> - 14:20 PM</span>
+						{
+							conversation.lastMessage
+								? <span className={styles.time}> - <Moment format={"hh:mm A"}>{conversation.lastMessage.date.toDate()}</Moment></span>
+								: <span className={styles.time}> - <Moment format={"hh:mm A"}>{conversation.conversationStart.toDate()}</Moment></span>
+						}
+
 					</div>
 					{/* TODO: Add logic for dropdown. Move dropdown in new component */}
 					<div className={styles.dropdown}>
@@ -47,12 +60,12 @@ export const ConversationsListItem = ({conversation}) => {
 					</div>
 				</div>
 				<div className={styles.message}>
+					{/* TODO: Need change last message for previous if user remove last message*/}
 					{
 						conversation.lastMessage
-							? conversation.lastMessage
-							: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.'
+							? conversation.lastMessage.text
+							: `Start a conversation with ${conversationalists[0].name}`
 					}
-
 				</div>
 			</NavLink>
 			: null

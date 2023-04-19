@@ -4,7 +4,7 @@ import { FilterButton } from '@components/ui/buttons'
 import { ConversationsListItem } from '@views/conversation/Conversations/ConversationsBar/ConversationsList/ConversationsListItem/ConversationsListItem'
 import { ConversationsListEmptyState } from '@views/conversation/Conversations/ConversationsEmptyState/ConversationsListEmptyState'
 import { setConversationFilter } from '@store/reducers/conversationsReducer/conversationsActions'
-import { filterConversations } from '@helpers/filterConversations'
+import { filterConversations } from '@helpers/filters'
 
 export const ConversationsList = () => {
 	const dispatch = useDispatch()

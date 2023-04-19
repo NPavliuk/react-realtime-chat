@@ -54,5 +54,5 @@ export function* removeConversationSaga(props) {
 
 export const conversationsSaga = [
 	takeLatest(actionTypes.CREATE_DIRECT_CONVERSATION_START, createDirectConversationSaga),
-	takeLatest(actionTypes.REMOVE_CONVERSATION_START, removeConversationSaga)
+	takeLatest(actionTypes.REMOVE_CONVERSATION_START, removeConversationSaga),
 ]

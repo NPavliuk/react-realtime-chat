@@ -7,14 +7,15 @@ import { createDirectConversationStart } from '@store/reducers/conversationsRedu
 import { messages } from '@constants/validationMessages'
 import styles from './AddDirectConversationForm.module.scss'
 import { getUsersStart } from '@store/reducers/usersReducer/usersActions'
+import { createSelectOptions } from '@helpers/createSelectOptions'
 
 
 export const AddDirectConversationForm = ({closeHandler}) => {
+	const dispatch = useDispatch()
 	const userID = useSelector(state => state.auth.id)
 	const users = useSelector(state => state.users.users)
 	const {control, handleSubmit} = useForm({mode: 'onBlur'})
-
-	const dispatch = useDispatch()
+	const selectOptions = createSelectOptions(users, userID)
 
 	useEffect(() => {
 		dispatch(getUsersStart())
@@ -27,20 +28,8 @@ export const AddDirectConversationForm = ({closeHandler}) => {
 		}
 
 		dispatch(createDirectConversationStart(allData))
+		// 	Redirect to conversation after it creating
 	}
-
-	const selectOptions = []
-	users.map(user => {
-		if(user.id !== userID) {
-			const selectOption = {
-				label: user.name,
-				value: user.id,
-				user: user
-			}
-
-			selectOptions.push(selectOption)
-		}
-	})
 
 	return (
 		<form className={styles.form} onSubmit={handleSubmit(addConversationSubmitHandler)}>

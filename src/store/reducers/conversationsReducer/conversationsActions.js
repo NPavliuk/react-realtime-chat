@@ -29,17 +29,17 @@ export const createDirectConversationFail = (error) => ({
 })
 
 export const getAllConversationsStart = (uid) => ({
-	type: actionTypes.GET_ALL_CONVERSATIONS_START,
+	type: actionTypes.GET_CONVERSATIONS_START,
 	payload: uid
 })
 
 export const getAllConversationsSuccess = (conversations) => ({
-	type: actionTypes.GET_ALL_CONVERSATIONS_SUCCESS,
+	type: actionTypes.GET_CONVERSATIONS_SUCCESS,
 	payload: conversations
 })
 
 export const getAllConversationsFail = (error) => ({
-	type: actionTypes.GET_ALL_CONVERSATIONS_FAIL,
+	type: actionTypes.GET_CONVERSATIONS_FAIL,
 	payload: error
 })
 

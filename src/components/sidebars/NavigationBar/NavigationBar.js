@@ -1,31 +1,23 @@
-import { useDispatch, useSelector } from 'react-redux'
+import styles from './NavigationBar.module.scss'
 import { useRef, useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { GrFormNext, GrFormPrevious } from 'react-icons/gr'
+import { RiDiscussLine, RiDiscussFill, RiSettings4Line, RiSettings4Fill, RiBookmarkLine, RiBookmarkFill, } from 'react-icons/ri'
 import { UserAvatar } from '@components/ui/avatars'
 import { NavigationButton, LogoutButton } from '@components/ui/buttons'
-import { GrFormNext, GrFormPrevious } from 'react-icons/gr'
-import {
-  RiDiscussLine,
-  RiDiscussFill,
-  RiSettings4Line,
-  RiSettings4Fill,
-  RiBookmarkLine,
-  RiBookmarkFill,
-  RiGroupLine,
-  RiGroupFill
-} from 'react-icons/ri'
-import { classNames } from '@helpers/classNames'
-import { routeNames } from '@constants/routeNames'
-import styles from './NavigationBar.module.scss'
 import { closeProfileBar, getProfileInfoStart, openProfileBar } from '@store/reducers/profileReducer/profileActions'
+import { classNames } from '@helpers/classNames'
 import { checkIfMobile } from '@helpers/checkMobile'
+import { routeNames } from '@constants/routeNames'
 
 export const NavigationBar = () => {
+	const dispatch = useDispatch()
   const navBarRef = useRef()
-  const user = useSelector(state => state.user.data)
   const [open, setOpen] = useState(false)
   const isMobile = checkIfMobile()
 
-  const dispatch = useDispatch()
+	const user = useSelector(state => state.user.data)
+	const conversationID =  useSelector(state => state.conversation.id)
 
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
@@ -43,17 +35,17 @@ export const NavigationBar = () => {
     setOpen(!open)
   }
 
+	const openProfileBarHandler = () => {
+		dispatch(openProfileBar())
+		dispatch(getProfileInfoStart(user.id))
+	}
+
   const closeProfileBarHandler = () => {
     const isMobile = checkIfMobile()
 
     if(isMobile) {
       dispatch(closeProfileBar())
     }
-  }
-
-  const openContactBarHandler = () => {
-    dispatch(openProfileBar())
-    dispatch(getProfileInfoStart(user.id))
   }
 
   return (
@@ -66,11 +58,11 @@ export const NavigationBar = () => {
           {open ? <GrFormPrevious/> : <GrFormNext/>}
         </div>
         <div className={styles.mainBarItem}>
-          <UserAvatar name={user.name} image={user.avatar} status={'online'} handler={() => {handleClick(); openContactBarHandler()}}/>
+          <UserAvatar name={user.name} image={user.avatar} status={'online'} handler={() => {handleClick(); openProfileBarHandler()}}/>
         </div>
         <div className={styles.mainBarNav}>
           <div className={styles.mainBarItem}>
-            <NavigationButton route={routeNames.CONVERSATIONS} icon={<RiDiscussLine/>} activeIcon={<RiDiscussFill/>}
+            <NavigationButton route={conversationID ? `${routeNames.CONVERSATIONS}/${conversationID}` : routeNames.CONVERSATIONS} icon={<RiDiscussLine/>} activeIcon={<RiDiscussFill/>}
                               indicator={true} handler={() => {handleClick(); closeProfileBarHandler()}}/>
           </div>
           <div className={styles.mainBarItem}>

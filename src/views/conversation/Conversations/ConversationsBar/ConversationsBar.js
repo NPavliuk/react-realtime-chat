@@ -1,9 +1,14 @@
 import styles from './ConversationsBar.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { PrimaryButton } from '@components/ui/buttons'
-import { getAllConversationsSuccess, openAddConversationModal } from '@store/reducers/conversationsReducer/conversationsActions'
+import {
+	getAllConversationsSuccess,
+	openAddConversationModal
+} from '@store/reducers/conversationsReducer/conversationsActions'
 import { useEffect } from 'react'
-import { ConversationsList } from '@views/conversation/Conversations/ConversationsBar/ConversationsList/ConversationsList'
+import {
+	ConversationsList
+} from '@views/conversation/Conversations/ConversationsBar/ConversationsList/ConversationsList'
 import { collection, query, where, documentId, onSnapshot } from 'firebase/firestore'
 import { db } from '@api/firebase'
 import { getUsers } from '@api/users/getUsers'
@@ -14,46 +19,42 @@ export const ConversationsBar = () => {
 
 	// TODO: Transfer listeners to separate file
 	useEffect(() => {
-		const getConversations = async () => {
-			let unsubConversations
-			let unsubUserConversations
-			const conversationsDbRef = collection(db, 'conversations')
-			const userConversationsDbRef = collection(db, `relations/${userID}/conversations`)
+		let unsubConversations
+		let unsubUserConversations
+		let conversationsUIDs = []
+		const conversationsDbRef = collection(db, 'conversations')
+		const userConversationsDbRef = collection(db, `relations/${userID}/conversations`)
 
+		if (userID) {
 			unsubUserConversations = onSnapshot(userConversationsDbRef, async (querySnapshot) => {
-				let conversationsUIDs = []
 				querySnapshot.forEach((doc) => {
 					conversationsUIDs.push(doc.id)
 				})
 
-				const conversationsData = query(conversationsDbRef, where(documentId(), 'in', conversationsUIDs))
-				unsubConversations = onSnapshot(conversationsData, async (querySnapshot) => {
-					let conversations = []
-					querySnapshot.forEach((doc) => {
-						conversations.push(doc.data())
+				if (conversationsUIDs.length > 0) {
+					const conversationsData = query(conversationsDbRef, where(documentId(), 'in', conversationsUIDs))
+					unsubConversations = onSnapshot(conversationsData, async (querySnapshot) => {
+						let conversations = []
+						querySnapshot.forEach((doc) => {
+							conversations.push(doc.data())
+						})
+
+						if (conversations.length > 0) {
+							await Promise.all(conversations.map(async (conversation) => {
+								conversation.conversationalists = await getUsers(conversation.conversationalists)
+							}))
+						}
+						dispatch(getAllConversationsSuccess(conversations))
 					})
-
-					if (conversations.length > 0) {
-						await Promise.all(conversations.map(async (conversation) => {
-							conversation.conversationalists = await getUsers(conversation.conversationalists)
-						}))
-					}
-					dispatch(getAllConversationsSuccess(conversations))
-				})
+				}
 			})
-
-			return () => {
-				unsubConversations()
-				unsubUserConversations()
-			}
 		}
 
-		userID && getConversations()
+		return () => {
+			unsubConversations()
+			unsubUserConversations()
+		}
 	}, [userID])
-
-	// useEffect(() => {
-	// 	dispatch(getAllConversationsStart(userID))
-	// }, [userID])
 
 	const openAddConversationModalHandler = () => {
 		dispatch(openAddConversationModal())

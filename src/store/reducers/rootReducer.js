@@ -5,8 +5,9 @@ import { usersReducer } from '@store/reducers/usersReducer/usersReducer'
 import { profileReducer } from '@store/reducers/profileReducer/profileReducer'
 import { conversationReducer } from '@store/reducers/conversationReducer/conversationReducer'
 import { conversationsReducer } from '@store/reducers/conversationsReducer/conversationsReducer'
+import { actionTypes } from '@constants/actionTypes'
 
-export const rootReducer = combineReducers({
+const appReducer = combineReducers({
 	auth: authReducer,
 	user: userReducer,
 	users: usersReducer,
@@ -14,3 +15,12 @@ export const rootReducer = combineReducers({
 	conversations: conversationsReducer,
 	profile: profileReducer
 })
+
+// Reset store on logout
+export const rootReducer = (state, action) => {
+	if (action.type === actionTypes.SIGN_OUT_SUCCESS) {
+		return appReducer(undefined, action)
+	}
+
+	return appReducer(state, action)
+}

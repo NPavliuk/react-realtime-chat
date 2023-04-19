@@ -1,9 +1,9 @@
 import { collection, query, where, getDocs, documentId } from 'firebase/firestore'
 import { db } from '@api/firebase'
 
-export const checkConversation = async (currentID, interlocutorID) => {
+export const checkConversation = async (userID, interlocutorID) => {
 	const conversationsIDs = []
-	const userConversationsDbRef = collection(db, `relations/${currentID}/conversations`)
+	const userConversationsDbRef = collection(db, `relations/${userID}/conversations`)
 
 	try {
 		const userConversationsData = await getDocs(userConversationsDbRef)

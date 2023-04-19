@@ -1,14 +1,16 @@
 import styles from './DefaultMessage.module.scss'
 import { useDispatch } from 'react-redux'
 import { removeConversationMessageStart } from '@store/reducers/conversationReducer/conversationActions'
+import { getNewLastMessage, isLastMessage } from '@helpers/lastMessage'
 
-export const DefaultMessage = ({message, conversationID}) => {
+export const DefaultMessage = ({message, messages, conversationID}) => {
 	const dispatch = useDispatch()
 
 	const removeMessageHandler = () => {
 		const data = {
 			message: message,
-			conversationID: conversationID
+			conversationID: conversationID,
+			lastMessage: isLastMessage(messages, message) ? getNewLastMessage(messages, message) : null
 		}
 
 		dispatch(removeConversationMessageStart(data))

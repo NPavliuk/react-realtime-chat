@@ -6,7 +6,7 @@ import { closeProfileBar } from '@store/reducers/profileReducer/profileActions'
 import { RiCloseFill, RiMailLine, RiPhoneLine } from 'react-icons/ri'
 import { FaBirthdayCake } from 'react-icons/fa'
 import { UserAvatar } from '@components/ui/avatars'
-import { CancelButton, PrimaryButton } from '@components/ui/buttons'
+import { PrimaryButton } from '@components/ui/buttons'
 import { routeNames } from '@constants/routeNames'
 
 export const ProfileBar = () => {

@@ -4,7 +4,7 @@ import { doc, onSnapshot } from 'firebase/firestore'
 import { db } from '@api/firebase'
 import { useDispatch, useSelector } from 'react-redux'
 import { getConversationMessagesSuccess } from '@store/reducers/conversationReducer/conversationActions'
-import { DefaultMessage } from '@components/messages'
+import {ConversationMessage} from '@views/conversation/Conversation/ConversationMessages/ConversationMessage/ConversationMessage'
 
 export const ConversationMessages = ({conversationID}) => {
 	const dispatch = useDispatch()
@@ -31,7 +31,7 @@ export const ConversationMessages = ({conversationID}) => {
 		<div>
 			{
 				messages
-					? messages.map(message => <DefaultMessage key={message.id} message={message} messages={messages}
+					? messages.map(message => <ConversationMessage key={message.id} message={message} messages={messages}
 																										conversationID={conversationID}/>)
 					: null
 			}

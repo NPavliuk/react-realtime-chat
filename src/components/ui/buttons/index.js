@@ -6,6 +6,7 @@ import { PrimaryButton } from '@components/ui/buttons/PrimaryButton/PrimaryButto
 import { NavigationSettingButton } from '@components/ui/buttons/NavigationSettingButton/NavigationSettingButton'
 import { TypeButton } from '@components/ui/buttons/TypeButton/TypeButton'
 import { FilterButton } from '@components/ui/buttons/FilterButton/FilterButton'
+import { MessageRemoveButton} from '@components/ui/buttons/MessageRemoveButton/MessageRemoveButton'
 
 export {
 	SubmitButton,
@@ -16,4 +17,5 @@ export {
 	NavigationSettingButton,
 	TypeButton,
 	FilterButton,
+	MessageRemoveButton
 }

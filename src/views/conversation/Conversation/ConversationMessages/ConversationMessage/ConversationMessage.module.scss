@@ -1,0 +1,35 @@
+.wrapper {
+  @apply flex mb-3;
+
+  &:hover {
+    .controls {
+      @apply flex items-center mb-4;
+    }
+  }
+
+  .message {
+    @apply flex items-start;
+
+    .messageInner {
+      @apply flex flex-col text-xs max-w-xl mx-2 order-2 items-start;
+    }
+
+    .messageText {
+      @apply px-4 py-2 rounded-lg inline-block bg-gray-200 text-sm text-gray-700;
+    }
+
+    .messageTime {
+      @apply text-[10px] text-gray-400;
+    }
+
+    &.incoming {
+      .messageText {
+        @apply bg-indigo-600 text-white;
+      }
+    }
+  }
+
+  .controls {
+    @apply hidden;
+  }
+}

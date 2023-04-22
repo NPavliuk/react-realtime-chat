@@ -1,5 +1,5 @@
 import styles from './ConversationMessages.module.scss'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { doc, onSnapshot } from 'firebase/firestore'
 import { db } from '@api/firebase'
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,6 +9,7 @@ import {ConversationMessage} from '@views/conversation/Conversation/Conversation
 export const ConversationMessages = ({conversationID}) => {
 	const dispatch = useDispatch()
 	const messages = useSelector(state => state.conversation.messages)
+	const messagesListEndRef = useRef()
 
 	useEffect(() => {
 		let unsubMessages
@@ -27,14 +28,19 @@ export const ConversationMessages = ({conversationID}) => {
 		}
 	}, [conversationID])
 
+	useEffect(() => {
+		messagesListEndRef.current.scrollIntoView()
+	})
+
 	return (
-		<div>
+		<div className={styles.wrapper}>
 			{
 				messages
 					? messages.map(message => <ConversationMessage key={message.id} message={message} messages={messages}
 																										conversationID={conversationID}/>)
 					: null
 			}
+			<div ref={messagesListEndRef}></div>
 		</div>
 	)
 }

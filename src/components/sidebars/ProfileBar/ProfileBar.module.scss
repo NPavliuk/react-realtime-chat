@@ -1,5 +1,5 @@
 .wrapper {
-  @apply hidden absolute h-screen sm:relative top-0 left-0 w-full min-w-[calc(100vw-8px)] sm:min-w-0 sm:max-w-[325px] overflow-y-auto py-3 px-4 border-l border-gray-200 bg-secondary;
+  @apply hidden absolute h-screen sm:relative top-0 left-0 w-full min-w-[calc(100vw-8px)] sm:min-w-0 sm:max-w-[325px] overflow-y-auto py-3 px-4 border-l border-gray-200 bg-secondary scrollbar scrollbar-w-[6px] scrollbar-thumb-rounded-lg scrollbar-thumb-gray-300 hover:scrollbar-thumb-gray-400 scrollbar-track-transparent;
 
   &.active {
     @apply block;

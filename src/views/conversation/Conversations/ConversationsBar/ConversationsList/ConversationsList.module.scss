@@ -6,6 +6,6 @@
   }
 
   .list {
-    @apply pr-4 mt-4 overflow-y-auto h-[calc(100vh-166px)] scrollbar-hide;
+    @apply pr-4 mt-4 overflow-y-auto h-[calc(100vh-166px)] scrollbar scrollbar-w-[6px] scrollbar-thumb-rounded-lg scrollbar-thumb-gray-300 hover:scrollbar-thumb-gray-400 scrollbar-track-transparent;
   }
 }

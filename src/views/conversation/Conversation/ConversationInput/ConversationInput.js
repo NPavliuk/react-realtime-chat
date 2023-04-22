@@ -1,34 +1,42 @@
 import styles from './ConversationInput.module.scss'
-import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
-import { setConversationMessageStart } from '@store/reducers/conversationReducer/conversationActions'
+import {
+	setConversationInput,
+	setConversationMessageStart
+} from '@store/reducers/conversationReducer/conversationActions'
 import { getConversationalistsIDs } from '@helpers/getConversationalistsIDs'
+import { MessageSendButton } from '@components/ui/buttons'
+import { MessageEditor } from '@components/ui/editors'
+import { useRef } from 'react'
 
 export const ConversationInput = () => {
 	const dispatch = useDispatch()
-	const userID = useSelector(state =>  state.auth.id)
+	const userID = useSelector(state => state.auth.id)
 	const conversationID = useSelector(state => state.conversation.id)
 	const conversations = useSelector(state => state.conversations.conversations)
-	const {handleSubmit, register} = useForm()
+	const message = useSelector(state => state.conversation.messageInput)
+	const buttonRef = useRef()
 
-	const onSubmit = (data) => {
-		data.userID = userID
-		data.conversationID = conversationID
-		data.conversationalists = getConversationalistsIDs(conversations, conversationID)
+	const sendMessageHandler = (e) => {
+		e.preventDefault()
+
+		const data = {
+			userID: userID,
+			conversationID: conversationID,
+			conversationalists:  getConversationalistsIDs(conversations, conversationID),
+			messageText: message
+		}
 
 		dispatch(setConversationMessageStart(data))
+		dispatch(setConversationInput(''))
 	}
 
 	return (
-		<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-			<textarea name="messageText"
-								id="messageText"
-								cols="30"
-								rows="5"
-								placeholder={'Enter you message here'}
-								{...register('messageText', {})}>
-			</textarea>
-			<button type={'submit'}>send message</button>
+		<form className={styles.wrapper} onSubmit={sendMessageHandler}>
+			<MessageEditor buttonRef={buttonRef} />
+			<div className={styles.controls}>
+				<MessageSendButton buttonRef={buttonRef} />
+			</div>
 		</form>
 	)
 }

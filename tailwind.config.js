@@ -18,7 +18,8 @@ module.exports = {
   plugins: [
     require('tailwindcss'),
     require('autoprefixer'),
-    require('@tailwindcss/line-clamp'),
-    require('tailwind-scrollbar-hide')
+		require('tailwind-scrollbar')({ nocompatible: true }),
+    require('tailwind-scrollbar-hide'),
+		require('@tailwindcss/line-clamp'),
   ]
 }

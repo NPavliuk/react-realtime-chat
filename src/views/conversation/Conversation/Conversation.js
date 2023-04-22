@@ -21,7 +21,7 @@ export const Conversation = () => {
   return (
     <Conversations>
 			<div className={styles.wrapper}>
-				<ConversationHead />
+				<ConversationHead conversationID={conversationID} />
 				<ConversationMessages conversationID={conversationID} />
 				<ConversationInput />
 			</div>

@@ -16,6 +16,24 @@
 
     .messageText {
       @apply px-4 py-2 rounded-lg inline-block bg-gray-200 text-sm text-gray-700;
+
+      blockquote {
+        @apply px-3 border-l-[5px] border-gray-600;
+
+        p {
+          @apply italic;
+        }
+      }
+
+      p {
+        a {
+          @apply underline text-indigo-600;
+
+          &:hover {
+            @apply text-indigo-700;
+          }
+        }
+      }
     }
 
     .messageTime {
@@ -25,6 +43,20 @@
     &.incoming {
       .messageText {
         @apply bg-indigo-600 text-white;
+
+        blockquote {
+          @apply border-white;
+        }
+
+        p {
+          a {
+            @apply text-gray-200;
+
+            &:hover {
+              @apply text-gray-300;
+            }
+          }
+        }
       }
     }
   }

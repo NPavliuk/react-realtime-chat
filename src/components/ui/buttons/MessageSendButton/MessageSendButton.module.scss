@@ -1,0 +1,13 @@
+.button {
+  @apply p-1;
+
+  &:hover {
+    svg {
+      @apply fill-indigo-800;
+    }
+  }
+
+  svg {
+    @apply h-5 w-5 fill-indigo-700;
+  }
+}

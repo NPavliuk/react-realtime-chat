@@ -3,6 +3,7 @@ import { actionTypes } from '@constants/actionTypes'
 const initialState = {
 	id: null,
 	messages: [],
+	messageInput: '',
 	loading: false,
 	error: null
 }
@@ -24,7 +25,7 @@ export const conversationReducer = (state = initialState, {type, payload}) => {
 			return {
 				...state,
 				messages: payload,
-				loading: false,
+				loading: false
 			}
 		case actionTypes.SET_CONVERSATION_MESSAGE_FAIL:
 		case actionTypes.GET_CONVERSATION_MESSAGES_FAIL:
@@ -32,6 +33,11 @@ export const conversationReducer = (state = initialState, {type, payload}) => {
 				...state,
 				error: payload,
 				loading: false
+			}
+		case actionTypes.SET_CONVERSATION_INPUT:
+			return {
+				...state,
+				messageInput: payload
 			}
 		default:
 			return state

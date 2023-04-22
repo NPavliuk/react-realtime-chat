@@ -1,0 +1,11 @@
+.wrapper {
+  @apply relative w-full;
+
+  .field {
+    @apply w-full py-2 pl-3 pr-2 rounded-lg border border-gray-200 resize-none outline-none;
+  }
+
+  .controls {
+    @apply absolute bottom-1 right-2
+  }
+}

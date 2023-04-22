@@ -47,8 +47,10 @@ export const ConversationsListItem = ({conversation}) => {
 						<h5 className={styles.name}>{conversationalists[0].name}</h5>
 						{
 							conversation.lastMessage
-								? <span className={styles.time}> - <Moment format={"hh:mm A"}>{conversation.lastMessage.date.toDate()}</Moment></span>
-								: <span className={styles.time}> - <Moment format={"hh:mm A"}>{conversation.conversationStart.toDate()}</Moment></span>
+								? <span className={styles.time}> - <Moment
+									format={'hh:mm A'}>{conversation.lastMessage.date.toDate()}</Moment></span>
+								: <span className={styles.time}> - <Moment
+									format={'hh:mm A'}>{conversation.conversationStart.toDate()}</Moment></span>
 						}
 
 					</div>
@@ -59,14 +61,9 @@ export const ConversationsListItem = ({conversation}) => {
 						</button>
 					</div>
 				</div>
-				<div className={styles.message}>
-					{/* TODO: Need change last message for previous if user remove last message*/}
-					{
-						conversation.lastMessage
-							? conversation.lastMessage.text
-							: `Start a conversation with ${conversationalists[0].name}`
-					}
-				</div>
+				<div className={styles.message} dangerouslySetInnerHTML={
+					{__html: conversation.lastMessage ? conversation.lastMessage.text : `Start a conversation with ${conversationalists[0].name}`}
+				}></div>
 			</NavLink>
 			: null
 	)

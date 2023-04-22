@@ -47,7 +47,7 @@ export const ConversationMessage = ({message, messages, conversationID}) => {
 				[styles.incoming]: userID !== message.senderId
 			})}>
 				<div className={styles.messageInner}>
-					<span className={styles.messageText}>{message.text}</span>
+					<div className={styles.messageText} dangerouslySetInnerHTML={{ __html: message.text }}></div>
 					<span className={styles.messageTime}>
 						<Moment format={'hh:mm A'}>{message.date.toDate()}</Moment>
 					</span>

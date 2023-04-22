@@ -1,0 +1,19 @@
+.wrapper {
+  @apply flex justify-between pb-3 border-b;
+
+  .user {
+    @apply flex gap-2;
+
+    .userDetails {
+
+    }
+
+    .userName {
+      @apply text-base font-bold text-gray-600 leading-5 line-clamp-1;
+    }
+
+    .userPosition {
+      @apply  text-sm font-light text-gray-500 line-clamp-1;
+    }
+  }
+}

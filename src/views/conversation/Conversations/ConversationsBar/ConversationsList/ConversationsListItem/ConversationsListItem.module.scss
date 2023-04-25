@@ -16,15 +16,11 @@
       }
     }
 
-    .dropdown {
-      @apply relative flex flex-col h-full justify-start;
+    .unread {
+      @apply flex h-full justify-end;
 
-      .dropdownButton {
-        @apply hover:opacity-80;
-
-        svg {
-          @apply w-4 h-4 stroke-gray-700;
-        }
+      .indicator {
+        @apply mt-1 w-2 h-2 rounded-full bg-rose-500;
       }
     }
   }

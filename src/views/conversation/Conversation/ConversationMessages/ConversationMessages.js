@@ -1,9 +1,9 @@
 import styles from './ConversationMessages.module.scss'
 import { useEffect, useRef } from 'react'
-import { doc, onSnapshot } from 'firebase/firestore'
+import { collection, onSnapshot } from 'firebase/firestore'
 import { db } from '@api/firebase'
 import { useDispatch, useSelector } from 'react-redux'
-import { getConversationMessagesSuccess } from '@store/reducers/conversationReducer/conversationActions'
+import { watchConversationMessages } from '@store/reducers/conversationReducer/conversationActions'
 import {ConversationMessage} from '@views/conversation/Conversation/ConversationMessages/ConversationMessage/ConversationMessage'
 
 export const ConversationMessages = ({conversationID}) => {
@@ -13,13 +13,21 @@ export const ConversationMessages = ({conversationID}) => {
 
 	useEffect(() => {
 		let unsubMessages
-		const messagesDbRef = doc(db, 'messages', conversationID)
+		const messagesDbRef = collection(db, `conversations/${conversationID}/messages`)
 
 		if(conversationID) {
-			unsubMessages = onSnapshot(messagesDbRef, async (doc) => {
-				if (doc.exists()) {
-					dispatch(getConversationMessagesSuccess(doc.data().messages))
-				}
+			unsubMessages = onSnapshot(messagesDbRef, async (querySnapshot) => {
+				let messages = []
+
+				querySnapshot.forEach((doc) => {
+					messages.push(doc.data())
+				})
+
+				messages.sort(function(x, y){
+					return x.date - y.date;
+				})
+
+				dispatch(watchConversationMessages(messages))
 			})
 		}
 

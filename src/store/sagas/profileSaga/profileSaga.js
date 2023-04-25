@@ -5,7 +5,6 @@ import { actionTypes } from '@constants/actionTypes'
 
 export function* profileInfoSaga(props) {
   const userID = props.payload
-	console.log(userID)
 
   try {
     const data = yield call(getUserData, userID)

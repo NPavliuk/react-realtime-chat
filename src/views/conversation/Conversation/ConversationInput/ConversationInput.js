@@ -4,7 +4,7 @@ import {
 	setConversationInput,
 	setConversationMessageStart
 } from '@store/reducers/conversationReducer/conversationActions'
-import { getConversationalistsIDs } from '@helpers/getConversationalistsIDs'
+import { getConversationalistsIDs } from '@helpers/conversations'
 import { MessageSendButton } from '@components/ui/buttons'
 import { MessageEditor } from '@components/ui/editors'
 import { useRef } from 'react'

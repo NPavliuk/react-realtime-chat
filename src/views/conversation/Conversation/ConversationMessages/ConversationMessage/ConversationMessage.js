@@ -1,18 +1,38 @@
 import styles from './ConversationMessage.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
-import { removeConversationMessageStart } from '@store/reducers/conversationReducer/conversationActions'
-import { getNewLastMessage, isLastMessage } from '@helpers/lastMessage'
+import {
+	removeConversationMessageStart,
+	setReadedConversationMessageStart
+} from '@store/reducers/conversationReducer/conversationActions'
+import { getNewLastMessage, isLastMessage, isUnreadMessage } from '@helpers/messages'
 import Moment from 'react-moment'
 import { classNames } from '@helpers/classNames'
 import { UserAvatar } from '@components/ui/avatars'
 import { getProfileInfoStart, openProfileBar } from '@store/reducers/profileReducer/profileActions'
 import { RiDeleteBin7Line } from 'react-icons/ri'
 import { MessageRemoveButton } from '@components/ui/buttons/MessageRemoveButton/MessageRemoveButton'
+import { useEffect } from 'react'
 
 export const ConversationMessage = ({message, messages, conversationID}) => {
 	const dispatch = useDispatch()
 	const userID = useSelector(state => state.auth.id)
 	const conversations = useSelector(state => state.conversations.conversations)
+
+	useEffect(() => {
+		const isUnread = isUnreadMessage(message, userID)
+		const conversation = conversations.filter(conversation => conversation.id === conversationID)
+
+		if (isUnread) {
+			const data = {
+				userID: userID,
+				message: message,
+				conversationID: conversationID,
+				lastMessage: conversation[0].lastMessage
+			}
+
+			dispatch(setReadedConversationMessageStart(data))
+		}
+	}, [message])
 
 	const removeMessageHandler = () => {
 		const data = {
@@ -47,7 +67,7 @@ export const ConversationMessage = ({message, messages, conversationID}) => {
 				[styles.incoming]: userID !== message.senderId
 			})}>
 				<div className={styles.messageInner}>
-					<div className={styles.messageText} dangerouslySetInnerHTML={{ __html: message.text }}></div>
+					<div className={styles.messageText} dangerouslySetInnerHTML={{__html: message.text}}></div>
 					<span className={styles.messageTime}>
 						<Moment format={'hh:mm A'}>{message.date.toDate()}</Moment>
 					</span>

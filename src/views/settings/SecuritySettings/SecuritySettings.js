@@ -1,7 +1,7 @@
 import styles from './SecuritySettings.module.scss'
 import { Settings } from '@views/settings/Settings/Settings'
 import { SecuritySettingsForm } from '@views/settings/SecuritySettings/SecuritySettingsForm/SecuritySettingsForm'
-import { checkIfMobile } from '@helpers/checkMobile'
+import { checkIfMobile } from '@helpers/checkResolution'
 
 export const SecuritySettings = () => {
   const isMobile = checkIfMobile()

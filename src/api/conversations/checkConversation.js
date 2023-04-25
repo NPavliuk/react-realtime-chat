@@ -3,7 +3,7 @@ import { db } from '@api/firebase'
 
 export const checkConversation = async (userID, interlocutorID) => {
 	const conversationsIDs = []
-	const userConversationsDbRef = collection(db, `relations/${userID}/conversations`)
+	const userConversationsDbRef = collection(db, `users/${userID}/conversations`)
 
 	try {
 		const userConversationsData = await getDocs(userConversationsDbRef)

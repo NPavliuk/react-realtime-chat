@@ -7,8 +7,9 @@ import { UserAvatar } from '@components/ui/avatars'
 import { NavigationButton, LogoutButton } from '@components/ui/buttons'
 import { closeProfileBar, getProfileInfoStart, openProfileBar } from '@store/reducers/profileReducer/profileActions'
 import { classNames } from '@helpers/classNames'
-import { checkIfMobile } from '@helpers/checkMobile'
+import { checkIfMobile } from '@helpers/checkResolution'
 import { routeNames } from '@constants/routeNames'
+import { isUnreadConversations } from '@helpers/messages'
 
 export const NavigationBar = () => {
 	const dispatch = useDispatch()
@@ -18,6 +19,7 @@ export const NavigationBar = () => {
 
 	const user = useSelector(state => state.user.data)
 	const conversationID =  useSelector(state => state.conversation.id)
+	const conversations = useSelector(state => state.conversations.conversations)
 
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
@@ -48,6 +50,8 @@ export const NavigationBar = () => {
     }
   }
 
+	const isUnread = isUnreadConversations(conversations, user.id)
+
   return (
     <aside>
       <div className={classNames({
@@ -63,7 +67,7 @@ export const NavigationBar = () => {
         <div className={styles.mainBarNav}>
           <div className={styles.mainBarItem}>
             <NavigationButton route={conversationID ? `${routeNames.CONVERSATIONS}/${conversationID}` : routeNames.CONVERSATIONS} icon={<RiDiscussLine/>} activeIcon={<RiDiscussFill/>}
-                              indicator={true} handler={() => {handleClick(); closeProfileBarHandler()}}/>
+                              indicator={isUnread} handler={() => {handleClick(); closeProfileBarHandler()}}/>
           </div>
           <div className={styles.mainBarItem}>
             <NavigationButton route={routeNames.BOOKMARKS} icon={<RiBookmarkLine/>} activeIcon={<RiBookmarkFill/>}

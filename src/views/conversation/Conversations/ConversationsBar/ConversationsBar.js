@@ -2,8 +2,7 @@ import styles from './ConversationsBar.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { PrimaryButton } from '@components/ui/buttons'
 import {
-	getAllConversationsSuccess,
-	openAddConversationModal
+	openAddConversationModal, watchConversations
 } from '@store/reducers/conversationsReducer/conversationsActions'
 import { useEffect } from 'react'
 import {
@@ -23,7 +22,7 @@ export const ConversationsBar = () => {
 		let unsubUserConversations
 		let conversationsUIDs = []
 		const conversationsDbRef = collection(db, 'conversations')
-		const userConversationsDbRef = collection(db, `relations/${userID}/conversations`)
+		const userConversationsDbRef = collection(db, `users/${userID}/conversations`)
 
 		if (userID) {
 			unsubUserConversations = onSnapshot(userConversationsDbRef, async (querySnapshot) => {
@@ -44,14 +43,14 @@ export const ConversationsBar = () => {
 								conversation.conversationalists = await getUsers(conversation.conversationalists)
 							}))
 						}
-						dispatch(getAllConversationsSuccess(conversations))
+						dispatch(watchConversations(conversations))
 					})
 				}
 			})
 		}
 
 		return () => {
-			unsubConversations()
+			// unsubConversations()
 			unsubUserConversations()
 		}
 	}, [userID])

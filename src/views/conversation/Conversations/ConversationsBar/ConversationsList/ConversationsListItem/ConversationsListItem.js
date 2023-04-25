@@ -8,6 +8,8 @@ import { removeConversationsStart } from '@store/reducers/conversationsReducer/c
 import { getProfileInfoStart, openProfileBar } from '@store/reducers/profileReducer/profileActions'
 import { classNames } from '@helpers/classNames'
 import { routeNames } from '@constants/routeNames'
+import { isUnreadMessage } from '@helpers/messages'
+import { chooseConversation } from '@store/reducers/conversationReducer/conversationActions'
 
 export const ConversationsListItem = ({conversation}) => {
 	const dispatch = useDispatch()
@@ -15,22 +17,24 @@ export const ConversationsListItem = ({conversation}) => {
 	const isDirectConversation = conversation.directConversation
 	const conversationalists = conversation.conversationalists.filter(c => c.id !== userID)
 
-	const removeConversationHandler = (e) => {
-		e.preventDefault()
-
-		const data = {
-			userID: userID,
-			interlocutorID: conversationalists[0].id,
-			conversationID: conversation.id.trim()
-		}
-
-		dispatch(removeConversationsStart(data))
-	}
+	// const removeConversationHandler = (e) => {
+	// 	e.preventDefault()
+	//
+	// 	const data = {
+	// 		userID: userID,
+	// 		interlocutorID: conversationalists[0].id,
+	// 		conversationID: conversation.id.trim()
+	// 	}
+	//
+	// 	dispatch(removeConversationsStart(data))
+	// }
 
 	const openProfileBarHandler = () => {
 		dispatch(openProfileBar())
 		dispatch(getProfileInfoStart(conversationalists[0].id))
 	}
+
+	const isUnread = isUnreadMessage(conversation.lastMessage, userID)
 
 	return (
 		isDirectConversation ?
@@ -39,10 +43,8 @@ export const ConversationsListItem = ({conversation}) => {
 				[styles.active]: isActive
 			})}>
 				<div className={styles.head}>
-					<div className={styles.avatar}>
-						<UserAvatar name={conversationalists[0].name} image={conversationalists[0].avatar}
-												modifyClass={'small'} handler={openProfileBarHandler}/>
-					</div>
+					<UserAvatar name={conversationalists[0].name} image={conversationalists[0].avatar}
+											modifyClass={'small'} handler={openProfileBarHandler}/>
 					<div className={styles.info}>
 						<h5 className={styles.name}>{conversationalists[0].name}</h5>
 						{
@@ -52,14 +54,14 @@ export const ConversationsListItem = ({conversation}) => {
 								: <span className={styles.time}> - <Moment
 									format={'hh:mm A'}>{conversation.conversationStart.toDate()}</Moment></span>
 						}
-
 					</div>
-					{/* TODO: Add logic for dropdown. Move dropdown in new component */}
-					<div className={styles.dropdown}>
-						<button className={styles.dropdownButton} onClick={removeConversationHandler}>
-							<HiOutlineDotsHorizontal/>
-						</button>
-					</div>
+					{
+						conversation.lastMessage && isUnread ?
+							<div className={styles.unread}>
+								<span className={styles.indicator}></span>
+							</div>
+							: null
+					}
 				</div>
 				<div className={styles.message} dangerouslySetInnerHTML={
 					{__html: conversation.lastMessage ? conversation.lastMessage.text : `Start a conversation with ${conversationalists[0].name}`}

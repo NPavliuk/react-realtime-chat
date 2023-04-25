@@ -1,7 +1,7 @@
 import { Settings } from '@views/settings/Settings/Settings'
 import { ProfileSettingsForm } from './ProfileSettingsForm/ProfileSettingsForm'
 import styles from './ProfileSettings.module.scss'
-import { checkIfMobile } from '@helpers/checkMobile'
+import { checkIfMobile } from '@helpers/checkResolution'
 
 export const ProfileSettings = () => {
   const isMobile = checkIfMobile()

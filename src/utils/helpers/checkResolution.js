@@ -1,19 +1,9 @@
 export const checkIfMobile = () => {
   const width = window.innerWidth
-
-  if (width > 640) {
-    return false
-  } else {
-    return true
-  }
+  return width > 640
 }
 
 export const checkIfTablet = () => {
   const width = window.innerWidth
-
-  if (width > 767) {
-    return false
-  } else {
-    return true
-  }
+  return width > 767
 }

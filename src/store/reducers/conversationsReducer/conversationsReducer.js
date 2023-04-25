@@ -14,14 +14,17 @@ const initialState = {
 
 export const conversationsReducer = (state = initialState, {type, payload}) => {
 	switch (type) {
+		case actionTypes.REMOVE_CONVERSATION_START:
 		case actionTypes.GET_CONVERSATIONS_START:
 		case actionTypes.CREATE_DIRECT_CONVERSATION_START:
 			return {
 				...state,
 				loading: true
 			}
+		// case actionTypes.REMOVE_CONVERSATION_SUCCESS:
 		case actionTypes.GET_CONVERSATIONS_SUCCESS:
-		case actionTypes.CREATE_DIRECT_CONVERSATION_SUCCESS:
+		case actionTypes.WATCH_CONVERSATIONS:
+		// case actionTypes.CREATE_DIRECT_CONVERSATION_SUCCESS:
 			return {
 				...state,
 				conversations: payload,

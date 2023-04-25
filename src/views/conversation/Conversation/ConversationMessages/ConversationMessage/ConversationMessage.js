@@ -13,10 +13,23 @@ import { RiDeleteBin7Line } from 'react-icons/ri'
 import { MessageRemoveButton } from '@components/ui/buttons/MessageRemoveButton/MessageRemoveButton'
 import { useEffect } from 'react'
 
-export const ConversationMessage = ({message, messages, conversationID}) => {
+export const ConversationMessage = ({message, conversation}) => {
 	const dispatch = useDispatch()
 	const userID = useSelector(state => state.auth.id)
-	const conversations = useSelector(state => state.conversations.conversations)
+
+	useEffect(() => {
+		const isUnread = isUnreadMessage(message, userID)
+
+		if (isUnread) {
+			const data = {
+				userID: userID,
+				message: message,
+				conversationID: conversation.id,
+			}
+
+			dispatch(setReadedConversationMessageStart(data))
+		}
+	}, [message])
 
 	useEffect(() => {
 		const isUnread = isUnreadMessage(message, userID)
@@ -37,8 +50,8 @@ export const ConversationMessage = ({message, messages, conversationID}) => {
 	const removeMessageHandler = () => {
 		const data = {
 			message: message,
-			conversationID: conversationID,
-			lastMessage: isLastMessage(messages, message) ? getNewLastMessage(messages, message) : null
+			conversationID: conversation.id,
+			lastMessage: isLastMessage(conversation.messages, message) ? getNewLastMessage(conversation.messages, message) : null
 		}
 
 		dispatch(removeConversationMessageStart(data))
@@ -49,16 +62,10 @@ export const ConversationMessage = ({message, messages, conversationID}) => {
 		dispatch(getProfileInfoStart(message.senderId))
 	}
 
-	const getInterlocutorData = () => {
-		let data
-		const conversation = conversations.filter(conversation => conversation.id === conversationID)
-		if (conversation.length > 0) {
-			conversation[0].conversationalists.map(i => i.id === message.senderId ? data = i : null)
-		}
-		return data
+	let interlocutor
+	if (conversation.data.conversationalists) {
+		conversation.data.conversationalists.map(i => i.id === message.senderId ? interlocutor = i : null)
 	}
-
-	const interlocutor = getInterlocutorData()
 
 	return (
 		<div className={styles.wrapper}>

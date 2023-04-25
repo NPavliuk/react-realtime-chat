@@ -1,5 +1,10 @@
 import { actionTypes } from '@constants/actionTypes'
 
+export const watchConversation = (data) => ({
+	type: actionTypes.WATCH_CONVERSATION,
+	payload: data
+})
+
 export const watchConversationMessages = (messages) => ({
 	type: actionTypes.WATCH_CONVERSATION_MESSAGES,
 	payload: messages

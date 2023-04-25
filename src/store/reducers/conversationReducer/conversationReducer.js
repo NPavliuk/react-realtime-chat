@@ -2,6 +2,7 @@ import { actionTypes } from '@constants/actionTypes'
 
 const initialState = {
 	id: null,
+	data: {},
 	messages: [],
 	messageInput: '',
 	loading: false,
@@ -19,6 +20,12 @@ export const conversationReducer = (state = initialState, {type, payload}) => {
 			return {
 				...state,
 				loading: true
+			}
+		case actionTypes.WATCH_CONVERSATION:
+			return {
+				...state,
+				data: payload,
+				loading: false
 			}
 		case actionTypes.WATCH_CONVERSATION_MESSAGES:
 			return {

@@ -13,11 +13,13 @@ import { setMessage } from '@api/messages/setMessage'
 import { removeMessage } from '@api/messages/removeMessage'
 import { setLastMessage } from '@api/messages/setLastMessage'
 import { setConversationalists } from '@api/conversations/setConversationalists'
+import { getLastMessage } from '@api/messages/getLastMessage'
 
 export function* setConversationMessageSaga(props) {
 	const userID = props.payload.userID
 	const conversationID = props.payload.conversationID
 	const conversationalists = props.payload.conversationalists
+
 	const message = {
 		id: uuid(),
 		senderId: userID,
@@ -57,12 +59,12 @@ export function* removeConversationMessageSaga(props) {
 export function* setReadedConversationMessageSaga(props) {
 	const userID = props.payload.userID
 	const message = props.payload.message
-	const lastMessage = props.payload.lastMessage
 	const conversationID = props.payload.conversationID
 
 	try {
 		message.readers.push(userID)
 		yield call(setMessage, message, conversationID)
+		const lastMessage = yield call(getLastMessage, conversationID)
 		if (message.id === lastMessage.id) {
 			lastMessage.readers.push(userID)
 			yield call(setLastMessage, lastMessage, conversationID)

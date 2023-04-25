@@ -11,6 +11,6 @@ export function* rootSaga() {
 	yield all([...userSaga])
 	yield all([...usersSaga])
 	yield all([...profileSaga])
-	yield all([...conversationSaga])
 	yield all([...conversationsSaga])
+	yield all([...conversationSaga])
 }

@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from 'redux-saga/effects'
+import { call, put, takeLatest, take, cancelled } from 'redux-saga/effects'
 import { actionTypes } from '@constants/actionTypes'
 import { v4 as uuid } from 'uuid'
 import { Timestamp } from 'firebase/firestore'
@@ -7,13 +7,17 @@ import {
 	removeConversationMessageFail,
 	removeConversationMessageSuccess,
 	setReadedConversationMessageStart,
-	setReadedConversationMessageSuccess
+	setReadedConversationMessageSuccess,
+	watchConversationMessagesSuccess,
+	watchConversationMessagesFail
 } from '@store/reducers/conversationReducer/conversationActions'
 import { setMessage } from '@api/messages/setMessage'
 import { removeMessage } from '@api/messages/removeMessage'
 import { setLastMessage } from '@api/messages/setLastMessage'
 import { setConversationalists } from '@api/conversations/setConversationalists'
 import { getLastMessage } from '@api/messages/getLastMessage'
+import { watchMessages } from '@api/messages/watchMessages'
+import { eventChannel } from 'redux-saga'
 
 export function* setConversationMessageSaga(props) {
 	const userID = props.payload.userID
@@ -75,8 +79,27 @@ export function* setReadedConversationMessageSaga(props) {
 	}
 }
 
+function* watchMessagesSaga(props) {
+	const conversationID = props.payload
+	const channel = yield call(watchMessages, eventChannel, conversationID)
+
+	try {
+		while (true) {
+			const messages = yield take(channel)
+			yield put(watchConversationMessagesSuccess(messages))
+		}
+	} catch (error) {
+		yield put(watchConversationMessagesFail(error))
+	} finally {
+		if (yield cancelled()) {
+			channel.close()
+		}
+	}
+}
+
 export const conversationSaga = [
 	takeLatest(actionTypes.SET_CONVERSATION_MESSAGE_START, setConversationMessageSaga),
 	takeLatest(actionTypes.REMOVE_CONVERSATION_MESSAGE_START, removeConversationMessageSaga),
-	takeLatest(actionTypes.SET_READED_CONVERSATION_MESSAGE_START, setReadedConversationMessageSaga)
+	takeLatest(actionTypes.SET_READED_CONVERSATION_MESSAGE_START, setReadedConversationMessageSaga),
+	takeLatest(actionTypes.WATCH_CONVERSATION_MESSAGES_START, watchMessagesSaga)
 ]

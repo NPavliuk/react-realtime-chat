@@ -33,14 +33,13 @@ export const ConversationMessage = ({message, conversation}) => {
 
 	useEffect(() => {
 		const isUnread = isUnreadMessage(message, userID)
-		const conversation = conversations.filter(conversation => conversation.id === conversationID)
 
 		if (isUnread) {
 			const data = {
 				userID: userID,
 				message: message,
-				conversationID: conversationID,
-				lastMessage: conversation[0].lastMessage
+				conversationID: conversation.id,
+				lastMessage: conversation.data.lastMessage
 			}
 
 			dispatch(setReadedConversationMessageStart(data))

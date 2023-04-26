@@ -1,13 +1,34 @@
 import { actionTypes } from '@constants/actionTypes'
 
-export const watchConversation = (data) => ({
-	type: actionTypes.WATCH_CONVERSATION,
+export const watchConversationStart = (data) => ({
+	type: actionTypes.WATCH_CONVERSATION_START,
 	payload: data
 })
 
-export const watchConversationMessages = (messages) => ({
-	type: actionTypes.WATCH_CONVERSATION_MESSAGES,
+export const watchConversationSuccess = (conversation) => ({
+	type: actionTypes.WATCH_CONVERSATION_SUCCESS,
+	payload: conversation
+})
+
+export const watchConversationFail = (error) => ({
+	type: actionTypes.WATCH_CONVERSATION_FAIL,
+	payload: error
+})
+
+
+export const watchConversationMessagesStart = (id) => ({
+	type: actionTypes.WATCH_CONVERSATION_MESSAGES_START,
+	payload: id
+})
+
+export const watchConversationMessagesSuccess = (messages) => ({
+	type: actionTypes.WATCH_CONVERSATION_MESSAGES_SUCCESS,
 	payload: messages
+})
+
+export const watchConversationMessagesFail = (error) => ({
+	type: actionTypes.WATCH_CONVERSATION_MESSAGES_FAIL,
+	payload: error
 })
 
 export const setConversationMessageStart = (data) => ({

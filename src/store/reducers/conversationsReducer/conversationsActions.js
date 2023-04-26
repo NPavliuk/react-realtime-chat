@@ -28,9 +28,19 @@ export const createDirectConversationFail = (error) => ({
 	payload: error
 })
 
-export const watchConversations = (conversations) => ({
-	type: actionTypes.WATCH_CONVERSATIONS,
+export const watchConversationsStart = (id) => ({
+	type: actionTypes.WATCH_CONVERSATIONS_START,
+	payload: id
+})
+
+export const watchConversationsSuccess = (conversations) => ({
+	type: actionTypes.WATCH_CONVERSATIONS_SUCCESS,
 	payload: conversations
+})
+
+export const watchConversationsFail = (error) => ({
+	type: actionTypes.WATCH_CONVERSATIONS_FAIL,
+	payload: error
 })
 
 export const removeConversationsStart = (data) => ({

@@ -8,12 +8,10 @@ import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import {
 	chooseConversation,
-	watchConversation,
-	watchConversationMessages
+	watchConversationStart,
+	watchConversationMessagesStart
 } from '@store/reducers/conversationReducer/conversationActions'
-import { collection, doc, onSnapshot } from 'firebase/firestore'
-import { db } from '@api/firebase'
-import { getUsers } from '@api/users/getUsers'
+
 
 export const Conversation = () => {
 	const dispatch = useDispatch()
@@ -26,50 +24,19 @@ export const Conversation = () => {
 	}, [location])
 
 	useEffect(() => {
-		let unsubMessages
-		let unsubConversation
-		const conversationRef = doc(db, `conversations`, conversationID )
-		const messagesDbRef = collection(db, `conversations/${conversationID}/messages`)
-
-		if(conversationID) {
-			unsubConversation = onSnapshot(conversationRef, async (doc) => {
-				const conversation = doc.data()
-
-				if(conversation) {
-					conversation.conversationalists = await getUsers(conversation.conversationalists)
-				}
-
-				dispatch(watchConversation(conversation))
-			})
-
-			unsubMessages = onSnapshot(messagesDbRef, async (querySnapshot) => {
-				let messages = []
-
-				querySnapshot.forEach((doc) => {
-					messages.push(doc.data())
-				})
-
-				messages.sort(function(x, y){
-					return x.date - y.date;
-				})
-
-				dispatch(watchConversationMessages(messages))
-			})
-		}
-
-		return () => {
-			unsubMessages()
-			unsubConversation()
+		if (conversationID) {
+			dispatch(watchConversationStart(conversationID))
+			dispatch(watchConversationMessagesStart(conversationID))
 		}
 	}, [conversationID])
 
-  return (
-    <Conversations>
+	return (
+		<Conversations>
 			<div className={styles.wrapper}>
-				<ConversationHead />
-				<ConversationMessages />
-				<ConversationInput />
+				<ConversationHead/>
+				<ConversationMessages/>
+				<ConversationInput/>
 			</div>
-    </Conversations>
-  )
+		</Conversations>
+	)
 }

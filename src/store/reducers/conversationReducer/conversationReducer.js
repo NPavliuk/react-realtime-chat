@@ -21,18 +21,20 @@ export const conversationReducer = (state = initialState, {type, payload}) => {
 				...state,
 				loading: true
 			}
-		case actionTypes.WATCH_CONVERSATION:
+		case actionTypes.WATCH_CONVERSATION_SUCCESS:
 			return {
 				...state,
 				data: payload,
 				loading: false
 			}
-		case actionTypes.WATCH_CONVERSATION_MESSAGES:
+		case actionTypes.WATCH_CONVERSATION_MESSAGES_SUCCESS:
 			return {
 				...state,
 				messages: payload,
 				loading: false
 			}
+		case actionTypes.WATCH_CONVERSATION_FAIL:
+		case actionTypes.WATCH_CONVERSATION_MESSAGES_FAIL:
 		case actionTypes.SET_CONVERSATION_MESSAGE_FAIL:
 		case actionTypes.SET_READED_CONVERSATION_MESSAGE_FAIL:
 			return {

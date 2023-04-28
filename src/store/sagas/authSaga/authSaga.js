@@ -19,10 +19,6 @@ import {
 import { actionTypes } from '@constants/actionTypes'
 import { messages } from '@constants/validationMessages'
 import { eventChannel } from 'redux-saga'
-import {
-	removeSessionFromLocalStorage,
-	saveSessionToLocalStorage
-} from '@helpers/localStorage'
 import { watchAuthSession } from '@api/auth/watchAuthSession'
 import { getUserDataStart } from '@store/reducers/userReducer/userActions'
 import { routeNames } from '@constants/routeNames'
@@ -77,7 +73,6 @@ export function* signOutSaga(props) {
 	try {
 		yield call(signOut, auth)
 		yield put(signOutSuccess())
-		yield call(removeSessionFromLocalStorage)
 		navigate(routeNames.HOME)
 	} catch (err) {
 		yield put(signOutFail(err.message))
@@ -112,7 +107,6 @@ export function* watchAuthSessionSaga() {
 			if (user !== 'null') {
 				yield put(watchSessionSuccess(user.uid))
 				yield put(getUserDataStart(user.uid))
-				yield call(saveSessionToLocalStorage, user.uid)
 			}
 		}
 	} catch (error) {

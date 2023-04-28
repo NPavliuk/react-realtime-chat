@@ -33,6 +33,7 @@ export const conversationReducer = (state = initialState, {type, payload}) => {
 				messages: payload,
 				loading: false
 			}
+		case actionTypes.CLEAR_CONVERSATION_MESSAGES_FAIL:
 		case actionTypes.WATCH_CONVERSATION_FAIL:
 		case actionTypes.WATCH_CONVERSATION_MESSAGES_FAIL:
 		case actionTypes.SET_CONVERSATION_MESSAGE_FAIL:

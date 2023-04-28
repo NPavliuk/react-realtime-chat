@@ -15,7 +15,6 @@ export const watchConversationFail = (error) => ({
 	payload: error
 })
 
-
 export const watchConversationMessagesStart = (id) => ({
 	type: actionTypes.WATCH_CONVERSATION_MESSAGES_START,
 	payload: id
@@ -43,6 +42,20 @@ export const setConversationMessageSuccess = (messages) => ({
 
 export const setConversationMessageFail = (error) => ({
 	type: actionTypes.SET_CONVERSATION_MESSAGE_FAIL,
+	payload: error
+})
+
+export const clearConversationMessagesStart = (id) => ({
+	type: actionTypes.CLEAR_CONVERSATION_MESSAGES_START,
+	payload: id
+})
+
+export const clearConversationMessagesSuccess = () => ({
+	type: actionTypes.CLEAR_CONVERSATION_MESSAGES_SUCCESS,
+})
+
+export const clearConversationMessagesFail = (error) => ({
+	type: actionTypes.CLEAR_CONVERSATION_MESSAGES_FAIL,
 	payload: error
 })
 

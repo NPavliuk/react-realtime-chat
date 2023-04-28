@@ -31,7 +31,6 @@ export const AddDirectConversationForm = ({closeHandler}) => {
 		}
 
 		dispatch(createDirectConversationStart(allData))
-		// 	Redirect to conversation after it creating
 	}
 
 	return (

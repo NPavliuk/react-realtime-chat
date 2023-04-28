@@ -24,6 +24,7 @@ export const messages = {
 
 	// Conversation messages
 	conversationRemoveSuccess: 'Conversation successful removed',
+	conversationMessagesRemoveSuccess: 'Conversation history has been cleared successfully',
 
   // General messages
   somethingWrong: 'Something go wrong. Please try again',

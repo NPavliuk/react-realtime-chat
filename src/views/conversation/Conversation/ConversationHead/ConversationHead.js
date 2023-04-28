@@ -5,8 +5,10 @@ import { getProfileInfoStart, openProfileBar } from '@store/reducers/profileRedu
 import { PrimaryDropdown, PrimaryDropdownItem } from '@components/ui/dropdowns'
 import { HiOutlineDotsVertical } from 'react-icons/hi'
 import { RiDeleteBin7Line, RiUserLine } from 'react-icons/ri'
+import { GrClearOption } from 'react-icons/gr'
 import { removeConversationsStart } from '@store/reducers/conversationsReducer/conversationsActions'
 import { useNavigate } from 'react-router-dom'
+import { clearConversationMessagesStart } from '@store/reducers/conversationReducer/conversationActions'
 
 export const ConversationHead = () => {
 	const dispatch = useDispatch()
@@ -39,6 +41,10 @@ export const ConversationHead = () => {
 		dispatch(removeConversationsStart(data))
 	}
 
+	const clearConversationMessages = () => {
+		dispatch(clearConversationMessagesStart(conversation.id))
+	}
+
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.user}>
@@ -50,17 +56,15 @@ export const ConversationHead = () => {
 					<p className={styles.userPosition}>Web dev</p>
 				</div>
 			</div>
-
 			{
 				conversation.data.directConversation ?
 					<PrimaryDropdown icon={<HiOutlineDotsVertical/>}>
 						<PrimaryDropdownItem icon={<RiUserLine/>} title={'Profile'} handler={openProfileBarHandler}/>
-						<PrimaryDropdownItem icon={<RiDeleteBin7Line/>} title={'Remove conversation'} modifyClass={'danger'}
-																 handler={removeConversationHandler}/>
+						<PrimaryDropdownItem icon={<GrClearOption/>} title={'Clear history'} handler={clearConversationMessages}/>
+						<PrimaryDropdownItem icon={<RiDeleteBin7Line/>} title={'Remove conversation'} modifyClass={'danger'} handler={removeConversationHandler}/>
 					</PrimaryDropdown>
 					: null
 			}
-
 		</div>
 	)
 }

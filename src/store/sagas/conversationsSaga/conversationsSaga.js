@@ -13,6 +13,8 @@ import {
 
 import { eventChannel } from 'redux-saga'
 import {
+	clearConversationMessagesFail,
+	clearConversationMessagesSuccess,
 	watchConversationFail,
 	watchConversationSuccess
 } from '@store/reducers/conversationReducer/conversationActions'
@@ -22,6 +24,7 @@ import { watchConversations } from '@api/conversations/watchConversations'
 import { routeNames } from '@constants/routeNames'
 import { actionTypes } from '@constants/actionTypes'
 import { messages } from '@constants/validationMessages'
+import { removeMessages } from '@api/messages/removeMessages'
 
 export function* createDirectConversationSaga(props) {
 	const userID = props.payload.userID
@@ -50,6 +53,18 @@ export function* createDirectConversationSaga(props) {
 		}
 	} catch (err) {
 		yield put(createDirectConversationFail(err.message))
+	}
+}
+
+export function* clearConversationMessagesSaga(props) {
+	const conversationID = props.payload
+
+	try {
+		yield call(removeMessages, conversationID)
+		yield put(clearConversationMessagesSuccess())
+		yield call(toast.success, messages.conversationMessagesRemoveSuccess)
+	} catch (err) {
+		yield put(clearConversationMessagesFail(err.message))
 	}
 }
 
@@ -110,6 +125,7 @@ function* watchConversationsSaga(props) {
 
 export const conversationsSaga = [
 	takeLatest(actionTypes.CREATE_DIRECT_CONVERSATION_START, createDirectConversationSaga),
+	takeLatest(actionTypes.CLEAR_CONVERSATION_MESSAGES_START, clearConversationMessagesSaga),
 	takeLatest(actionTypes.REMOVE_CONVERSATION_START, removeConversationSaga),
 	takeLatest(actionTypes.WATCH_CONVERSATION_START, watchConversationSaga),
 	takeLatest(actionTypes.WATCH_CONVERSATIONS_START, watchConversationsSaga)

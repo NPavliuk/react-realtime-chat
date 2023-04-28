@@ -30,8 +30,9 @@ export const signInFail = (error) => ({
   type: actionTypes.SIGN_IN_FAIL
 })
 
-export const signOutStart = () => ({
-  type: actionTypes.SIGN_OUT_START
+export const signOutStart = (data) => ({
+  type: actionTypes.SIGN_OUT_START,
+	payload: data
 })
 
 export const signOutSuccess = () => ({
@@ -44,9 +45,18 @@ export const signOutFail = (error) => ({
   type: actionTypes.SIGN_OUT_FAIL
 })
 
-export const setSession = (session) => ({
-  type: actionTypes.SET_SESSION,
-	payload: session
+export const watchSessionStart = () => ({
+	type: actionTypes.WATCH_SESSION_START,
+})
+
+export const watchSessionSuccess = (id) => ({
+  type: actionTypes.WATCH_SESSION_SUCCESS,
+	payload: id
+})
+
+export const watchSessionFail = (error) => ({
+	type: actionTypes.WATCH_SESSION_FAIL,
+	payload: error
 })
 
 export const updatePasswordStart = (data) => ({

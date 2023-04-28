@@ -1,5 +1,5 @@
 .wrapper {
-  @apply flex justify-between pb-3 border-b;
+  @apply flex justify-between items-center pb-3 border-b;
 
   .user {
     @apply flex gap-2;

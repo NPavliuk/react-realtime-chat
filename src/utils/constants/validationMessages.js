@@ -21,6 +21,10 @@ export const messages = {
   passwordUpdated: 'Password successful updated',
   passwordUpdateFailed: 'Update password failed. Please try again',
 
+
+	// Conversation messages
+	conversationRemoveSuccess: 'Conversation successful removed',
+
   // General messages
   somethingWrong: 'Something go wrong. Please try again',
 }

@@ -2,7 +2,7 @@ import { collection, onSnapshot } from 'firebase/firestore'
 import { db } from '@api/firebase'
 
 export function watchMessages(eventChannel, conversationID) {
-	return eventChannel((emmiter) => {
+	return eventChannel((emit) => {
 		const messagesDbRef = collection(db, `conversations/${conversationID}/messages`)
 
 		const unsubMessages = onSnapshot(messagesDbRef, {includeMetadataChanges: true}, snapshot => {
@@ -16,7 +16,7 @@ export function watchMessages(eventChannel, conversationID) {
 				return x.date - y.date
 			})
 
-			emmiter(messages)
+			emit(messages)
 		})
 
 		return () => unsubMessages

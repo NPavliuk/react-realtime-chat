@@ -16,7 +16,7 @@ export const authReducer = (state = initialState, {type, payload}) => {
         ...state,
         loading: true
       }
-		case actionTypes.SET_SESSION:
+		case actionTypes.WATCH_SESSION_SUCCESS:
     case actionTypes.SIGN_IN_SUCCESS:
     case actionTypes.SIGN_UP_SUCCESS:
     case actionTypes.SIGN_OUT_SUCCESS:
@@ -30,6 +30,7 @@ export const authReducer = (state = initialState, {type, payload}) => {
         ...state,
         loading: false
       }
+		case actionTypes.WATCH_SESSION_FAIL:
     case actionTypes.UPDATE_USER_DATA_FAIL:
     case actionTypes.SIGN_IN_FAIL:
     case actionTypes.SIGN_UP_FAIL:

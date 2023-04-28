@@ -1,0 +1,29 @@
+.wrapper {
+  @apply relative;
+
+  .button {
+    @apply inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 rounded-lg;
+
+    &:hover {
+      @apply bg-gray-200
+    }
+
+    &:focus {
+      @apply ring-4 outline-none ring-gray-50
+    }
+
+    svg {
+      @apply w-5 h-5;
+    }
+  }
+
+  .menu {
+    @apply hidden absolute top-full right-0 p-1 mt-1 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-52;
+
+    &.show {
+      @apply block;
+    }
+
+    .list {}
+  }
+}

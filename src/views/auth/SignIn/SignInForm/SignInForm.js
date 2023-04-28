@@ -1,16 +1,18 @@
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { signInStart } from '@store/reducers/authReducer/authActions'
 import { PasswordInput, EmailInput } from '@components/ui/form/inputs'
 import { SubmitButton } from '@components/ui/buttons'
 import styles from './SignInForm.module.scss'
 
 export const SignInForm = () => {
+	const navigate = useNavigate()
   const dispatch = useDispatch()
   const {register, handleSubmit, formState: {errors}} = useForm({mode: 'onBlur'})
 
   const onSubmit = (data) => {
+		data.navigate = navigate
     dispatch(signInStart(data))
   }
 

@@ -2,32 +2,18 @@ import styles from './ConversationsListItem.module.scss'
 import Moment from 'react-moment'
 import { NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { HiOutlineDotsHorizontal } from 'react-icons/hi'
 import { UserAvatar } from '@components/ui/avatars'
-import { removeConversationsStart } from '@store/reducers/conversationsReducer/conversationsActions'
 import { getProfileInfoStart, openProfileBar } from '@store/reducers/profileReducer/profileActions'
 import { classNames } from '@helpers/classNames'
 import { routeNames } from '@constants/routeNames'
 import { isUnreadMessage } from '@helpers/messages'
-import { chooseConversation } from '@store/reducers/conversationReducer/conversationActions'
+
 
 export const ConversationsListItem = ({conversation}) => {
 	const dispatch = useDispatch()
 	const userID = useSelector(state => state.auth.id)
 	const isDirectConversation = conversation.directConversation
 	const conversationalists = conversation.conversationalists.filter(c => c.id !== userID)
-
-	// const removeConversationHandler = (e) => {
-	// 	e.preventDefault()
-	//
-	// 	const data = {
-	// 		userID: userID,
-	// 		interlocutorID: conversationalists[0].id,
-	// 		conversationID: conversation.id.trim()
-	// 	}
-	//
-	// 	dispatch(removeConversationsStart(data))
-	// }
 
 	const openProfileBarHandler = () => {
 		dispatch(openProfileBar())

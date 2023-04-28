@@ -4,12 +4,15 @@ import { signUpStart } from '@store/reducers/authReducer/authActions'
 import { PasswordInput, EmailInput, TextInput, PasswordConfirmInput } from '@components/ui/form/inputs'
 import { SubmitButton } from '@components/ui/buttons'
 import styles from './SignUpForm.module.scss'
+import { useNavigate } from 'react-router-dom'
 
 export const SignUpForm = () => {
+	const navigate = useNavigate()
   const dispatch = useDispatch()
   const {register, watch, handleSubmit, formState: {errors}} = useForm({mode: 'onBlur'})
 
   const onSubmit = (data) => {
+		data.navigate = navigate
     dispatch(signUpStart(data))
   }
 

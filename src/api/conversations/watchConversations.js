@@ -3,7 +3,7 @@ import { db } from '@api/firebase'
 import { getUsers } from '@api/users/getUsers'
 
 export function watchConversations(eventChannel, userID) {
-	return eventChannel((emmiter) => {
+	return eventChannel((emit) => {
 		let unsubConversations
 		const conversationsRef = collection(db, 'conversations')
 		const userConversationRef = collection(db, `users/${userID}/conversations`)
@@ -30,13 +30,13 @@ export function watchConversations(eventChannel, userID) {
 					}))
 				}
 
-				emmiter(conversations)
+				emit(conversations)
 			})
 		})
 
 		return () => {
-			unsubUserConversations()
 			unsubConversations()
+			unsubUserConversations()
 		}
 	})
 }

@@ -1,0 +1,25 @@
+.wrapper {
+  @apply flex items-center gap-2 px-2 py-1 rounded-md ;
+
+  &:hover {
+    @apply bg-gray-200 cursor-pointer;
+  }
+
+  .title {
+    @apply text-sm text-gray-700;
+  }
+
+  &.danger {
+    &:hover {
+      @apply bg-red-100;
+    }
+
+    svg {
+      @apply fill-red-600;
+    }
+
+    .title {
+      @apply text-red-600;
+    }
+  }
+}

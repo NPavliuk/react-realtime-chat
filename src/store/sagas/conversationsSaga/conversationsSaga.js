@@ -1,4 +1,4 @@
-import { call, put, takeLatest, take, cancelled, all } from 'redux-saga/effects'
+import { call, put, takeLatest, take, cancelled, takeEvery } from 'redux-saga/effects'
 import { v4 as uuid } from 'uuid'
 import toast from 'react-hot-toast'
 import { Timestamp } from 'firebase/firestore'
@@ -10,8 +10,7 @@ import {
 	closeAddConversationModal, createDirectConversationFail, createDirectConversationSuccess,
 	removeConversationsFail, removeConversationsSuccess, watchConversationsFail, watchConversationsSuccess
 } from '@store/reducers/conversationsReducer/conversationsActions'
-import { actionTypes } from '@constants/actionTypes'
-import { messages } from '@constants/validationMessages'
+
 import { eventChannel } from 'redux-saga'
 import {
 	watchConversationFail,
@@ -20,10 +19,14 @@ import {
 import { watchConversation } from '@api/conversations/watchConversation'
 import { getUsers } from '@api/users/getUsers'
 import { watchConversations } from '@api/conversations/watchConversations'
+import { routeNames } from '@constants/routeNames'
+import { actionTypes } from '@constants/actionTypes'
+import { messages } from '@constants/validationMessages'
 
 export function* createDirectConversationSaga(props) {
 	const userID = props.payload.userID
 	const interlocutorID = props.payload.interlocutorID
+	const navigate = props.payload.navigate
 
 	const conversation = {
 		id: uuid(),
@@ -40,6 +43,7 @@ export function* createDirectConversationSaga(props) {
 			yield call(setConversation, userID, conversation.id)
 			yield put(createDirectConversationSuccess())
 			yield put(closeAddConversationModal())
+			navigate(`${routeNames.CONVERSATIONS}/${conversation.id}`)
 		} else {
 			yield put(createDirectConversationFail(messages.conversationAlreadyExist))
 			yield call(toast.error, messages.conversationAlreadyExist)
@@ -53,10 +57,13 @@ export function* removeConversationSaga(props) {
 	const userID = props.payload.userID
 	const interlocutorID = props.payload.interlocutorID
 	const conversationID = props.payload.conversationID
+	const navigate = props.payload.navigate
 
 	try {
 		yield call(removeConversation, userID, interlocutorID, conversationID)
 		yield put(removeConversationsSuccess())
+		navigate(routeNames.CONVERSATIONS)
+		yield call(toast.success, messages.conversationRemoveSuccess)
 	} catch (err) {
 		yield put(removeConversationsFail(err.message))
 	}
@@ -85,12 +92,11 @@ function* watchConversationSaga(props) {
 
 function* watchConversationsSaga(props) {
 	const userID = props.payload
-	let conversations
 	const userConversationsChannel = yield call(watchConversations, eventChannel, userID)
 
 	try {
 		while (true) {
-			conversations = yield take(userConversationsChannel)
+			const conversations = yield take(userConversationsChannel)
 			yield put(watchConversationsSuccess(conversations))
 		}
 	} catch (error) {

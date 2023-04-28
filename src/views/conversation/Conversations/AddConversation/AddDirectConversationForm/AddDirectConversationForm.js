@@ -8,11 +8,13 @@ import { createDirectConversationStart } from '@store/reducers/conversationsRedu
 import { getUsersStart } from '@store/reducers/usersReducer/usersActions'
 import { createSelectOptions } from '@helpers/createSelectOptions'
 import { messages } from '@constants/validationMessages'
+import { useNavigate } from 'react-router-dom'
 
 export const AddDirectConversationForm = ({closeHandler}) => {
 	const user = useSelector(state => state.user.data)
 	const users = useSelector(state => state.users.users)
 
+	const navigate = useNavigate()
 	const dispatch = useDispatch()
 	const selectOptions = createSelectOptions(users, user.id)
 	const {control, handleSubmit} = useForm({mode: 'onBlur'})
@@ -24,7 +26,8 @@ export const AddDirectConversationForm = ({closeHandler}) => {
 	const addConversationSubmitHandler = (data) => {
 		const allData = {
 			...data,
-			userID: user.id
+			userID: user.id,
+			navigate: navigate
 		}
 
 		dispatch(createDirectConversationStart(allData))

@@ -9,8 +9,11 @@ import { useDispatch } from 'react-redux'
 import {
 	chooseConversation,
 	watchConversationStart,
-	watchConversationMessagesStart
 } from '@store/reducers/conversationReducer/conversationActions'
+
+import {
+	watchMessagesStart
+} from '@store/reducers/messagesReducer/messagesActions'
 
 
 export const Conversation = () => {
@@ -26,7 +29,7 @@ export const Conversation = () => {
 	useEffect(() => {
 		if (conversationID) {
 			dispatch(watchConversationStart(conversationID))
-			dispatch(watchConversationMessagesStart(conversationID))
+			dispatch(watchMessagesStart(conversationID))
 		}
 	}, [conversationID])
 

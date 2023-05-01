@@ -1,14 +1,14 @@
 import styles from './ConversationHead.module.scss'
-import { UserAvatar } from '@components/ui/avatars'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { UserAvatar } from '@components/ui/avatars'
+import { clearMessagesStart } from '@store/reducers/messagesReducer/messagesActions'
+import { removeConversationsStart } from '@store/reducers/conversationsReducer/conversationsActions'
 import { getProfileInfoStart, openProfileBar } from '@store/reducers/profileReducer/profileActions'
 import { PrimaryDropdown, PrimaryDropdownItem } from '@components/ui/dropdowns'
 import { HiOutlineDotsVertical } from 'react-icons/hi'
 import { RiDeleteBin7Line, RiUserLine } from 'react-icons/ri'
 import { GrClearOption } from 'react-icons/gr'
-import { removeConversationsStart } from '@store/reducers/conversationsReducer/conversationsActions'
-import { useNavigate } from 'react-router-dom'
-import { clearConversationMessagesStart } from '@store/reducers/conversationReducer/conversationActions'
 
 export const ConversationHead = () => {
 	const dispatch = useDispatch()
@@ -42,15 +42,13 @@ export const ConversationHead = () => {
 	}
 
 	const clearConversationMessages = () => {
-		dispatch(clearConversationMessagesStart(conversation.id))
+		dispatch(clearMessagesStart(conversation.id))
 	}
 
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.user}>
-				<UserAvatar name={interlocutor ? interlocutor.name : ''}
-										image={interlocutor ? interlocutor.avatar : ''}
-										handler={openProfileBarHandler}/>
+				<UserAvatar name={interlocutor ? interlocutor.name : ''} image={interlocutor ? interlocutor.avatar : ''} handler={openProfileBarHandler}/>
 				<div className={styles.userDetails}>
 					<h3 className={styles.userName}>{interlocutor ? interlocutor.name : ''}</h3>
 					<p className={styles.userPosition}>Web dev</p>

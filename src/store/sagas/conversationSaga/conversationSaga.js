@@ -1,153 +1,80 @@
+import { eventChannel } from 'redux-saga'
 import { call, put, takeLatest, take, cancelled } from 'redux-saga/effects'
-import { actionTypes } from '@constants/actionTypes'
 import { v4 as uuid } from 'uuid'
 import { Timestamp } from 'firebase/firestore'
-import {
-	setConversationMessageFail,
-	removeConversationMessageFail,
-	removeConversationMessageSuccess,
-	setReadedConversationMessageStart,
-	setReadedConversationMessageSuccess,
-	watchConversationMessagesSuccess,
-	watchConversationMessagesFail,
-	editConversationMessageFail,
-	editConversationMessageSuccess,
-	likeConversationMessageSuccess,
-	likeConversationMessageFail,
-	unlikeConversationMessageSuccess,
-	unlikeConversationMessageFail
-} from '@store/reducers/conversationReducer/conversationActions'
-import { setMessage } from '@api/messages/setMessage'
-import { removeMessage } from '@api/messages/removeMessage'
-import { setLastMessage } from '@api/messages/setLastMessage'
-import { setConversationalists } from '@api/conversations/setConversationalists'
-import { getLastMessage } from '@api/messages/getLastMessage'
-import { watchMessages } from '@api/messages/watchMessages'
-import { eventChannel } from 'redux-saga'
-import { updateMessage } from '@api/messages/updateMessage'
+import toast from 'react-hot-toast'
+import { getUsers } from '@api/users/getUsers'
+import { watchConversation } from '@api/conversation/watchConversation'
+import { checkConversation } from '@api/conversation/checkConversation'
+import { createConversation } from '@api/conversation/createConversation'
+import { setConversation } from '@api/conversation/setConversation'
+import { removeConversation } from '@api/conversation/removeConversation'
+import { watchConversationFail, watchConversationSuccess } from '@store/reducers/conversationReducer/conversationActions'
+import { closeAddConversationModal, createDirectConversationFail, createDirectConversationSuccess, removeConversationsFail, removeConversationsSuccess } from '@store/reducers/conversationsReducer/conversationsActions'
+import { actionTypes } from '@constants/actionTypes'
+import { routeNames } from '@constants/routeNames'
+import { messages } from '@constants/validationMessages'
 
-export function* setConversationMessageSaga(props) {
+export function* createDirectConversationSaga(props) {
 	const userID = props.payload.userID
-	const conversationID = props.payload.conversationID
-	const conversationalists = props.payload.conversationalists
+	const interlocutorID = props.payload.interlocutorID
+	const navigate = props.payload.navigate
 
-	const message = {
+	const conversation = {
 		id: uuid(),
-		senderId: userID,
-		text: props.payload.messageText ? props.payload.messageText : '',
-		attachments: props.payload.attachments ? props.payload.attachments : {},
-		date: Timestamp.now(),
-		readers: [userID],
-		likes: [],
-		edited: false
+		directConversation: true,
+		conversationalists: [userID, interlocutorID],
+		conversationStart: Timestamp.fromDate(new Date()),
+		lastMessage: null
 	}
 
 	try {
-		yield call(setMessage, message, conversationID)
-		yield call(setLastMessage, message, conversationID)
-		yield call(setConversationalists, userID, conversationalists, conversationID)
-	} catch (error) {
-		yield put(setConversationMessageFail(error))
-	}
-}
-
-export function* editConversationMessageSaga(props) {
-	const conversationID = props.payload.conversationID
-	const lastMessage = props.payload.lastMessage
-	const message = {
-		...props.payload.message,
-		edited: true
-	}
-
-	try {
-		yield call(updateMessage, message, conversationID)
-		if (lastMessage.id === message.id) {
-			yield call(setLastMessage, message, conversationID)
+		const conversationExist = yield call(checkConversation, userID, interlocutorID)
+		if (!conversationExist) {
+			yield call(createConversation, conversation)
+			yield call(setConversation, userID, conversation.id)
+			yield put(createDirectConversationSuccess())
+			yield put(closeAddConversationModal())
+			navigate(`${routeNames.CONVERSATIONS}/${conversation.id}`)
+		} else {
+			yield put(createDirectConversationFail(messages.conversationAlreadyExist))
+			yield call(toast.error, messages.conversationAlreadyExist)
 		}
-		yield put(editConversationMessageSuccess())
-	} catch (error) {
-		yield put(editConversationMessageFail(error))
+	} catch (err) {
+		yield put(createDirectConversationFail(err.message))
 	}
 }
 
-export function* likeConversationMessageSaga(props) {
+export function* removeConversationSaga(props) {
 	const userID = props.payload.userID
+	const interlocutorID = props.payload.interlocutorID
 	const conversationID = props.payload.conversationID
-	const message = props.payload.message
-	message.likes.push(userID)
+	const navigate = props.payload.navigate
 
 	try {
-		yield call(updateMessage, message, conversationID)
-		yield put(likeConversationMessageSuccess())
-	} catch (error) {
-		yield put(likeConversationMessageFail(error))
+		yield call(removeConversation, userID, interlocutorID, conversationID)
+		yield put(removeConversationsSuccess())
+		navigate(routeNames.CONVERSATIONS)
+		yield call(toast.success, messages.conversationRemoveSuccess)
+	} catch (err) {
+		yield put(removeConversationsFail(err.message))
 	}
 }
 
-export function* unlikeConversationMessageSaga(props) {
-	const userID = props.payload.userID
-	const conversationID = props.payload.conversationID
-	const message = {
-		...props.payload.message,
-		likes: props.payload.message.likes.filter(id => id !== userID)
-	}
-
-	try {
-		yield call(updateMessage, message, conversationID)
-		yield put(unlikeConversationMessageSuccess())
-	} catch (error) {
-		yield put(unlikeConversationMessageFail(error))
-	}
-}
-
-export function* removeConversationMessageSaga(props) {
-	const message = props.payload.message
-	const lastMessage = props.payload.lastMessage
-	const conversationID = props.payload.conversationID
-
-	try {
-		yield call(removeMessage, message, conversationID)
-		if (lastMessage) {
-			yield call(setLastMessage, lastMessage, conversationID)
-		} else if (lastMessage === undefined) {
-			yield call(setLastMessage, null, conversationID)
-		}
-		yield put(removeConversationMessageSuccess())
-	} catch (error) {
-		yield put(removeConversationMessageFail(error))
-	}
-}
-
-export function* setReadedConversationMessageSaga(props) {
-	const userID = props.payload.userID
-	const message = props.payload.message
-	const conversationID = props.payload.conversationID
-
-	try {
-		message.readers.push(userID)
-		yield call(setMessage, message, conversationID)
-		const lastMessage = yield call(getLastMessage, conversationID)
-		if (message.id === lastMessage.id) {
-			lastMessage.readers.push(userID)
-			yield call(setLastMessage, lastMessage, conversationID)
-		}
-		yield put(setReadedConversationMessageSuccess())
-	} catch (error) {
-		yield put(setReadedConversationMessageStart(error))
-	}
-}
-
-function* watchMessagesSaga(props) {
+function* watchConversationSaga(props) {
 	const conversationID = props.payload
-	const channel = yield call(watchMessages, eventChannel, conversationID)
+	const channel = yield call(watchConversation, eventChannel, conversationID)
 
 	try {
 		while (true) {
-			const messages = yield take(channel)
-			yield put(watchConversationMessagesSuccess(messages))
+			const conversation = yield take(channel)
+			if (conversation) {
+				conversation.conversationalists = yield call(getUsers, conversation.conversationalists)
+			}
+			yield put(watchConversationSuccess(conversation))
 		}
 	} catch (error) {
-		yield put(watchConversationMessagesFail(error))
+		yield put(watchConversationFail(error))
 	} finally {
 		if (yield cancelled()) {
 			channel.close()
@@ -156,11 +83,7 @@ function* watchMessagesSaga(props) {
 }
 
 export const conversationSaga = [
-	takeLatest(actionTypes.SET_CONVERSATION_MESSAGE_START, setConversationMessageSaga),
-	takeLatest(actionTypes.EDIT_CONVERSATION_MESSAGE_START, editConversationMessageSaga),
-	takeLatest(actionTypes.LIKE_CONVERSATION_MESSAGE_START, likeConversationMessageSaga),
-	takeLatest(actionTypes.UNLIKE_CONVERSATION_MESSAGE_START, unlikeConversationMessageSaga),
-	takeLatest(actionTypes.REMOVE_CONVERSATION_MESSAGE_START, removeConversationMessageSaga),
-	takeLatest(actionTypes.SET_READED_CONVERSATION_MESSAGE_START, setReadedConversationMessageSaga),
-	takeLatest(actionTypes.WATCH_CONVERSATION_MESSAGES_START, watchMessagesSaga)
+	takeLatest(actionTypes.CREATE_DIRECT_CONVERSATION_START, createDirectConversationSaga),
+	takeLatest(actionTypes.REMOVE_CONVERSATION_START, removeConversationSaga),
+	takeLatest(actionTypes.WATCH_CONVERSATION_START, watchConversationSaga),
 ]

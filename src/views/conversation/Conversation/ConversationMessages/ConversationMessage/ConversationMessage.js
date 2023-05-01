@@ -1,27 +1,19 @@
 import styles from './ConversationMessage.module.scss'
-import { useDispatch, useSelector } from 'react-redux'
-import {
-	likeConversationMessageStart,
-	openEditConversationMessageMode,
-	removeConversationMessageStart,
-	setReadedConversationMessageStart,
-	unlikeConversationMessageStart
-} from '@store/reducers/conversationReducer/conversationActions'
-import { getNewLastMessage, isLastMessage, isUnreadMessage } from '@helpers/messages'
 import Moment from 'react-moment'
-import { classNames } from '@helpers/classNames'
-import { UserAvatar } from '@components/ui/avatars'
-import { getProfileInfoStart, openProfileBar } from '@store/reducers/profileReducer/profileActions'
-import { RiDeleteBin7Line, RiPencilLine, RiHeartLine, RiHeartFill } from 'react-icons/ri'
-import { MessageControlButton } from '@components/ui/buttons/MessageControlButton/MessageControlButton'
 import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getProfileInfoStart, openProfileBar } from '@store/reducers/profileReducer/profileActions'
+import { openEditMessageMode, likeMessageStart, removeMessageStart, setReadedMessageStart, unlikeMessageStart } from '@store/reducers/messagesReducer/messagesActions'
+import { UserAvatar } from '@components/ui/avatars'
+import { MessageControlButton } from '@components/ui/buttons/MessageControlButton/MessageControlButton'
+import { RiDeleteBin7Line, RiPencilLine, RiHeartLine, RiHeartFill } from 'react-icons/ri'
+import { getNewLastMessage, isLastMessage, isUnreadMessage } from '@helpers/messages'
+import { classNames } from '@helpers/classNames'
 import { checkIsLiked } from '@helpers/checkIsLiked'
 
-export const ConversationMessage = ({message, conversation}) => {
+export const ConversationMessage = ({message, conversation, messages}) => {
 	const dispatch = useDispatch()
 	const userID = useSelector(state => state.auth.id)
-
-	console.log(message.likes)
 	const isLiked = checkIsLiked(message.likes, userID)
 
 	useEffect(() => {
@@ -29,22 +21,13 @@ export const ConversationMessage = ({message, conversation}) => {
 
 		if (isUnread) {
 			const data = {
-				userID: userID, message: message, conversationID: conversation.id
+				userID: userID,
+				message: message,
+				conversationID: conversation.id,
+				lastMessage: conversation.data.lastMessage
 			}
 
-			dispatch(setReadedConversationMessageStart(data))
-		}
-	}, [message])
-
-	useEffect(() => {
-		const isUnread = isUnreadMessage(message, userID)
-
-		if (isUnread) {
-			const data = {
-				userID: userID, message: message, conversationID: conversation.id, lastMessage: conversation.data.lastMessage
-			}
-
-			dispatch(setReadedConversationMessageStart(data))
+			dispatch(setReadedMessageStart(data))
 		}
 	}, [message])
 
@@ -52,30 +35,34 @@ export const ConversationMessage = ({message, conversation}) => {
 		const data = {
 			message: message,
 			conversationID: conversation.id,
-			lastMessage: isLastMessage(conversation.messages, message) ? getNewLastMessage(conversation.messages, message) : null
+			lastMessage: isLastMessage(messages, message) ? getNewLastMessage(messages, message) : null
 		}
 
-		dispatch(removeConversationMessageStart(data))
+		dispatch(removeMessageStart(data))
 	}
 
 	const editMessageHandler = () => {
-		dispatch(openEditConversationMessageMode(message))
+		dispatch(openEditMessageMode(message))
 	}
 
 	const likeMessageHandler = () => {
 		const data = {
-			userID: userID, conversationID: conversation.id, message: message
+			userID: userID,
+			conversationID: conversation.id,
+			message: message
 		}
 
-		dispatch(likeConversationMessageStart(data))
+		dispatch(likeMessageStart(data))
 	}
 
 	const unlikeMessageHandler = () => {
 		const data = {
-			userID: userID, conversationID: conversation.id, message: message
+			userID: userID,
+			conversationID: conversation.id,
+			message: message
 		}
 
-		dispatch(unlikeConversationMessageStart(data))
+		dispatch(unlikeMessageStart(data))
 	}
 
 	const openProfileBarHandler = () => {
@@ -96,11 +83,12 @@ export const ConversationMessage = ({message, conversation}) => {
 				<div className={styles.messageBlock}>
 					<div className={styles.messageText} dangerouslySetInnerHTML={{__html: message.text}}></div>
 					<div className={styles.controls}>
-						<MessageControlButton icon={isLiked ? <RiHeartFill/> : <RiHeartLine/>}
-																	handler={isLiked ? unlikeMessageHandler : likeMessageHandler}
-																	modifyClass={isLiked ? 'like' : null}/>
-						{message.senderId === userID ?
-							<MessageControlButton icon={<RiPencilLine/>} handler={editMessageHandler}/> : null}
+						<MessageControlButton icon={isLiked ? <RiHeartFill/> : <RiHeartLine/>} handler={isLiked ? unlikeMessageHandler : likeMessageHandler} modifyClass={isLiked ? 'like' : null}/>
+						{
+							message.senderId === userID
+								? <MessageControlButton icon={<RiPencilLine/>} handler={editMessageHandler}/>
+								: null
+						}
 						<MessageControlButton icon={<RiDeleteBin7Line/>} handler={removeMessageHandler} modifyClass={'danger'}/>
 					</div>
 				</div>
@@ -122,9 +110,7 @@ export const ConversationMessage = ({message, conversation}) => {
 					}
 				</div>
 			</div>
-			<UserAvatar name={interlocutor ? interlocutor.name : ''}
-									image={interlocutor ? interlocutor.avatar : ''}
-									handler={openProfileBarHandler}/>
+			<UserAvatar name={interlocutor ? interlocutor.name : ''} image={interlocutor ? interlocutor.avatar : ''} handler={openProfileBarHandler}/>
 		</div>
 	)
 }

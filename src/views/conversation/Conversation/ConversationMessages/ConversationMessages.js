@@ -8,7 +8,8 @@ import { generateMessages } from '@helpers/messages'
 export const ConversationMessages = () => {
 	const messagesListEndRef = useRef()
 	const conversation = useSelector(state => state.conversation)
-	const messages = generateMessages(conversation.messages)
+	const messages = useSelector(state => state.messages.messages)
+	const generatedMessages = generateMessages(messages)
 
 	useEffect(() => {
 		messagesListEndRef.current.scrollIntoView()
@@ -17,9 +18,9 @@ export const ConversationMessages = () => {
 	return (
 		<div className={styles.wrapper}>
 			{
-				conversation.messages
-					? messages.map(message => message.type !== 'day'
-						? <ConversationMessage key={message.id} message={message} conversation={conversation}/>
+				messages
+					? generatedMessages.map(message => message.type !== 'day'
+						? <ConversationMessage key={message.id} message={message} conversation={conversation} messages={generatedMessages}/>
 						: <ConversationDate key={message.id} date={message.date} />)
 					: null
 			}

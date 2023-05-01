@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { signUpStart } from '@store/reducers/authReducer/authActions'
 import { PasswordInput, EmailInput, TextInput, PasswordConfirmInput } from '@components/ui/form/inputs'
-import { SubmitButton } from '@components/ui/buttons'
+import { PrimaryButton } from '@components/ui/buttons'
 import styles from './SignUpForm.module.scss'
 import { useNavigate } from 'react-router-dom'
 
@@ -33,7 +33,7 @@ export const SignUpForm = () => {
                                 passwordId={'password'} required={true}/>
         </div>
         <div className={styles.button}>
-          <SubmitButton title={'Sign Up'}/>
+          <PrimaryButton title={'Sign Up'} type={'submit'}/>
         </div>
       </form>
     </div>

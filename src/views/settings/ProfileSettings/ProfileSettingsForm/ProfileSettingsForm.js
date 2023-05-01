@@ -1,10 +1,10 @@
+import styles from './ProfileSettingsForm.module.scss'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
-import { CancelButton, SubmitButton } from '@components/ui/buttons'
+import { PrimaryButton } from '@components/ui/buttons'
 import { EmailInput, TextArea, TextInput, DateInput } from '@components/ui/form/inputs'
 import { updateUserDataStart } from '@store/reducers/userReducer/userActions'
-import styles from './ProfileSettingsForm.module.scss'
 
 export const ProfileSettingsForm = () => {
   const dispatch = useDispatch()
@@ -22,7 +22,7 @@ export const ProfileSettingsForm = () => {
   }
 
   useEffect(() => {
-    reset(user)
+		cancelFormHandler()
   }, [user])
 
   return (
@@ -69,8 +69,8 @@ export const ProfileSettingsForm = () => {
       {
         isDirty ?
           <div className={styles.controls}>
-            <CancelButton title={'Cancel'} handler={cancelFormHandler}/>
-            <SubmitButton title={'Save'}/>
+            <PrimaryButton title={'Cancel'} modifyClass={'cancel'} handler={cancelFormHandler}/>
+            <PrimaryButton title={'Save'} type={'submit'}/>
           </div>
           : null
       }

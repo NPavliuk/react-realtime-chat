@@ -1,5 +1,5 @@
 import styles from './SecuritySettingsForm.module.scss'
-import { CancelButton, SubmitButton } from '@components/ui/buttons'
+import { PrimaryButton } from '@components/ui/buttons'
 import { useForm } from 'react-hook-form'
 import { PasswordConfirmInput, PasswordInput } from '@components/ui/form/inputs'
 import { useDispatch } from 'react-redux'
@@ -39,8 +39,8 @@ export const SecuritySettingsForm = () => {
       {
         isDirty ?
           <div className={styles.controls}>
-            <CancelButton title={'Cancel'} handler={cancelFormHandler}/>
-            <SubmitButton title={'Save'}/>
+            <PrimaryButton title={'Cancel'} modifyClass={'cancel'} handler={cancelFormHandler}/>
+            <PrimaryButton title={'Save'} type={'submit'}/>
           </div>
           : null
       }

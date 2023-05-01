@@ -5,8 +5,8 @@ export const MessageControlButton = ({handler, icon, modifyClass}) => {
 	return (
 		<button className={classNames({
 			[styles.button]: true,
-			[styles.danger]: modifyClass === 'danger',
 			[styles.like]: modifyClass === 'like',
+			[styles.danger]: modifyClass === 'danger',
 		})} onClick={handler ? handler : null}>
 			{icon}
 		</button>

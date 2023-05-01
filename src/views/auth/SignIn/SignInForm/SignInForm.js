@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { signInStart } from '@store/reducers/authReducer/authActions'
 import { PasswordInput, EmailInput } from '@components/ui/form/inputs'
-import { SubmitButton } from '@components/ui/buttons'
+import { PrimaryButton } from '@components/ui/buttons'
 import styles from './SignInForm.module.scss'
 
 export const SignInForm = () => {
@@ -31,7 +31,7 @@ export const SignInForm = () => {
         <Link to="#" className={styles.link}>Forgot your password?</Link>
 
         <div className={styles.button}>
-          <SubmitButton title={'Sign In'}/>
+          <PrimaryButton title={'Sign In'} type={'submit'}/>
         </div>
       </form>
     </div>

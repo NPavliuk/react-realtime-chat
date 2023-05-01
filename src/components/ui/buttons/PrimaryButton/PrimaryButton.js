@@ -2,17 +2,19 @@ import { Link } from 'react-router-dom'
 import { classNames } from '@helpers/classNames'
 import styles from './PrimaryButton.module.scss'
 
-export const PrimaryButton = ({handler, title, modifyClass, link}) => {
+export const PrimaryButton = ({handler, title, modifyClass, link, type}) => {
   return (
     link ?
       <Link to={link} onClick={handler ? handler : null} className={classNames({
         [styles.button]: true,
-        [styles.auto]: modifyClass === 'auto'
+        [styles.auto]: modifyClass === 'auto',
+				[styles.cancel]: modifyClass === 'cancel'
       })}>{title}</Link>
       :
-      <button type="button" onClick={handler ? handler : null} className={classNames({
+      <button type={type ? type : 'button'} onClick={handler ? handler : null} className={classNames({
         [styles.button]: true,
-        [styles.auto]: modifyClass === 'auto'
+				[modifyClass]: modifyClass === 'auto',
+				[styles.cancel]: modifyClass === 'cancel'
       })}>{title}</button>
   )
 }

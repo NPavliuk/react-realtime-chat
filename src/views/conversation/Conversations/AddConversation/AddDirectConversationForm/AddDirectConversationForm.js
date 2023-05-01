@@ -1,21 +1,20 @@
 import styles from './AddDirectConversationForm.module.scss'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { useForm, Controller } from 'react-hook-form'
-import { CancelButton, SubmitButton } from '@components/ui/buttons'
+import { PrimaryButton } from '@components/ui/buttons'
 import { SingleContactSelect } from '@components/ui/form/selects'
 import { createDirectConversationStart } from '@store/reducers/conversationsReducer/conversationsActions'
 import { getUsersStart } from '@store/reducers/usersReducer/usersActions'
 import { createSelectOptions } from '@helpers/createSelectOptions'
 import { messages } from '@constants/validationMessages'
-import { useNavigate } from 'react-router-dom'
 
 export const AddDirectConversationForm = ({closeHandler}) => {
-	const user = useSelector(state => state.user.data)
-	const users = useSelector(state => state.users.users)
-
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
+	const user = useSelector(state => state.user.data)
+	const users = useSelector(state => state.users.users)
 	const selectOptions = createSelectOptions(users, user.id)
 	const {control, handleSubmit} = useForm({mode: 'onBlur'})
 
@@ -48,8 +47,8 @@ export const AddDirectConversationForm = ({closeHandler}) => {
 			</div>
 
 			<div className={styles.controls}>
-				<CancelButton title={'Cancel'} handler={closeHandler}/>
-				<SubmitButton title={'Create'}/>
+				<PrimaryButton title={'Cancel'} modifyClass={'cancel'} handler={closeHandler}/>
+				<PrimaryButton title={'Create'} type={'submit'}/>
 			</div>
 		</form>
 	)

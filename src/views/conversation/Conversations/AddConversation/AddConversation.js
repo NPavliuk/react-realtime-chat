@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { CancelButton, TypeButton } from '@components/ui/buttons'
+import { PrimaryButton, TypeButton } from '@components/ui/buttons'
 import {
 	AddDirectConversationForm
 } from '@views/conversation/Conversations/AddConversation/AddDirectConversationForm/AddDirectConversationForm'
@@ -40,7 +40,7 @@ export const AddConversation = ({closeHandler}) => {
 							<TypeButton title={'Group conversation'} icon={<RiGroupLine/>} handler={groupButtonClickHandler}
 													description={'Group conversations involve multiple participants'}/>
 							<div className={styles.cancel}>
-								<CancelButton title={'Cancel'} handler={closeButtonClickHandler}/>
+								<PrimaryButton title={'Cancel'} modifyClass={'cancel'} handler={closeButtonClickHandler}/>
 							</div>
 						</div>
 					</div>
@@ -58,7 +58,7 @@ export const AddConversation = ({closeHandler}) => {
 
 								<div className={styles.controls}>
 									<div className={styles.cancel}>
-										<CancelButton title={'Cancel'} handler={closeButtonClickHandler}/>
+										<PrimaryButton title={'Cancel'} modifyClass={'cancel'} handler={closeButtonClickHandler}/>
 									</div>
 								</div>
 							</div>

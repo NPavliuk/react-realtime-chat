@@ -1,6 +1,5 @@
 import styles from './TypeButton.module.scss'
 
-
 export const TypeButton = ({handler, icon, title, description}) => {
   return (
     <button className={styles.button} onClick={handler ? handler : null}>

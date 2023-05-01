@@ -9,7 +9,13 @@ import {
 	setReadedConversationMessageStart,
 	setReadedConversationMessageSuccess,
 	watchConversationMessagesSuccess,
-	watchConversationMessagesFail, editConversationMessageFail, editConversationMessageSuccess
+	watchConversationMessagesFail,
+	editConversationMessageFail,
+	editConversationMessageSuccess,
+	likeConversationMessageSuccess,
+	likeConversationMessageFail,
+	unlikeConversationMessageSuccess,
+	unlikeConversationMessageFail
 } from '@store/reducers/conversationReducer/conversationActions'
 import { setMessage } from '@api/messages/setMessage'
 import { removeMessage } from '@api/messages/removeMessage'
@@ -31,7 +37,9 @@ export function* setConversationMessageSaga(props) {
 		text: props.payload.messageText ? props.payload.messageText : '',
 		attachments: props.payload.attachments ? props.payload.attachments : {},
 		date: Timestamp.now(),
-		readers: [userID]
+		readers: [userID],
+		likes: [],
+		edited: false
 	}
 
 	try {
@@ -59,6 +67,36 @@ export function* editConversationMessageSaga(props) {
 		yield put(editConversationMessageSuccess())
 	} catch (error) {
 		yield put(editConversationMessageFail(error))
+	}
+}
+
+export function* likeConversationMessageSaga(props) {
+	const userID = props.payload.userID
+	const conversationID = props.payload.conversationID
+	const message = props.payload.message
+	message.likes.push(userID)
+
+	try {
+		yield call(updateMessage, message, conversationID)
+		yield put(likeConversationMessageSuccess())
+	} catch (error) {
+		yield put(likeConversationMessageFail(error))
+	}
+}
+
+export function* unlikeConversationMessageSaga(props) {
+	const userID = props.payload.userID
+	const conversationID = props.payload.conversationID
+	const message = {
+		...props.payload.message,
+		likes: props.payload.message.likes.filter(id => id !== userID)
+	}
+
+	try {
+		yield call(updateMessage, message, conversationID)
+		yield put(unlikeConversationMessageSuccess())
+	} catch (error) {
+		yield put(unlikeConversationMessageFail(error))
 	}
 }
 
@@ -120,6 +158,8 @@ function* watchMessagesSaga(props) {
 export const conversationSaga = [
 	takeLatest(actionTypes.SET_CONVERSATION_MESSAGE_START, setConversationMessageSaga),
 	takeLatest(actionTypes.EDIT_CONVERSATION_MESSAGE_START, editConversationMessageSaga),
+	takeLatest(actionTypes.LIKE_CONVERSATION_MESSAGE_START, likeConversationMessageSaga),
+	takeLatest(actionTypes.UNLIKE_CONVERSATION_MESSAGE_START, unlikeConversationMessageSaga),
 	takeLatest(actionTypes.REMOVE_CONVERSATION_MESSAGE_START, removeConversationMessageSaga),
 	takeLatest(actionTypes.SET_READED_CONVERSATION_MESSAGE_START, setReadedConversationMessageSaga),
 	takeLatest(actionTypes.WATCH_CONVERSATION_MESSAGES_START, watchMessagesSaga)

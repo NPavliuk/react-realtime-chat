@@ -18,4 +18,10 @@
       }
     }
   }
+
+  &.like {
+    svg {
+      @apply fill-rose-600;
+    }
+  }
 }

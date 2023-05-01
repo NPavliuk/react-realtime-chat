@@ -12,8 +12,12 @@
   .editMode {
     @apply mb-2 p-2 rounded-lg border text-sm text-gray-700;
 
-    .title {
+    .header {
       @apply flex items-center gap-2 text-sm text-indigo-700 mb-1;
+
+      .title {
+        @apply flex-auto;
+      }
 
       svg {
         @apply w-4 h-4 fill-indigo-700;

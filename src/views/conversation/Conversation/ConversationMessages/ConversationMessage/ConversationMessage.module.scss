@@ -1,38 +1,50 @@
-.wrapper {
-  @apply flex mb-3;
+.message {
+  @apply flex items-start mb-3;
 
   &:hover {
     .controls {
-      @apply flex items-center mb-4;
+      @apply flex items-center ml-2;
     }
   }
 
-  .message {
-    @apply flex items-start;
+  .messageInner {
+    @apply flex flex-col text-xs max-w-xl mx-2 order-2 items-start;
 
-    .messageInner {
-      @apply flex flex-col text-xs max-w-xl mx-2 order-2 items-start;
+    .messageBlock {
+      @apply flex items-center;
     }
+  }
 
-    .messageText {
-      @apply px-4 py-2 rounded-lg inline-block bg-gray-200 text-sm text-gray-700;
+  .messageText {
+    @apply px-4 py-2 rounded-lg inline-block bg-gray-200 text-sm text-gray-700;
 
-      blockquote {
-        @apply px-3 border-l-[5px] border-gray-600;
-
-        p {
-          @apply italic;
-        }
-      }
+    blockquote {
+      @apply px-3 border-l-[5px] border-gray-600;
 
       p {
-        a {
-          @apply underline text-indigo-600;
+        @apply italic;
+      }
+    }
 
-          &:hover {
-            @apply text-indigo-700;
-          }
+    p {
+      a {
+        @apply underline text-indigo-600;
+
+        &:hover {
+          @apply text-indigo-700;
         }
+      }
+    }
+  }
+
+  .messageInfo {
+    @apply flex items-center gap-2;
+
+    .messageLikes {
+      @apply flex items-center text-[11px] text-gray-400;
+
+      svg {
+        @apply w-3 h-3 fill-rose-600 mr-1;
       }
     }
 
@@ -40,21 +52,25 @@
       @apply text-[10px] text-gray-400;
     }
 
-    &.incoming {
-      .messageText {
-        @apply bg-indigo-600 text-white;
+    .messageEdited {
+      @apply text-[10px] text-gray-400 italic;
+    }
+  }
 
-        blockquote {
-          @apply border-white;
-        }
+  &.incoming {
+    .messageText {
+      @apply bg-indigo-600 text-white;
 
-        p {
-          a {
-            @apply text-gray-200;
+      blockquote {
+        @apply border-white;
+      }
 
-            &:hover {
-              @apply text-gray-300;
-            }
+      p {
+        a {
+          @apply text-gray-200;
+
+          &:hover {
+            @apply text-gray-300;
           }
         }
       }

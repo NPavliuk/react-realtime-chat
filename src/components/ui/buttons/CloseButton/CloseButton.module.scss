@@ -1,0 +1,11 @@
+.button {
+  @apply p-1 rounded;
+
+  &:hover {
+    @apply bg-gray-200;
+  }
+
+  svg {
+    @apply h-4 w-4 fill-gray-700;
+  }
+}

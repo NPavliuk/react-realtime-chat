@@ -93,7 +93,7 @@ export const openEditConversationMessageMode = (data) => ({
 })
 
 export const closeEditConversationMessageMode = () => ({
-	type: actionTypes.EDIT_CONVERSATION_MESSAGE_START,
+	type: actionTypes.CLOSE_EDIT_CONVERSATION_MESSAGE_MODE,
 })
 
 export const editConversationMessageStart = (data) => ({
@@ -111,6 +111,33 @@ export const editConversationMessageFail = (error) => ({
 	payload: error
 })
 
+export const likeConversationMessageStart = (data) => ({
+	type: actionTypes.LIKE_CONVERSATION_MESSAGE_START,
+	payload: data
+})
+
+export const likeConversationMessageSuccess = () => ({
+	type: actionTypes.LIKE_CONVERSATION_MESSAGE_SUCCESS,
+})
+
+export const likeConversationMessageFail = (error) => ({
+	type: actionTypes.LIKE_CONVERSATION_MESSAGE_FAIL,
+	payload: error
+})
+
+export const unlikeConversationMessageStart = (data) => ({
+	type: actionTypes.UNLIKE_CONVERSATION_MESSAGE_START,
+	payload: data
+})
+
+export const unlikeConversationMessageSuccess = () => ({
+	type: actionTypes.UNLIKE_CONVERSATION_MESSAGE_SUCCESS,
+})
+
+export const unlikeConversationMessageFail = (error) => ({
+	type: actionTypes.UNLIKE_CONVERSATION_MESSAGE_FAIL,
+	payload: error
+})
 
 export const chooseConversation = (id) => ({
 	type: actionTypes.CHOOSE_CONVERSATION,

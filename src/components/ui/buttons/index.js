@@ -8,6 +8,7 @@ import { TypeButton } from '@components/ui/buttons/TypeButton/TypeButton'
 import { FilterButton } from '@components/ui/buttons/FilterButton/FilterButton'
 import { MessageControlButton } from '@components/ui/buttons/MessageControlButton/MessageControlButton'
 import { MessageSendButton } from '@components/ui/buttons/MessageSendButton/MessageSendButton'
+import { CloseButton} from '@components/ui/buttons/CloseButton/CloseButton'
 
 export {
 	SubmitButton,
@@ -19,5 +20,6 @@ export {
 	TypeButton,
 	FilterButton,
 	MessageControlButton,
-	MessageSendButton
+	MessageSendButton,
+	CloseButton
 }

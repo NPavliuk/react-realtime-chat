@@ -1,14 +1,15 @@
 import styles from './ConversationInput.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import {
+	closeEditConversationMessageMode,
 	editConversationMessageStart,
 	setConversationInput,
 	setConversationMessageStart
 } from '@store/reducers/conversationReducer/conversationActions'
 import { getConversationalistsIDs } from '@helpers/conversations'
-import { MessageSendButton } from '@components/ui/buttons'
+import { CloseButton, MessageSendButton } from '@components/ui/buttons'
 import { MessageEditor } from '@components/ui/editors'
-import { RiPencilLine } from 'react-icons/ri'
+import { RiPencilLine, RiCloseFill } from 'react-icons/ri'
 import { useRef } from 'react'
 
 export const ConversationInput = () => {
@@ -45,15 +46,20 @@ export const ConversationInput = () => {
 		dispatch(editConversationMessageStart(data))
 	}
 
+	const cancelEditHandler = () => {
+		dispatch(closeEditConversationMessageMode())
+	}
+
 	return (
 		conversation.editMessage.mode ?
 			<form className={styles.wrapper} onSubmit={sendEditMessageHandler}>
 				<div className={styles.editMode}>
-					<div className={styles.title}>
-						<RiPencilLine />
-						<p>Edit message</p>
+					<div className={styles.header}>
+						<RiPencilLine/>
+						<p className={styles.title}>Edit message</p>
+						<CloseButton handler={cancelEditHandler}/>
 					</div>
-					<div className={styles.message} dangerouslySetInnerHTML={{__html: conversation.editMessage.message.text}}></div>
+					<div dangerouslySetInnerHTML={{__html: conversation.editMessage.message.text}}></div>
 				</div>
 				<MessageEditor buttonRef={buttonRef} value={conversation.messageInput}/>
 				<div className={styles.controls}>

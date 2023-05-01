@@ -1,0 +1,11 @@
+.wrapper {
+  @apply relative flex justify-center mb-3;
+
+  .title {
+    @apply z-10 px-3 py-1 rounded-2xl bg-gray-200 text-xs text-gray-500;
+  }
+
+  .divider {
+    @apply absolute top-[50%] left-0 block h-[1px] w-[calc(100%-8px)] bg-gray-200;
+  }
+}

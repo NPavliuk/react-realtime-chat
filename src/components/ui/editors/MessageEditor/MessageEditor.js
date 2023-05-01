@@ -13,16 +13,16 @@ const editorConfiguration = {
 // TODO: Add feature for writing code
 // TODO: Add feature for upload images
 
-export const MessageEditor = ({buttonRef}) => {
+export const MessageEditor = ({buttonRef, value}) => {
 	const dispatch = useDispatch()
-	const message = useSelector(state => state.conversation.messageInput)
+
 
 	return (
 		<div>
 			<CKEditor
 				editor={ClassicEditor}
 				config={editorConfiguration}
-				data={message}
+				data={value}
 				onReady={editor => {
 					editor.editing.view.document.on('keydown', (e, data) => {
 						if (data.keyCode === keyCodes.enter && !data.shiftKey) {

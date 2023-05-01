@@ -87,6 +87,31 @@ export const setReadedConversationMessageFail = (error) => ({
 	payload: error
 })
 
+export const openEditConversationMessageMode = (data) => ({
+	type: actionTypes.OPEN_EDIT_CONVERSATION_MESSAGE_MODE,
+	payload: data
+})
+
+export const closeEditConversationMessageMode = () => ({
+	type: actionTypes.EDIT_CONVERSATION_MESSAGE_START,
+})
+
+export const editConversationMessageStart = (data) => ({
+	type: actionTypes.EDIT_CONVERSATION_MESSAGE_START,
+	payload: data
+})
+
+export const editConversationMessageSuccess = (data) => ({
+	type: actionTypes.EDIT_CONVERSATION_MESSAGE_SUCCESS,
+	payload: data
+})
+
+export const editConversationMessageFail = (error) => ({
+	type: actionTypes.EDIT_CONVERSATION_MESSAGE_FAIL,
+	payload: error
+})
+
+
 export const chooseConversation = (id) => ({
 	type: actionTypes.CHOOSE_CONVERSATION,
 	payload: id

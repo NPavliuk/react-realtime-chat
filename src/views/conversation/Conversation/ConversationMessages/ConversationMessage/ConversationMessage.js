@@ -1,6 +1,7 @@
 import styles from './ConversationMessage.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import {
+	openEditConversationMessageMode,
 	removeConversationMessageStart,
 	setReadedConversationMessageStart
 } from '@store/reducers/conversationReducer/conversationActions'
@@ -9,8 +10,8 @@ import Moment from 'react-moment'
 import { classNames } from '@helpers/classNames'
 import { UserAvatar } from '@components/ui/avatars'
 import { getProfileInfoStart, openProfileBar } from '@store/reducers/profileReducer/profileActions'
-import { RiDeleteBin7Line } from 'react-icons/ri'
-import { MessageRemoveButton } from '@components/ui/buttons/MessageRemoveButton/MessageRemoveButton'
+import { RiDeleteBin7Line, RiPencilLine } from 'react-icons/ri'
+import { MessageControlButton } from '@components/ui/buttons/MessageControlButton/MessageControlButton'
 import { useEffect } from 'react'
 
 export const ConversationMessage = ({message, conversation}) => {
@@ -24,7 +25,7 @@ export const ConversationMessage = ({message, conversation}) => {
 			const data = {
 				userID: userID,
 				message: message,
-				conversationID: conversation.id,
+				conversationID: conversation.id
 			}
 
 			dispatch(setReadedConversationMessageStart(data))
@@ -56,6 +57,10 @@ export const ConversationMessage = ({message, conversation}) => {
 		dispatch(removeConversationMessageStart(data))
 	}
 
+	const editMessageHandler = () => {
+		dispatch(openEditConversationMessageMode(message))
+	}
+
 	const openProfileBarHandler = () => {
 		dispatch(openProfileBar())
 		dispatch(getProfileInfoStart(message.senderId))
@@ -84,7 +89,12 @@ export const ConversationMessage = ({message, conversation}) => {
 			</div>
 
 			<div className={styles.controls}>
-				<MessageRemoveButton icon={<RiDeleteBin7Line/>} handler={removeMessageHandler} modifyClass={'remove'}/>
+				{
+					message.senderId === userID
+						? <MessageControlButton icon={<RiPencilLine />} handler={editMessageHandler} />
+						: null
+				}
+				<MessageControlButton icon={<RiDeleteBin7Line />} handler={removeMessageHandler} modifyClass={'danger'} />
 			</div>
 		</div>
 	)

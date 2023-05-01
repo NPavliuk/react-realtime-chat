@@ -4,6 +4,10 @@ const initialState = {
 	id: null,
 	data: {},
 	messages: [],
+	editMessage: {
+		mode: false,
+		message: null
+	},
 	messageInput: '',
 	loading: false,
 	error: null
@@ -47,6 +51,25 @@ export const conversationReducer = (state = initialState, {type, payload}) => {
 			return {
 				...state,
 				messageInput: payload
+			}
+		case actionTypes.OPEN_EDIT_CONVERSATION_MESSAGE_MODE:
+			return {
+				...state,
+				messageInput: payload.text,
+				editMessage: {
+					mode: true,
+					message: payload
+				}
+			}
+		case actionTypes.CLOSE_EDIT_CONVERSATION_MESSAGE_MODE:
+		case actionTypes.EDIT_CONVERSATION_MESSAGE_SUCCESS:
+			return {
+				...state,
+				messageInput: '',
+				editMessage: {
+					mode: false,
+					message: null
+				}
 			}
 		default:
 			return state

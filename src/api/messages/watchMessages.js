@@ -12,10 +12,6 @@ export function watchMessages(eventChannel, conversationID) {
 				messages.push(doc.data())
 			})
 
-			messages.sort(function (x, y) {
-				return x.date - y.date
-			})
-
 			emit(messages)
 		})
 

@@ -6,7 +6,7 @@ import { PrimaryButton } from '@components/ui/buttons/PrimaryButton/PrimaryButto
 import { NavigationSettingButton } from '@components/ui/buttons/NavigationSettingButton/NavigationSettingButton'
 import { TypeButton } from '@components/ui/buttons/TypeButton/TypeButton'
 import { FilterButton } from '@components/ui/buttons/FilterButton/FilterButton'
-import { MessageRemoveButton } from '@components/ui/buttons/MessageRemoveButton/MessageRemoveButton'
+import { MessageControlButton } from '@components/ui/buttons/MessageControlButton/MessageControlButton'
 import { MessageSendButton } from '@components/ui/buttons/MessageSendButton/MessageSendButton'
 
 export {
@@ -18,6 +18,6 @@ export {
 	NavigationSettingButton,
 	TypeButton,
 	FilterButton,
-	MessageRemoveButton,
+	MessageControlButton,
 	MessageSendButton
 }

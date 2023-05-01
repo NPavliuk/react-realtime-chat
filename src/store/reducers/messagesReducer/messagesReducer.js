@@ -6,6 +6,10 @@ const initialState = {
 		mode: false,
 		message: null
 	},
+	replyMessage: {
+		mode: false,
+		message: null
+	},
 	loading: false,
 	error: null
 }
@@ -21,18 +25,29 @@ export const messagesReducer = (state = initialState, {type, payload}) => {
 		case actionTypes.OPEN_EDIT_MESSAGE_MODE:
 			return {
 				...state,
-				messageInput: payload.text,
 				editMessage: {
 					mode: true,
 					message: payload
 				}
 			}
+		case actionTypes.OPEN_REPLY_MESSAGE_MODE:
+			return {
+				...state,
+				replyMessage: {
+					mode: true,
+					message: payload
+				}
+			}
+		case actionTypes.CLOSE_REPLY_MESSAGE_MODE:
 		case actionTypes.CLOSE_EDIT_MESSAGE_MODE:
 		case actionTypes.EDIT_MESSAGE_SUCCESS:
 			return {
 				...state,
-				messageInput: '',
 				editMessage: {
+					mode: false,
+					message: null
+				},
+				replyMessage: {
 					mode: false,
 					message: null
 				}

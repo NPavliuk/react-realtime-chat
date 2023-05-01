@@ -2,10 +2,15 @@ import styles from './ConversationInput.module.scss'
 import { useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setConversationInput, } from '@store/reducers/conversationReducer/conversationActions'
-import { closeEditMessageMode, editMessageStart, setMessageStart } from '@store/reducers/messagesReducer/messagesActions'
+import {
+	closeEditMessageMode,
+	closeReplyMessageMode,
+	editMessageStart,
+	setMessageStart
+} from '@store/reducers/messagesReducer/messagesActions'
 import { CloseButton, MessageSendButton } from '@components/ui/buttons'
 import { MessageEditor } from '@components/ui/editors'
-import { RiPencilLine } from 'react-icons/ri'
+import { RiPencilLine, RiReplyLine } from 'react-icons/ri'
 import { getConversationalistsIDs } from '@helpers/conversations'
 
 export const ConversationInput = () => {
@@ -41,10 +46,33 @@ export const ConversationInput = () => {
 		}
 
 		dispatch(editMessageStart(data))
+		dispatch(setConversationInput(''))
 	}
 
-	const cancelEditHandler = () => {
+	const sendReplyMessageHandler = (e) => {
+		e.preventDefault()
+
+		const data = {
+			userID: userID,
+			conversationID: conversation.id,
+			conversationalists: getConversationalistsIDs(conversations, conversation.id),
+			messageText: conversation.messageInput,
+			replyMessage: messages.replyMessage.message
+		}
+
+		dispatch(setMessageStart(data))
+		dispatch(closeReplyMessageMode())
+		dispatch(setConversationInput(''))
+	}
+
+	const cancelEditMessageHandler = () => {
 		dispatch(closeEditMessageMode())
+		dispatch(setConversationInput(''))
+	}
+
+	const cancelReplyMessageHandler = () => {
+		dispatch(closeReplyMessageMode())
+		dispatch(setConversationInput(''))
 	}
 
 	return (
@@ -54,15 +82,30 @@ export const ConversationInput = () => {
 					<div className={styles.header}>
 						<RiPencilLine/>
 						<p className={styles.title}>Edit message</p>
-						<CloseButton handler={cancelEditHandler}/>
+						<CloseButton handler={cancelEditMessageHandler}/>
 					</div>
-					<div dangerouslySetInnerHTML={{__html: messages.editMessage.message.text}}></div>
+					<div className={styles.message} dangerouslySetInnerHTML={{__html: messages.editMessage.message.text}}></div>
 				</div>
 				<MessageEditor buttonRef={buttonRef} value={conversation.messageInput}/>
 				<div className={styles.controls}>
 					<MessageSendButton buttonRef={buttonRef}/>
 				</div>
 			</form>
+			: messages.replyMessage.mode ?
+				<form className={styles.wrapper} onSubmit={sendReplyMessageHandler}>
+					<div className={styles.editMode}>
+						<div className={styles.header}>
+							<RiReplyLine/>
+							<p className={styles.title}>Reply message</p>
+							<CloseButton handler={cancelReplyMessageHandler}/>
+						</div>
+						<div className={styles.message} dangerouslySetInnerHTML={{__html: messages.replyMessage.message.text}}></div>
+					</div>
+					<MessageEditor buttonRef={buttonRef} value={conversation.messageInput}/>
+					<div className={styles.controls}>
+						<MessageSendButton buttonRef={buttonRef}/>
+					</div>
+				</form>
 			:
 			<form className={styles.wrapper} onSubmit={sendMessageHandler}>
 				<MessageEditor buttonRef={buttonRef} value={conversation.messageInput}/>

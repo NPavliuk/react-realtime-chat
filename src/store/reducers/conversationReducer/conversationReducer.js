@@ -21,7 +21,6 @@ export const conversationReducer = (state = initialState, {type, payload}) => {
 				data: payload,
 				loading: false
 			}
-
 		case actionTypes.WATCH_CONVERSATION_FAIL:
 			return {
 				...state,

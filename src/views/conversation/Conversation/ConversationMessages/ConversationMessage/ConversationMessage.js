@@ -2,19 +2,30 @@ import styles from './ConversationMessage.module.scss'
 import Moment from 'react-moment'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { ConversationMessageReply } from '@views/conversation/Conversation/ConversationMessages/ConversationMessage/ConversationMessageReply/ConversationMessageReply'
 import { getProfileInfoStart, openProfileBar } from '@store/reducers/profileReducer/profileActions'
-import { openEditMessageMode, likeMessageStart, removeMessageStart, setReadedMessageStart, unlikeMessageStart } from '@store/reducers/messagesReducer/messagesActions'
-import { UserAvatar } from '@components/ui/avatars'
+import { setConversationInput } from '@store/reducers/conversationReducer/conversationActions'
+import {
+	openEditMessageMode,
+	likeMessageStart,
+	removeMessageStart,
+	setReadedMessageStart,
+	unlikeMessageStart,
+	openReplyMessageMode
+} from '@store/reducers/messagesReducer/messagesActions'
 import { MessageControlButton } from '@components/ui/buttons/MessageControlButton/MessageControlButton'
-import { RiDeleteBin7Line, RiPencilLine, RiHeartLine, RiHeartFill } from 'react-icons/ri'
+import { UserAvatar } from '@components/ui/avatars'
+import { RiDeleteBin7Line, RiPencilLine, RiHeartLine, RiHeartFill, RiReplyLine } from 'react-icons/ri'
 import { getNewLastMessage, isLastMessage, isUnreadMessage } from '@helpers/messages'
 import { classNames } from '@helpers/classNames'
-import { checkIsLiked } from '@helpers/checkIsLiked'
+import { checkLiked } from '@helpers/checkLiked'
+import { getInterlocutor } from '@helpers/getInterlocutor'
 
 export const ConversationMessage = ({message, conversation, messages}) => {
 	const dispatch = useDispatch()
 	const userID = useSelector(state => state.auth.id)
-	const isLiked = checkIsLiked(message.likes, userID)
+	const isLiked = checkLiked(message.likes, userID)
+	let interlocutor = getInterlocutor(conversation, message)
 
 	useEffect(() => {
 		const isUnread = isUnreadMessage(message, userID)
@@ -42,6 +53,7 @@ export const ConversationMessage = ({message, conversation, messages}) => {
 	}
 
 	const editMessageHandler = () => {
+		dispatch(setConversationInput(message.text))
 		dispatch(openEditMessageMode(message))
 	}
 
@@ -65,25 +77,33 @@ export const ConversationMessage = ({message, conversation, messages}) => {
 		dispatch(unlikeMessageStart(data))
 	}
 
+	const replyMessageHandler = () => {
+		dispatch(openReplyMessageMode(message))
+	}
+
 	const openProfileBarHandler = () => {
 		dispatch(openProfileBar())
 		dispatch(getProfileInfoStart(message.senderId))
 	}
 
-	let interlocutor
-	if (conversation.data.conversationalists) {
-		conversation.data.conversationalists.map(i => i.id === message.senderId ? interlocutor = i : null)
-	}
-
 	return (
 		<div className={classNames({
-			[styles.message]: true, [styles.incoming]: userID !== message.senderId
+			[styles.message]: true,
+			[styles.incoming]: userID !== message.senderId
 		})}>
 			<div className={styles.messageInner}>
 				<div className={styles.messageBlock}>
-					<div className={styles.messageText} dangerouslySetInnerHTML={{__html: message.text}}></div>
+					<div className={styles.messageContent}>
+						{
+							message.replyMessage
+								? <ConversationMessageReply conversation={conversation} message={message} modifyClass={ userID !== message.senderId ? 'incoming' : null} />
+								: null
+						}
+						<div dangerouslySetInnerHTML={{__html: message.text}}></div>
+					</div>
 					<div className={styles.controls}>
 						<MessageControlButton icon={isLiked ? <RiHeartFill/> : <RiHeartLine/>} handler={isLiked ? unlikeMessageHandler : likeMessageHandler} modifyClass={isLiked ? 'like' : null}/>
+						<MessageControlButton icon={<RiReplyLine />} handler={replyMessageHandler}/>
 						{
 							message.senderId === userID
 								? <MessageControlButton icon={<RiPencilLine/>} handler={editMessageHandler}/>

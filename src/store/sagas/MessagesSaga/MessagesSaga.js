@@ -42,7 +42,8 @@ export function* setMessageSaga(props) {
 		date: Timestamp.now(),
 		readers: [userID],
 		likes: [],
-		edited: false
+		edited: false,
+		replyMessage: props.payload.replyMessage ? props.payload.replyMessage : null
 	}
 
 	try {

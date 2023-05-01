@@ -1,0 +1,17 @@
+.message {
+  @apply block mb-3;
+
+  .name {
+    @apply block mb-1 font-bold;
+  }
+
+  .text {
+    @apply block pl-2 border-l-[2px] border-gray-600 line-clamp-3;
+  }
+
+  &.incoming {
+    .text {
+      @apply border-white;
+    }
+  }
+}

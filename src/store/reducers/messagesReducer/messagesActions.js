@@ -123,3 +123,12 @@ export const openEditMessageMode = (data) => ({
 export const closeEditMessageMode = () => ({
 	type: actionTypes.CLOSE_EDIT_MESSAGE_MODE,
 })
+
+export const openReplyMessageMode = (data) => ({
+	type: actionTypes.OPEN_REPLY_MESSAGE_MODE,
+	payload: data
+})
+
+export const closeReplyMessageMode = () => ({
+	type: actionTypes.CLOSE_REPLY_MESSAGE_MODE,
+})

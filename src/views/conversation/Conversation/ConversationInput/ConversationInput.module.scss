@@ -10,8 +10,6 @@
   }
 
   .editMode {
-    @apply mb-2 p-2 rounded-lg border text-sm text-gray-700;
-
     .header {
       @apply flex items-center gap-2 text-sm text-indigo-700 mb-1;
 
@@ -21,6 +19,28 @@
 
       svg {
         @apply w-4 h-4 fill-indigo-700;
+      }
+    }
+
+    .message {
+      @apply mb-2 p-2 rounded-lg border text-sm text-gray-700 bg-gray-200;
+
+      blockquote {
+        @apply px-3 border-l-[5px] border-gray-600;
+
+        p {
+          @apply italic;
+        }
+      }
+
+      p {
+        a {
+          @apply underline text-indigo-600;
+
+          &:hover {
+            @apply text-indigo-700;
+          }
+        }
       }
     }
   }

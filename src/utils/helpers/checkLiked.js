@@ -1,4 +1,3 @@
-
-export const checkIsLiked = (arr, uid) => {
+export const checkLiked = (arr, uid) => {
 	return arr.filter(id => uid === id).length > 0
 }

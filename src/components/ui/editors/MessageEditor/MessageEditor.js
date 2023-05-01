@@ -7,7 +7,7 @@ import { keyCodes } from '@ckeditor/ckeditor5-utils/src/keyboard'
 
 const editorConfiguration = {
 	placeholder: 'Write message...',
-	toolbar: ['bold', 'italic', 'blockQuote', 'link']
+	toolbar: ['bold', 'italic', 'link']
 }
 
 // TODO: Add feature for writing code

@@ -13,21 +13,6 @@ export const setConversationFilter = (filterID) => ({
 	payload: filterID
 })
 
-export const createDirectConversationStart = (data) => ({
-	type: actionTypes.CREATE_DIRECT_CONVERSATION_START,
-	payload: data
-})
-
-export const createDirectConversationSuccess = (conversations) => ({
-	type: actionTypes.CREATE_DIRECT_CONVERSATION_SUCCESS,
-	payload: conversations
-})
-
-export const createDirectConversationFail = (error) => ({
-	type: actionTypes.CREATE_DIRECT_CONVERSATION_FAIL,
-	payload: error
-})
-
 export const watchConversationsStart = (id) => ({
 	type: actionTypes.WATCH_CONVERSATIONS_START,
 	payload: id
@@ -40,19 +25,5 @@ export const watchConversationsSuccess = (conversations) => ({
 
 export const watchConversationsFail = (error) => ({
 	type: actionTypes.WATCH_CONVERSATIONS_FAIL,
-	payload: error
-})
-
-export const removeConversationsStart = (data) => ({
-	type: actionTypes.REMOVE_CONVERSATION_START,
-	payload: data
-})
-
-export const removeConversationsSuccess = () => ({
-	type: actionTypes.REMOVE_CONVERSATION_SUCCESS
-})
-
-export const removeConversationsFail = (error) => ({
-	type: actionTypes.REMOVE_CONVERSATION_FAIL,
 	payload: error
 })

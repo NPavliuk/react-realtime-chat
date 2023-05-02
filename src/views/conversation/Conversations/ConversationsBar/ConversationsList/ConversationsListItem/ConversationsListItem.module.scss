@@ -17,7 +17,7 @@
     }
 
     .unread {
-      @apply flex h-full justify-end;
+      @apply h-full flex justify-end;
 
       .indicator {
         @apply mt-1 w-2 h-2 rounded-full bg-rose-500;
@@ -27,6 +27,14 @@
 
   .message {
     @apply col-start-2 col-end-4 text-xs font-light text-gray-500 line-clamp-2;
+  }
+
+  .conversationalists {
+    @apply col-start-1 col-end-4 h-full flex justify-end items-center text-sm font-light;
+
+    svg {
+      @apply w-3 h-3 mr-1;
+    }
   }
 
   &.active {
@@ -54,6 +62,14 @@
 
     .message {
       @apply text-white;
+    }
+
+    .conversationalists {
+      @apply text-white;
+
+      svg {
+        @apply fill-white;
+      }
     }
   }
 }

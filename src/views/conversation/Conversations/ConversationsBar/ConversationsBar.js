@@ -4,7 +4,6 @@ import { PrimaryButton } from '@components/ui/buttons'
 import { openAddConversationModal, } from '@store/reducers/conversationsReducer/conversationsActions'
 import { ConversationsList } from '@views/conversation/Conversations/ConversationsBar/ConversationsList/ConversationsList'
 
-
 export const ConversationsBar = () => {
 	const dispatch = useDispatch()
 

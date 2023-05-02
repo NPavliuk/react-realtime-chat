@@ -45,5 +45,5 @@ export const Conversations = ({children}) => {
 	)
 }
 
-// TODO: Hide ConversationsBar and Conversation if user don't have any conversations.
+// TODO: Hide ConversationsBar and GroupConversation if user don't have any conversations.
 // 	Show instead empty state page with button for adding new conversation

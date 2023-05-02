@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { useForm, Controller } from 'react-hook-form'
 import { PrimaryButton } from '@components/ui/buttons'
 import { SingleContactSelect } from '@components/ui/form/selects'
-import { createDirectConversationStart } from '@store/reducers/conversationsReducer/conversationsActions'
+import { createDirectConversationStart } from '@store/reducers/conversationReducer/conversationActions'
 import { getUsersStart } from '@store/reducers/usersReducer/usersActions'
 import { createSelectOptions } from '@helpers/createSelectOptions'
 import { messages } from '@constants/validationMessages'
@@ -23,13 +23,10 @@ export const AddDirectConversationForm = ({closeHandler}) => {
 	}, [])
 
 	const addConversationSubmitHandler = (data) => {
-		const allData = {
-			...data,
-			userID: user.id,
-			navigate: navigate
-		}
+		data.userID = user.id
+		data.navigate = navigate
 
-		dispatch(createDirectConversationStart(allData))
+		dispatch(createDirectConversationStart(data))
 	}
 
 	return (

@@ -15,23 +15,25 @@ export function watchConversations(eventChannel, userID) {
 				conversationsIDs.push(doc.id)
 			})
 
-			const conversationsData = query(conversationsRef, where(documentId(), 'in', conversationsIDs))
-			unsubConversations = onSnapshot(conversationsData, {includeMetadataChanges: true}, async (querySnapshot) => {
-				let conversations = []
+			if(conversationsIDs.length > 0) {
+				const conversationsData = query(conversationsRef, where(documentId(), 'in', conversationsIDs))
+				unsubConversations = onSnapshot(conversationsData, {includeMetadataChanges: true}, async (querySnapshot) => {
+					let conversations = []
 
-				querySnapshot.forEach((doc) => {
-					const conversation = doc.data()
-					conversations.push(conversation)
+					querySnapshot.forEach((doc) => {
+						const conversation = doc.data()
+						conversations.push(conversation)
+					})
+
+					if (conversations.length > 0) {
+						await Promise.all(conversations.map(async (conversation) => {
+							conversation.conversationalists = await getUsers(conversation.conversationalists)
+						}))
+					}
+
+					emit(conversations)
 				})
-
-				if (conversations.length > 0) {
-					await Promise.all(conversations.map(async (conversation) => {
-						conversation.conversationalists = await getUsers(conversation.conversationalists)
-					}))
-				}
-
-				emit(conversations)
-			})
+			}
 		})
 
 		return () => {

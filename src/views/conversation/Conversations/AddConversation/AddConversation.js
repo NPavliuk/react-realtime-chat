@@ -1,10 +1,9 @@
+import styles from './AddConversation.module.scss'
 import { useState } from 'react'
 import { PrimaryButton, TypeButton } from '@components/ui/buttons'
-import {
-	AddDirectConversationForm
-} from '@views/conversation/Conversations/AddConversation/AddDirectConversationForm/AddDirectConversationForm'
+import { AddDirectConversationForm } from '@views/conversation/Conversations/AddConversation/AddDirectConversationForm/AddDirectConversationForm'
+import { AddGroupConversationForm, } from '@views/conversation/Conversations/AddConversation/AddGroupConversationForm/AddGroupConversationForm'
 import { RiUserLine, RiGroupLine } from 'react-icons/ri'
-import styles from './AddConversation.module.scss'
 
 export const AddConversation = ({closeHandler}) => {
 	const [directForm, setDirectForm] = useState(false)
@@ -53,14 +52,8 @@ export const AddConversation = ({closeHandler}) => {
 						: groupForm ?
 							<div className={styles.content}>
 								<h3 className={styles.title}>New group conversation</h3>
-								<p className={styles.note}>Group conversations are best when organized around a topic - #rest, for
-									example</p>
-
-								<div className={styles.controls}>
-									<div className={styles.cancel}>
-										<PrimaryButton title={'Cancel'} modifyClass={'cancel'} handler={closeButtonClickHandler}/>
-									</div>
-								</div>
+								<p className={styles.note}>Group conversations are best when organized around a topic - rest, for example</p>
+								<AddGroupConversationForm closeHandler={closeButtonClickHandler} />
 							</div>
 							:
 							null

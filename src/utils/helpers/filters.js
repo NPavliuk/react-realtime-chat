@@ -19,6 +19,5 @@ export const filterConversations = (conversations, filters) => {
 				break
 		}
 	})
-
 	return filtered
 }

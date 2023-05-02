@@ -69,10 +69,6 @@ export const NavigationBar = () => {
             <NavigationButton route={conversationID ? `${routeNames.CONVERSATIONS}/${conversationID}` : routeNames.CONVERSATIONS} icon={<RiDiscussLine/>} activeIcon={<RiDiscussFill/>}
                               indicator={isUnread} handler={() => {handleClick(); closeProfileBarHandler()}}/>
           </div>
-          <div className={styles.mainBarItem}>
-            <NavigationButton route={routeNames.BOOKMARKS} icon={<RiBookmarkLine/>} activeIcon={<RiBookmarkFill/>}
-                              indicator={false} handler={() => {handleClick(); closeProfileBarHandler()}}/>
-          </div>
         </div>
         <div>
           <div className={styles.mainBarItem}>

@@ -21,6 +21,9 @@ export const conversationReducer = (state = initialState, {type, payload}) => {
 				data: payload,
 				loading: false
 			}
+		case actionTypes.REMOVE_CONVERSATION_FAIL:
+		case actionTypes.CREATE_GROUP_CONVERSATION_FAIL:
+		case actionTypes.CREATE_DIRECT_CONVERSATION_FAIL:
 		case actionTypes.WATCH_CONVERSATION_FAIL:
 			return {
 				...state,

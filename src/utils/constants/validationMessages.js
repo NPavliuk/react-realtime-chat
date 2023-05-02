@@ -13,8 +13,8 @@ export const messages = {
   notMatchedPasswords: 'Passwords doesn\'t matched',
   toManyCharacters: 'Too many characters',
 
-	// Add Conversation messages
-	conversationAlreadyExist: 'Conversation with this user already exist',
+	// Add GroupConversation messages
+	conversationAlreadyExist: 'GroupConversation with this user already exist',
 
   // Settings messages
   profileUpdated: 'Profile successful updated',
@@ -22,9 +22,9 @@ export const messages = {
   passwordUpdateFailed: 'Update password failed. Please try again',
 
 
-	// Conversation messages
-	conversationRemoveSuccess: 'Conversation successful removed',
-	conversationMessagesRemoveSuccess: 'Conversation history has been cleared successfully',
+	// GroupConversation messages
+	conversationRemoveSuccess: 'GroupConversation successful removed',
+	conversationMessagesRemoveSuccess: 'GroupConversation history has been cleared successfully',
 
   // General messages
   somethingWrong: 'Something go wrong. Please try again',

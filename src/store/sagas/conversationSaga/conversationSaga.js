@@ -1,5 +1,5 @@
 import { eventChannel } from 'redux-saga'
-import { call, put, takeLatest, take, cancelled } from 'redux-saga/effects'
+import { call, put, takeLatest, take, cancelled, all } from 'redux-saga/effects'
 import { v4 as uuid } from 'uuid'
 import { Timestamp } from 'firebase/firestore'
 import toast from 'react-hot-toast'
@@ -9,8 +9,16 @@ import { checkConversation } from '@api/conversation/checkConversation'
 import { createConversation } from '@api/conversation/createConversation'
 import { setConversation } from '@api/conversation/setConversation'
 import { removeConversation } from '@api/conversation/removeConversation'
-import { watchConversationFail, watchConversationSuccess } from '@store/reducers/conversationReducer/conversationActions'
-import { closeAddConversationModal, createDirectConversationFail, createDirectConversationSuccess, removeConversationsFail, removeConversationsSuccess } from '@store/reducers/conversationsReducer/conversationsActions'
+import { removeUserConversation } from '@api/conversation/removeUserConversation'
+import {
+	watchConversationFail,
+	watchConversationSuccess,
+	createDirectConversationFail,
+	createDirectConversationSuccess,
+	removeConversationFail,
+	removeConversationSuccess, createGroupConversationSuccess
+} from '@store/reducers/conversationReducer/conversationActions'
+import { closeAddConversationModal } from '@store/reducers/conversationsReducer/conversationsActions'
 import { actionTypes } from '@constants/actionTypes'
 import { routeNames } from '@constants/routeNames'
 import { messages } from '@constants/validationMessages'
@@ -45,19 +53,49 @@ export function* createDirectConversationSaga(props) {
 	}
 }
 
-export function* removeConversationSaga(props) {
+export function* createGroupConversationSaga(props) {
 	const userID = props.payload.userID
-	const interlocutorID = props.payload.interlocutorID
+	const name = props.payload.name
+	const avatar = props.payload.avatar
+	const description = props.payload.description
+	const navigate = props.payload.navigate
+
+	const conversation = {
+		id: uuid(),
+		name: name,
+		description: description,
+		avatar: avatar,
+		directConversation: false,
+		conversationalists: [userID],
+		conversationStart: Timestamp.fromDate(new Date()),
+		lastMessage: null
+	}
+
+	try {
+		yield call(createConversation, conversation)
+		yield call(setConversation, userID, conversation.id)
+		yield put(createGroupConversationSuccess())
+		yield put(closeAddConversationModal())
+		navigate(`${routeNames.CONVERSATIONS}/${conversation.id}`)
+	} catch (err) {
+		yield put(createGroupConversationSuccess(err.message))
+	}
+}
+
+
+export function* removeConversationSaga(props) {
 	const conversationID = props.payload.conversationID
+	const conversationalists = props.payload.conversationalists
 	const navigate = props.payload.navigate
 
 	try {
-		yield call(removeConversation, userID, interlocutorID, conversationID)
-		yield put(removeConversationsSuccess())
+		yield call(removeConversation, conversationID)
+		yield all(conversationalists.map(interlocutor => call(removeUserConversation, interlocutor.id, conversationID)))
+		yield put(removeConversationSuccess())
 		navigate(routeNames.CONVERSATIONS)
 		yield call(toast.success, messages.conversationRemoveSuccess)
 	} catch (err) {
-		yield put(removeConversationsFail(err.message))
+		yield put(removeConversationFail(err.message))
 	}
 }
 
@@ -83,7 +121,8 @@ function* watchConversationSaga(props) {
 }
 
 export const conversationSaga = [
+	takeLatest(actionTypes.CREATE_GROUP_CONVERSATION_START, createGroupConversationSaga),
 	takeLatest(actionTypes.CREATE_DIRECT_CONVERSATION_START, createDirectConversationSaga),
 	takeLatest(actionTypes.REMOVE_CONVERSATION_START, removeConversationSaga),
-	takeLatest(actionTypes.WATCH_CONVERSATION_START, watchConversationSaga),
+	takeLatest(actionTypes.WATCH_CONVERSATION_START, watchConversationSaga)
 ]

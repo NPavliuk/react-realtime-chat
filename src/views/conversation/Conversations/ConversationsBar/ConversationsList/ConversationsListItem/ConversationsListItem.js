@@ -7,23 +7,21 @@ import { getProfileInfoStart, openProfileBar } from '@store/reducers/profileRedu
 import { classNames } from '@helpers/classNames'
 import { routeNames } from '@constants/routeNames'
 import { isUnreadMessage } from '@helpers/messages'
-
+import { FiUsers } from 'react-icons/fi'
 
 export const ConversationsListItem = ({conversation}) => {
 	const dispatch = useDispatch()
 	const userID = useSelector(state => state.auth.id)
-	const isDirectConversation = conversation.directConversation
 	const conversationalists = conversation.conversationalists.filter(c => c.id !== userID)
+	const isUnread = isUnreadMessage(conversation.lastMessage, userID)
 
 	const openProfileBarHandler = () => {
 		dispatch(openProfileBar())
 		dispatch(getProfileInfoStart(conversationalists[0].id))
 	}
 
-	const isUnread = isUnreadMessage(conversation.lastMessage, userID)
-
 	return (
-		isDirectConversation ?
+		conversation.directConversation ?
 			<NavLink to={`${routeNames.CONVERSATIONS}/${conversation.id}`} className={({isActive}) => classNames({
 				[styles.wrapper]: true,
 				[styles.active]: isActive
@@ -53,6 +51,38 @@ export const ConversationsListItem = ({conversation}) => {
 					{__html: conversation.lastMessage ? conversation.lastMessage.text : `Start a conversation with ${conversationalists[0].name}`}
 				}></div>
 			</NavLink>
-			: null
+			:
+			<NavLink to={`${routeNames.CONVERSATIONS}/${conversation.id}`} className={({isActive}) => classNames({
+				[styles.wrapper]: true,
+				[styles.active]: isActive
+			})}>
+				<div className={styles.head}>
+					<UserAvatar name={conversation.name} image={conversation.avatar ? conversation.avatar : null}
+											modifyClass={'small'}/>
+					<div className={styles.info}>
+						<h5 className={styles.name}>{conversation.name}</h5>
+						{
+							conversation.lastMessage
+								? <span className={styles.time}> - <Moment
+									format={'hh:mm A'}>{conversation.lastMessage.date.toDate()}</Moment></span>
+								: <span className={styles.time}> - <Moment
+									format={'hh:mm A'}>{conversation.conversationStart.toDate()}</Moment></span>
+						}
+					</div>
+					{
+						conversation.lastMessage && isUnread ?
+							<div className={styles.unread}>
+								<span className={styles.indicator}></span>
+							</div>
+							: null
+					}
+				</div>
+				<div className={styles.message} dangerouslySetInnerHTML={
+					{__html: conversation.lastMessage ? conversation.lastMessage.text : `Start a conversation in ${conversation.name}`}
+				}></div>
+				<div className={styles.conversationalists}>
+					<FiUsers/>{conversation.conversationalists.length}
+				</div>
+			</NavLink>
 	)
 }

@@ -1,10 +1,15 @@
 import styles from './ConversationsList.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { FilterButton } from '@components/ui/buttons'
-import { ConversationsListItem } from '@views/conversation/Conversations/ConversationsBar/ConversationsList/ConversationsListItem/ConversationsListItem'
-import { ConversationsListEmptyState } from '@views/conversation/Conversations/ConversationsEmptyState/ConversationsListEmptyState'
+import {
+	ConversationsListItem
+} from '@views/conversation/Conversations/ConversationsBar/ConversationsList/ConversationsListItem/ConversationsListItem'
+import {
+	ConversationsListEmptyState
+} from '@views/conversation/Conversations/ConversationsEmptyState/ConversationsListEmptyState'
 import { setConversationFilter } from '@store/reducers/conversationsReducer/conversationsActions'
 import { filterConversations } from '@helpers/filters'
+
 
 export const ConversationsList = () => {
 	const dispatch = useDispatch()
@@ -30,7 +35,7 @@ export const ConversationsList = () => {
 			<div className={styles.list}>
 				{
 					filteredConversations.length > 0
-						? filteredConversations.map((conversation, i) => <ConversationsListItem key={i} conversation={conversation}/>)
+						? filteredConversations.map((conversation) => <ConversationsListItem key={conversation.id} conversation={conversation}/>)
 						: !filteredConversations.length > 0 && currentFilter[0].id === 'conversations-all'
 							? <ConversationsListEmptyState text={'conversations'}/>
 							: !filteredConversations.length > 0 && currentFilter[0].id === 'conversations-direct'
@@ -39,7 +44,6 @@ export const ConversationsList = () => {
 									? <ConversationsListEmptyState text={'group conversations'}/>
 									: null
 				}
-
 			</div>
 		</div>
 	)

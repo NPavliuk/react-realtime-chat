@@ -16,6 +16,7 @@ export const authReducer = (state = initialState, {type, payload}) => {
         ...state,
         loading: true
       }
+		case actionTypes.SET_LOCAL_SESSION:
 		case actionTypes.WATCH_SESSION_SUCCESS:
     case actionTypes.SIGN_IN_SUCCESS:
     case actionTypes.SIGN_UP_SUCCESS:

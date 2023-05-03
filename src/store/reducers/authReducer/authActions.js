@@ -5,14 +5,19 @@ export const signUpStart = (data) => ({
   type: actionTypes.SIGN_UP_START
 })
 
-export const signUpSuccess = (user) => ({
-  payload: user,
+export const signUpSuccess = (id) => ({
+  payload: id,
   type: actionTypes.SIGN_UP_SUCCESS
 })
 
 export const signUpFail = (error) => ({
   payload: error,
   type: actionTypes.SIGN_UP_FAIL
+})
+
+export const setLocalSession = (id) => ({
+	type: actionTypes.SET_LOCAL_SESSION,
+	payload: id,
 })
 
 export const signInStart = (data) => ({

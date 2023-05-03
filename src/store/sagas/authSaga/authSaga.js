@@ -22,6 +22,7 @@ import { eventChannel } from 'redux-saga'
 import { watchAuthSession } from '@api/auth/watchAuthSession'
 import { getUserDataStart } from '@store/reducers/userReducer/userActions'
 import { routeNames } from '@constants/routeNames'
+import { removeSessionFromLocalStorage, saveSessionToLocalStorage } from '@helpers/localStorage'
 
 export function* signUpWithEmailPasswordSaga(props) {
 	const name = props.payload.name
@@ -34,6 +35,7 @@ export function* signUpWithEmailPasswordSaga(props) {
 			const user = yield call(signUpWithEmailPassword, email, password)
 			user.name = name
 			yield call(setUserToDb, user)
+			yield call(saveSessionToLocalStorage, user.uid)
 			yield put(signUpSuccess(user.uid))
 			navigate(routeNames.CONVERSATIONS)
 			yield call(toast.success, messages.signUpSuccess)
@@ -54,6 +56,7 @@ export function* signInWithEmailPasswordSaga(props) {
 			const res = yield call(signInWithEmailPassword, email, password)
 			if (res.uid) {
 				yield put(signInSuccess(res.uid))
+				yield call(saveSessionToLocalStorage, res.uid)
 				navigate(routeNames.CONVERSATIONS)
 				yield call(toast.success, messages.signInSuccess)
 			} else {
@@ -72,6 +75,7 @@ export function* signOutSaga(props) {
 
 	try {
 		yield call(signOut, auth)
+		yield call(removeSessionFromLocalStorage)
 		yield put(signOutSuccess())
 		navigate(routeNames.HOME)
 	} catch (err) {

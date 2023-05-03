@@ -121,6 +121,21 @@ export const removeInterlocutorFail = (error) => ({
 	payload: error
 })
 
+export const leaveConversationStart = (data) => ({
+	type: actionTypes.LEAVE_CONVERSATION_START,
+	payload: data
+})
+
+export const leaveConversationSuccess = (data) => ({
+	type: actionTypes.LEAVE_CONVERSATION_SUCCESS,
+	payload: data
+})
+
+export const leaveConversationFail = (error) => ({
+	type: actionTypes.LEAVE_CONVERSATION_FAIL,
+	payload: error
+})
+
 export const openConversationBar = () => ({
 	type: actionTypes.OPEN_CONVERSATION_BAR
 })

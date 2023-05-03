@@ -9,7 +9,7 @@ export function watchConversations(eventChannel, userID) {
 		const userConversationRef = collection(db, `users/${userID}/conversations`)
 
 		const unsubUserConversations = onSnapshot(userConversationRef, {includeMetadataChanges: true}, (querySnapshot) => {
-			let conversationsIDs = []
+			let conversationsIDs = ['initial']
 
 			querySnapshot.forEach((doc) => {
 				conversationsIDs.push(doc.id)

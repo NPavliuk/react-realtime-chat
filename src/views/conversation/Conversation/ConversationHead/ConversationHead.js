@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom'
 import { UserAvatar } from '@components/ui/avatars'
 import { clearMessagesStart } from '@store/reducers/messagesReducer/messagesActions'
 import {
+	leaveConversationStart,
 	openConversationBar,
-	removeConversationStart
+	removeConversationStart, removeInterlocutorStart
 } from '@store/reducers/conversationReducer/conversationActions'
 import {
 	closeProfileBar,
@@ -16,6 +17,7 @@ import { PrimaryDropdown, PrimaryDropdownItem } from '@components/ui/dropdowns'
 import { HiOutlineDotsVertical } from 'react-icons/hi'
 import { RiDeleteBin7Line, RiUserLine } from 'react-icons/ri'
 import { FiUsers } from 'react-icons/fi'
+import { RxExit } from 'react-icons/rx'
 import { GrClearOption } from 'react-icons/gr'
 
 export const ConversationHead = () => {
@@ -39,6 +41,16 @@ export const ConversationHead = () => {
 	const openConversationBarHandler = () => {
 		dispatch(closeProfileBar())
 		dispatch(openConversationBar())
+	}
+
+	const leaveConversationHandler = () => {
+		const data = {
+			userID: userID,
+			conversationID: conversation.id,
+			navigate: navigate
+		}
+
+		dispatch(leaveConversationStart(data))
 	}
 
 	const removeConversationHandler = (e) => {
@@ -70,7 +82,7 @@ export const ConversationHead = () => {
 					</div>
 				</div>
 				<PrimaryDropdown icon={<HiOutlineDotsVertical/>}>
-					<PrimaryDropdownItem icon={<RiUserLine/>} title={'Profile'} handler={openProfileBarHandler}/>
+					<PrimaryDropdownItem icon={<RiUserLine/>} title={'View details'} handler={openProfileBarHandler}/>
 					<PrimaryDropdownItem icon={<GrClearOption/>} title={'Clear history'} handler={clearConversationMessages}/>
 					<PrimaryDropdownItem icon={<RiDeleteBin7Line/>} title={'Remove conversation'} modifyClass={'danger'} handler={removeConversationHandler}/>
 				</PrimaryDropdown>
@@ -87,8 +99,7 @@ export const ConversationHead = () => {
 					</div>
 				</div>
 				<PrimaryDropdown icon={<HiOutlineDotsVertical/>}>
-
-					<PrimaryDropdownItem icon={<FiUsers/>} title={'Conversation details'} handler={openConversationBarHandler}/>
+					<PrimaryDropdownItem icon={<FiUsers/>} title={'View details'} handler={openConversationBarHandler}/>
 					{
 						conversation.data && userID === conversation.data.admin
 							? <PrimaryDropdownItem icon={<GrClearOption/>} title={'Clear history'} handler={clearConversationMessages}/>
@@ -97,7 +108,7 @@ export const ConversationHead = () => {
 					{
 						conversation.data && userID === conversation.data.admin
 							? <PrimaryDropdownItem icon={<RiDeleteBin7Line/>} title={'Remove conversation'} modifyClass={'danger'} handler={removeConversationHandler}/>
-							: null
+							: <PrimaryDropdownItem icon={<RxExit/>} title={'Leave conversation'} modifyClass={'danger'} handler={leaveConversationHandler}/>
 					}
 				</PrimaryDropdown>
 			</div>

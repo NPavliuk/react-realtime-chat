@@ -22,8 +22,11 @@ export const messages = {
   passwordUpdateFailed: 'Update password failed. Please try again',
 
 	// GroupConversation messages
-	conversationRemoveSuccess: 'GroupConversation successful removed',
-	conversationMessagesRemoveSuccess: 'GroupConversation history has been cleared successfully',
+	leaveConversationSuccess: 'You have successfully left the conversation',
+	conversationUpdateSuccess: 'Conversation settings updated successfully',
+	conversationRemoveSuccess: 'Conversation successfully removed',
+	conversationMessagesRemoveSuccess: 'Conversation history has been cleared successfully',
+	conversationInterlocutorRemoveSuccess: 'The interlocutor has been successfully removed from the conversation',
 
   // General messages
   somethingWrong: 'Something go wrong. Please try again',

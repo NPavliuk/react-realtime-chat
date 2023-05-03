@@ -24,6 +24,7 @@ export const conversationReducer = (state = initialState, {type, payload}) => {
 				data: payload,
 				loading: false
 			}
+		case actionTypes.LEAVE_CONVERSATION_FAIL:
 		case actionTypes.EDIT_CONVERSATION_FAIL:
 		case actionTypes.ADD_INTERLOCUTOR_FAIL:
 		case actionTypes.REMOVE_INTERLOCUTOR_FAIL:

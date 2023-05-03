@@ -1,9 +1,10 @@
 import './MessageEditor.scss'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import { CKEditor } from '@ckeditor/ckeditor5-react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setConversationInput } from '@store/reducers/conversationReducer/conversationActions'
 import { keyCodes } from '@ckeditor/ckeditor5-utils/src/keyboard'
+import { useRef } from 'react'
 
 const editorConfiguration = {
 	placeholder: 'Write message...',
@@ -15,10 +16,10 @@ const editorConfiguration = {
 
 export const MessageEditor = ({buttonRef, value}) => {
 	const dispatch = useDispatch()
-
+	const fieldRef = useRef()
 
 	return (
-		<div>
+		<div ref={fieldRef} className={'ck-wrapper'}>
 			<CKEditor
 				editor={ClassicEditor}
 				config={editorConfiguration}
@@ -32,8 +33,19 @@ export const MessageEditor = ({buttonRef, value}) => {
 							data.preventDefault()
 						}
 					}, {priority: 'high'})
-				}}
 
+					editor.ui.focusTracker.on('change:isFocused', (evt, data, isFocused) => {
+						if (isFocused) {
+							fieldRef.current.className = 'ck-wrapper ck-focused'
+						} else {
+							fieldRef.current.className = 'ck-wrapper'
+						}
+					})
+
+					document.addEventListener('focus-editor', () => {
+						editor.editing.view.focus()
+					})
+				}}
 				onChange={(event, editor) => {
 					const data = editor.getData()
 					dispatch(setConversationInput(data))

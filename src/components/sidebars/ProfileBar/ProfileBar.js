@@ -8,8 +8,11 @@ import { FaBirthdayCake } from 'react-icons/fa'
 import { routeNames } from '@constants/routeNames'
 import { classNames } from '@helpers/classNames'
 import { closeProfileBar } from '@store/reducers/profileReducer/profileActions'
+import { createDirectConversationStart } from '@store/reducers/conversationReducer/conversationActions'
+import { useNavigate } from 'react-router-dom'
 
 export const ProfileBar = () => {
+	const navigate = useNavigate()
 	const dispatch = useDispatch()
 	const userID = useSelector(state => state.auth.id)
 	const profile = useSelector(state => state.profile.data)
@@ -17,6 +20,15 @@ export const ProfileBar = () => {
 
 	const closeHandler = () => {
 		dispatch(closeProfileBar())
+	}
+
+	const messageClickHandler = () => {
+		const data = {
+			userID: userID,
+			interlocutorID: profile.id,
+			navigate: navigate
+		}
+		dispatch(createDirectConversationStart(data))
 	}
 
 	return (
@@ -47,7 +59,7 @@ export const ProfileBar = () => {
 				{
 					userID !== profile.id ?
 						<div className={styles.controls}>
-							<PrimaryButton title={'Message'}/>
+							<PrimaryButton handler={messageClickHandler} title={'Message'}/>
 						</div>
 						:
 						<div className={styles.controls}>

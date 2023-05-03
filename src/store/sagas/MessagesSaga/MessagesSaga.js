@@ -1,7 +1,16 @@
+import toast from 'react-hot-toast'
 import { eventChannel } from 'redux-saga'
 import { call, put, takeLatest, take, cancelled } from 'redux-saga/effects'
 import { v4 as uuid } from 'uuid'
 import { Timestamp } from 'firebase/firestore'
+import { setMessage } from '@api/messages/setMessage'
+import { removeMessage } from '@api/messages/removeMessage'
+import { setLastMessage } from '@api/messages/setLastMessage'
+import { setConversationalists } from '@api/conversation/setConversationalists'
+import { getLastMessage } from '@api/messages/getLastMessage'
+import { watchMessages } from '@api/messages/watchMessages'
+import { updateMessage } from '@api/messages/updateMessage'
+import { removeMessages } from '@api/messages/removeMessages'
 import {
 	setMessageFail,
 	removeMessageFail,
@@ -17,16 +26,7 @@ import {
 	unlikeMessageSuccess,
 	unlikeMessageFail, clearMessagesSuccess, clearMessagesFail
 } from '@store/reducers/messagesReducer/messagesActions'
-import { setMessage } from '@api/messages/setMessage'
-import { removeMessage } from '@api/messages/removeMessage'
-import { setLastMessage } from '@api/messages/setLastMessage'
-import { setConversationalists } from '@api/conversation/setConversationalists'
-import { getLastMessage } from '@api/messages/getLastMessage'
-import { watchMessages } from '@api/messages/watchMessages'
-import { updateMessage } from '@api/messages/updateMessage'
 import { actionTypes } from '@constants/actionTypes'
-import { removeMessages } from '@api/messages/removeMessages'
-import toast from 'react-hot-toast'
 import { messages } from '@constants/validationMessages'
 
 export function* setMessageSaga(props) {

@@ -10,6 +10,9 @@ import { createConversation } from '@api/conversation/createConversation'
 import { setConversation } from '@api/conversation/setConversation'
 import { removeConversation } from '@api/conversation/removeConversation'
 import { removeUserConversation } from '@api/conversation/removeUserConversation'
+import { setConversationInterlocutor } from '@api/conversation/setConversationInterlocutor'
+import { removeUserFromConversation } from '@api/conversation/removeUserFromConversation'
+import { updateConversation } from '@api/conversation/updateConversation'
 import {
 	watchConversationFail,
 	watchConversationSuccess,
@@ -23,15 +26,17 @@ import {
 	addInterlocutorSuccess,
 	closeAddInterlocutorModal,
 	removeInterlocutorSuccess,
-	removeInterlocutorFail, editConversationFail, editConversationSuccess, closeEditConversationModal
+	removeInterlocutorFail,
+	editConversationFail,
+	editConversationSuccess,
+	closeEditConversationModal,
+	leaveConversationSuccess, leaveConversationFail
 } from '@store/reducers/conversationReducer/conversationActions'
 import { closeAddConversationModal } from '@store/reducers/conversationsReducer/conversationsActions'
 import { actionTypes } from '@constants/actionTypes'
 import { routeNames } from '@constants/routeNames'
 import { messages } from '@constants/validationMessages'
-import { setConversationInterlocutor } from '@api/conversation/setConversationInterlocutor'
-import { removeUserFromConversation } from '@api/conversation/removeUserFromConversation'
-import { updateConversation } from '@api/conversation/updateConversation'
+import { createAndDispatchFocusEvent } from '@helpers/customEvents'
 
 export function* createDirectConversationSaga(props) {
 	const userID = props.payload.userID
@@ -47,13 +52,27 @@ export function* createDirectConversationSaga(props) {
 	}
 
 	try {
-		const conversationExist = yield call(checkConversation, userID, interlocutorID)
-		if (!conversationExist) {
+		const userConversation = yield call(checkConversation, userID, interlocutorID)
+		const interlocutorConversation = yield call(checkConversation, interlocutorID, userID)
+
+		if (userConversation.length === 0 && interlocutorConversation.length === 0) {
 			yield call(createConversation, conversation)
 			yield call(setConversation, userID, conversation.id)
 			yield put(createDirectConversationSuccess())
 			yield put(closeAddConversationModal())
-			navigate(`${routeNames.CONVERSATIONS}/${conversation.id}`)
+			createAndDispatchFocusEvent()
+			yield call(navigate, `${routeNames.CONVERSATIONS}/${conversation.id}`)
+		} else if (userConversation.length === 0 && interlocutorConversation.length > 0) {
+			const conversationID = interlocutorConversation[0]
+			yield call(setConversation, userID, conversationID)
+			yield put(createDirectConversationSuccess())
+			yield put(closeAddConversationModal())
+			createAndDispatchFocusEvent()
+			yield call(navigate, `${routeNames.CONVERSATIONS}/${conversation.id}`)
+		} else if (userConversation.length > 0) {
+			const conversationID = userConversation[0]
+			yield call(navigate, `${routeNames.CONVERSATIONS}/${conversationID}`)
+			createAndDispatchFocusEvent()
 		} else {
 			yield put(createDirectConversationFail(messages.conversationAlreadyExist))
 			yield call(toast.error, messages.conversationAlreadyExist)
@@ -117,6 +136,7 @@ export function* editConversationSaga(props) {
 		yield call(updateConversation, conversation)
 		yield put(closeEditConversationModal())
 		yield put(editConversationSuccess())
+		yield call(toast.success, messages.conversationUpdateSuccess)
 	} catch (err) {
 		yield put(editConversationFail(err.message))
 	}
@@ -144,16 +164,15 @@ function* watchConversationSaga(props) {
 }
 
 export function* addInterlocutorSaga(props) {
-	const userID = props.payload.userID
 	const conversationID = props.payload.conversationID
+	const interlocutorID = props.payload.interlocutorID
 	const conversationalists = props.payload.conversationalists
 
 	try {
-		yield call(setConversation, userID, conversationID)
+		yield call(setConversation, interlocutorID, conversationID)
 		yield call(setConversationInterlocutor, conversationalists, conversationID)
 		yield put(closeAddInterlocutorModal())
 		yield put(addInterlocutorSuccess())
-
 	} catch (err) {
 		yield put(addInterlocutorFail(err.message))
 	}
@@ -167,9 +186,25 @@ export function* removeInterlocutorSaga(props) {
 		yield call(removeUserConversation, userID, conversationID)
 		yield call(removeUserFromConversation, userID, conversationID)
 		yield put(removeInterlocutorSuccess())
-
+		yield call(toast.success, messages.conversationInterlocutorRemoveSuccess)
 	} catch (err) {
 		yield put(removeInterlocutorFail(err.message))
+	}
+}
+
+export function* leaveConversationSaga(props) {
+	const userID = props.payload.userID
+	const conversationID = props.payload.conversationID
+	const navigate = props.payload.navigate
+
+	try {
+		yield call(removeUserConversation, userID, conversationID)
+		yield call(removeUserFromConversation, userID, conversationID)
+		yield put(leaveConversationSuccess())
+		navigate(routeNames.CONVERSATIONS)
+		yield call(toast.success, messages.leaveConversationSuccess)
+	} catch (err) {
+		yield put(leaveConversationFail(err.message))
 	}
 }
 
@@ -180,5 +215,6 @@ export const conversationSaga = [
 	takeLatest(actionTypes.EDIT_CONVERSATION_START, editConversationSaga),
 	takeLatest(actionTypes.WATCH_CONVERSATION_START, watchConversationSaga),
 	takeLatest(actionTypes.REMOVE_INTERLOCUTOR_START, removeInterlocutorSaga),
-	takeLatest(actionTypes.ADD_INTERLOCUTOR_START, addInterlocutorSaga)
+	takeLatest(actionTypes.ADD_INTERLOCUTOR_START, addInterlocutorSaga),
+	takeLatest(actionTypes.LEAVE_CONVERSATION_START, leaveConversationSaga)
 ]

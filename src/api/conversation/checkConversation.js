@@ -23,7 +23,9 @@ export const checkConversation = async (userID, interlocutorID) => {
 				conversations.push(doc.id)
 			})
 
-			return conversations.length > 0
+			return conversations
+		} else {
+			return []
 		}
 	} catch (error) {
 		return error.message

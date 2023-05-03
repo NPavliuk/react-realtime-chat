@@ -6,7 +6,11 @@ export function watchConversation(eventChannel, conversationID) {
 		const conversationRef = doc(db, `conversations/${conversationID}`)
 
 		const unsubConversation = onSnapshot(conversationRef, {includeMetadataChanges: true}, doc => {
-			const conversation = doc.data()
+			let conversation = {}
+
+			if (doc.exists()) {
+				conversation = doc.data()
+			}
 
 			emit(conversation)
 		})

@@ -11,7 +11,6 @@ import { addInterlocutorStart } from '@store/reducers/conversationReducer/conver
 
 export const AddInterlocutor = ({closeHandler}) => {
 	const dispatch = useDispatch()
-	const userID = useSelector(state => state.auth.id)
 	const conversation = useSelector(state => state.conversation.data)
 	const users = useSelector(state => state.users.users)
 	const {control, handleSubmit} = useForm({mode: 'onBlur'})
@@ -28,7 +27,6 @@ export const AddInterlocutor = ({closeHandler}) => {
 	const selectOptions = createSelectOptions(users, conversationalists)
 
 	const addInterlocutorSubmitHandler = (data) => {
-		data.userID = userID
 		data.conversationID = conversation.id
 		data.conversationalists = conversationalists
 		data.conversationalists.push(data.interlocutorID)

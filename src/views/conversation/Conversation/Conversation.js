@@ -8,13 +8,13 @@ import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import {
 	chooseConversation,
-	watchConversationStart,
+	watchConversationStart
 } from '@store/reducers/conversationReducer/conversationActions'
 
 import {
 	watchMessagesStart
 } from '@store/reducers/messagesReducer/messagesActions'
-
+import { ConversationBar } from '@views/conversation/Conversation/ConversationBar/ConversationBar'
 
 export const Conversation = () => {
 	const dispatch = useDispatch()
@@ -40,6 +40,7 @@ export const Conversation = () => {
 				<ConversationMessages/>
 				<ConversationInput/>
 			</div>
+			<ConversationBar />
 		</Conversations>
 	)
 }

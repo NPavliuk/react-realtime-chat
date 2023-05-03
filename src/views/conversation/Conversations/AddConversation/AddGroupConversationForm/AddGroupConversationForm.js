@@ -10,7 +10,7 @@ export const AddGroupConversationForm = ({closeHandler}) => {
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 	const user = useSelector(state => state.user.data)
-	const {control, register, handleSubmit, formState: {errors}} = useForm({mode: 'onBlur'})
+	const { register, handleSubmit, formState: {errors}} = useForm({mode: 'onBlur'})
 
 	const addGroupConversationSubmitHandler = (data) => {
 		data.userID = user.id

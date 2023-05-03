@@ -8,6 +8,6 @@ export const routeNames = {
   CONVERSATION: '/conversations/:id',
   BOOKMARKS: '/bookmarks',
   SETTINGS: '/settings',
-  PROFILE_SETTINGS: '/settings/profile',
+  PROFILE_SETTINGS: '/settings/info',
   SECURITY_SETTINGS: '/settings/security',
 }

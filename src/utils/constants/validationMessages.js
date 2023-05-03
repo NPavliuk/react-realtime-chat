@@ -21,7 +21,6 @@ export const messages = {
   passwordUpdated: 'Password successful updated',
   passwordUpdateFailed: 'Update password failed. Please try again',
 
-
 	// GroupConversation messages
 	conversationRemoveSuccess: 'GroupConversation successful removed',
 	conversationMessagesRemoveSuccess: 'GroupConversation history has been cleared successfully',

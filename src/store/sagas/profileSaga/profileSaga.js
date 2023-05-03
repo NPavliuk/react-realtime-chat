@@ -1,6 +1,9 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
 import { getUserData } from '@api/user/getUser'
-import { getProfileInfoFail, getProfileInfoSuccess } from '@store/reducers/profileReducer/profileActions'
+import {
+	getProfileInfoFail,
+	getProfileInfoSuccess
+} from '@store/reducers/profileReducer/profileActions'
 import { actionTypes } from '@constants/actionTypes'
 
 export function* profileInfoSaga(props) {
@@ -15,5 +18,5 @@ export function* profileInfoSaga(props) {
 }
 
 export const profileSaga = [
-  takeLatest(actionTypes.GET_PROFILE_INFO_START, profileInfoSaga)
+  takeLatest(actionTypes.GET_PROFILE_INFO_START, profileInfoSaga),
 ]

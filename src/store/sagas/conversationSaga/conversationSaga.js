@@ -16,12 +16,22 @@ import {
 	createDirectConversationFail,
 	createDirectConversationSuccess,
 	removeConversationFail,
-	removeConversationSuccess, createGroupConversationSuccess
+	removeConversationSuccess,
+	createGroupConversationSuccess,
+	createGroupConversationFail,
+	addInterlocutorFail,
+	addInterlocutorSuccess,
+	closeAddInterlocutorModal,
+	removeInterlocutorSuccess,
+	removeInterlocutorFail, editConversationFail, editConversationSuccess, closeEditConversationModal
 } from '@store/reducers/conversationReducer/conversationActions'
 import { closeAddConversationModal } from '@store/reducers/conversationsReducer/conversationsActions'
 import { actionTypes } from '@constants/actionTypes'
 import { routeNames } from '@constants/routeNames'
 import { messages } from '@constants/validationMessages'
+import { setConversationInterlocutor } from '@api/conversation/setConversationInterlocutor'
+import { removeUserFromConversation } from '@api/conversation/removeUserFromConversation'
+import { updateConversation } from '@api/conversation/updateConversation'
 
 export function* createDirectConversationSaga(props) {
 	const userID = props.payload.userID
@@ -65,6 +75,7 @@ export function* createGroupConversationSaga(props) {
 		name: name,
 		description: description,
 		avatar: avatar,
+		admin: userID,
 		directConversation: false,
 		conversationalists: [userID],
 		conversationStart: Timestamp.fromDate(new Date()),
@@ -78,10 +89,9 @@ export function* createGroupConversationSaga(props) {
 		yield put(closeAddConversationModal())
 		navigate(`${routeNames.CONVERSATIONS}/${conversation.id}`)
 	} catch (err) {
-		yield put(createGroupConversationSuccess(err.message))
+		yield put(createGroupConversationFail(err.message))
 	}
 }
-
 
 export function* removeConversationSaga(props) {
 	const conversationID = props.payload.conversationID
@@ -96,6 +106,19 @@ export function* removeConversationSaga(props) {
 		yield call(toast.success, messages.conversationRemoveSuccess)
 	} catch (err) {
 		yield put(removeConversationFail(err.message))
+	}
+}
+
+export function* editConversationSaga(props) {
+	const conversation = props.payload
+	delete conversation.conversationalists
+
+	try {
+		yield call(updateConversation, conversation)
+		yield put(closeEditConversationModal())
+		yield put(editConversationSuccess())
+	} catch (err) {
+		yield put(editConversationFail(err.message))
 	}
 }
 
@@ -120,9 +143,42 @@ function* watchConversationSaga(props) {
 	}
 }
 
+export function* addInterlocutorSaga(props) {
+	const userID = props.payload.userID
+	const conversationID = props.payload.conversationID
+	const conversationalists = props.payload.conversationalists
+
+	try {
+		yield call(setConversation, userID, conversationID)
+		yield call(setConversationInterlocutor, conversationalists, conversationID)
+		yield put(closeAddInterlocutorModal())
+		yield put(addInterlocutorSuccess())
+
+	} catch (err) {
+		yield put(addInterlocutorFail(err.message))
+	}
+}
+
+export function* removeInterlocutorSaga(props) {
+	const userID = props.payload.userID
+	const conversationID = props.payload.conversationID
+
+	try {
+		yield call(removeUserConversation, userID, conversationID)
+		yield call(removeUserFromConversation, userID, conversationID)
+		yield put(removeInterlocutorSuccess())
+
+	} catch (err) {
+		yield put(removeInterlocutorFail(err.message))
+	}
+}
+
 export const conversationSaga = [
 	takeLatest(actionTypes.CREATE_GROUP_CONVERSATION_START, createGroupConversationSaga),
 	takeLatest(actionTypes.CREATE_DIRECT_CONVERSATION_START, createDirectConversationSaga),
 	takeLatest(actionTypes.REMOVE_CONVERSATION_START, removeConversationSaga),
-	takeLatest(actionTypes.WATCH_CONVERSATION_START, watchConversationSaga)
+	takeLatest(actionTypes.EDIT_CONVERSATION_START, editConversationSaga),
+	takeLatest(actionTypes.WATCH_CONVERSATION_START, watchConversationSaga),
+	takeLatest(actionTypes.REMOVE_INTERLOCUTOR_START, removeInterlocutorSaga),
+	takeLatest(actionTypes.ADD_INTERLOCUTOR_START, addInterlocutorSaga)
 ]

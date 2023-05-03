@@ -1,16 +1,16 @@
 import { actionTypes } from '@constants/actionTypes'
 
 const initialState = {
-  data: {
-    name: '',
-    email: null,
-    avatar: null,
-    phone: null,
-    bio: null,
-    birthday: null,
-    role: null,
-  },
-  isOpen: false,
+	sidebar: false,
+	data: {
+		name: '',
+		email: null,
+		avatar: null,
+		phone: null,
+		bio: null,
+		birthday: null,
+		role: null,
+	},
   loading: false,
   error: null
 }
@@ -25,7 +25,7 @@ export const profileReducer = (state = initialState, {type, payload}) => {
     case actionTypes.GET_PROFILE_INFO_SUCCESS:
       return {
         ...state,
-        data: payload,
+				data: payload,
         loading: false
       }
     case actionTypes.GET_PROFILE_INFO_FAIL:
@@ -37,12 +37,12 @@ export const profileReducer = (state = initialState, {type, payload}) => {
     case actionTypes.OPEN_PROFILE_BAR:
       return {
         ...state,
-        isOpen: true
+				sidebar: true
       }
     case actionTypes.CLOSE_PROFILE_BAR:
       return {
         ...state,
-       isOpen: false
+				sidebar: false
       }
     default:
       return state

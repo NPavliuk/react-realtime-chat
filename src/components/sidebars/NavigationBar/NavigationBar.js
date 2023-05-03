@@ -10,6 +10,7 @@ import { classNames } from '@helpers/classNames'
 import { checkIfMobile } from '@helpers/checkResolution'
 import { routeNames } from '@constants/routeNames'
 import { isUnreadConversations } from '@helpers/messages'
+import { closeConversationBar } from '@store/reducers/conversationReducer/conversationActions'
 
 export const NavigationBar = () => {
 	const dispatch = useDispatch()
@@ -39,6 +40,7 @@ export const NavigationBar = () => {
 
 	const openProfileBarHandler = () => {
 		dispatch(openProfileBar())
+		dispatch(closeConversationBar())
 		dispatch(getProfileInfoStart(user.id))
 	}
 
@@ -48,6 +50,8 @@ export const NavigationBar = () => {
     if(isMobile) {
       dispatch(closeProfileBar())
     }
+
+		dispatch(closeConversationBar())
   }
 
 	const isUnread = isUnreadConversations(conversations, user.id)

@@ -5,8 +5,8 @@ import { usersReducer } from '@store/reducers/usersReducer/usersReducer'
 import { profileReducer } from '@store/reducers/profileReducer/profileReducer'
 import { conversationReducer } from '@store/reducers/conversationReducer/conversationReducer'
 import { conversationsReducer } from '@store/reducers/conversationsReducer/conversationsReducer'
-import { actionTypes } from '@constants/actionTypes'
 import { messagesReducer } from '@store/reducers/messagesReducer/messagesReducer'
+import { actionTypes } from '@constants/actionTypes'
 
 const appReducer = combineReducers({
 	auth: authReducer,

@@ -1,17 +1,7 @@
-export const createSelectOptions = (users, userID) => {
-	const selectOptions = []
-
-	users.map(user => {
-		if(user.id !== userID) {
-			const selectOption = {
-				label: user.name,
-				value: user.id,
-				user: user
-			}
-
-			selectOptions.push(selectOption)
-		}
+export const createSelectOptions = (users, conversationalists) => {
+	return users.filter(user => !conversationalists.includes(user.id)).map(user => user = {
+		label: user.name,
+		value: user.id,
+		user: user
 	})
-
-	return selectOptions
 }

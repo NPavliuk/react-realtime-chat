@@ -2,7 +2,9 @@ import styles from './ConversationMessage.module.scss'
 import Moment from 'react-moment'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { ConversationMessageReply } from '@views/conversation/Conversation/ConversationMessages/ConversationMessage/ConversationMessageReply/ConversationMessageReply'
+import {
+	ConversationMessageReply
+} from '@views/conversation/Conversation/ConversationMessages/ConversationMessage/ConversationMessageReply/ConversationMessageReply'
 import { getProfileInfoStart, openProfileBar } from '@store/reducers/profileReducer/profileActions'
 import { setConversationInput } from '@store/reducers/conversationReducer/conversationActions'
 import {
@@ -96,14 +98,17 @@ export const ConversationMessage = ({message, conversation, messages}) => {
 					<div className={styles.messageContent}>
 						{
 							message.replyMessage
-								? <ConversationMessageReply conversation={conversation} message={message} modifyClass={ userID !== message.senderId ? 'incoming' : null} />
+								? <ConversationMessageReply conversation={conversation} message={message}
+																						modifyClass={userID !== message.senderId ? 'incoming' : null}/>
 								: null
 						}
 						<div dangerouslySetInnerHTML={{__html: message.text}}></div>
 					</div>
 					<div className={styles.controls}>
-						<MessageControlButton icon={isLiked ? <RiHeartFill/> : <RiHeartLine/>} handler={isLiked ? unlikeMessageHandler : likeMessageHandler} modifyClass={isLiked ? 'like' : null}/>
-						<MessageControlButton icon={<RiReplyLine />} handler={replyMessageHandler}/>
+						<MessageControlButton icon={isLiked ? <RiHeartFill/> : <RiHeartLine/>}
+																	handler={isLiked ? unlikeMessageHandler : likeMessageHandler}
+																	modifyClass={isLiked ? 'like' : null}/>
+						<MessageControlButton icon={<RiReplyLine/>} handler={replyMessageHandler}/>
 						{
 							message.senderId === userID
 								? <MessageControlButton icon={<RiPencilLine/>} handler={editMessageHandler}/>
@@ -130,7 +135,8 @@ export const ConversationMessage = ({message, conversation, messages}) => {
 					}
 				</div>
 			</div>
-			<UserAvatar name={interlocutor ? interlocutor.name : ''} image={interlocutor ? interlocutor.avatar : ''} handler={openProfileBarHandler}/>
+			<UserAvatar name={interlocutor ? interlocutor.name : ''} image={interlocutor ? interlocutor.avatar : ''}
+									handler={openProfileBarHandler}/>
 		</div>
 	)
 }

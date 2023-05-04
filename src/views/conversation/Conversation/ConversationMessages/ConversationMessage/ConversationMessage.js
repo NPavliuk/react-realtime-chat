@@ -21,13 +21,13 @@ import { RiDeleteBin7Line, RiPencilLine, RiHeartLine, RiHeartFill, RiReplyLine }
 import { getNewLastMessage, isLastMessage, isUnreadMessage } from '@helpers/messages'
 import { classNames } from '@helpers/classNames'
 import { checkLiked } from '@helpers/checkLiked'
-import { getInterlocutor } from '@helpers/getInterlocutor'
+import { getInterlocutorData } from '@helpers/getInterlocutorData'
 
 export const ConversationMessage = ({message, conversation, messages}) => {
 	const dispatch = useDispatch()
 	const userID = useSelector(state => state.auth.id)
 	const isLiked = checkLiked(message.likes, userID)
-	let interlocutor = getInterlocutor(conversation, message)
+	let interlocutor = getInterlocutorData(conversation, message)
 
 	useEffect(() => {
 		const isUnread = isUnreadMessage(message, userID)

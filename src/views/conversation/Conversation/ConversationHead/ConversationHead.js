@@ -6,7 +6,7 @@ import { clearMessagesStart } from '@store/reducers/messagesReducer/messagesActi
 import {
 	leaveConversationStart,
 	openConversationBar,
-	removeConversationStart, removeInterlocutorStart
+	removeConversationStart,
 } from '@store/reducers/conversationReducer/conversationActions'
 import {
 	closeProfileBar,
@@ -17,7 +17,7 @@ import { PrimaryDropdown, PrimaryDropdownItem } from '@components/ui/dropdowns'
 import { HiOutlineDotsVertical } from 'react-icons/hi'
 import { RiDeleteBin7Line, RiUserLine } from 'react-icons/ri'
 import { FiUsers } from 'react-icons/fi'
-import { RxExit } from 'react-icons/rx'
+import { BiExit } from 'react-icons/bi'
 import { GrClearOption } from 'react-icons/gr'
 
 export const ConversationHead = () => {
@@ -108,7 +108,7 @@ export const ConversationHead = () => {
 					{
 						conversation.data && userID === conversation.data.admin
 							? <PrimaryDropdownItem icon={<RiDeleteBin7Line/>} title={'Remove conversation'} modifyClass={'danger'} handler={removeConversationHandler}/>
-							: <PrimaryDropdownItem icon={<RxExit/>} title={'Leave conversation'} modifyClass={'danger'} handler={leaveConversationHandler}/>
+							: <PrimaryDropdownItem icon={<BiExit/>} title={'Leave conversation'} modifyClass={'danger'} handler={leaveConversationHandler}/>
 					}
 				</PrimaryDropdown>
 			</div>

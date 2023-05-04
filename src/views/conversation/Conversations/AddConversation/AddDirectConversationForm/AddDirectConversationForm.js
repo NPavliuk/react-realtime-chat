@@ -15,8 +15,8 @@ export const AddDirectConversationForm = ({closeHandler}) => {
 	const dispatch = useDispatch()
 	const user = useSelector(state => state.user.data)
 	const users = useSelector(state => state.users.users)
-	const selectOptions = createSelectOptions(users, [user.id])
 	const {control, handleSubmit} = useForm({mode: 'onBlur'})
+	const selectOptions = createSelectOptions(users, [user.id])
 
 	useEffect(() => {
 		dispatch(getUsersStart())

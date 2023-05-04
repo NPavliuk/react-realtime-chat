@@ -4,9 +4,13 @@ import { setLocalSession, watchSessionStart } from '@store/reducers/authReducer/
 import { PrivateLayout, PublicLayout } from '@components/layouts'
 import { PrivateRouter, PublicRouter } from '@components/routers'
 import { getSessionFromLocalStorage } from '@helpers/localStorage'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { routeNames } from '@constants/routeNames'
 
 function App() {
+	const navigate = useNavigate()
 	const dispatch = useDispatch()
+	const location = useLocation()
 	const session = useSelector(state => state.auth.id)
 
 	useEffect(() => {
@@ -15,6 +19,10 @@ function App() {
 
 			if (localSession) {
 				dispatch(setLocalSession(localSession))
+
+				if (location.pathname === routeNames.HOME) {
+					navigate(routeNames.CONVERSATIONS)
+				}
 			}
 		}
 

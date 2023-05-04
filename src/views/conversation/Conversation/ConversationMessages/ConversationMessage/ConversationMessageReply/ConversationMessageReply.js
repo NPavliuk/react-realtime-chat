@@ -1,9 +1,9 @@
 import styles from './ConversationMessageReply.module.scss'
 import { classNames } from '@helpers/classNames'
-import { getInterlocutor } from '@helpers/getInterlocutor'
+import { getInterlocutorData } from '@helpers/getInterlocutorData'
 
 export const ConversationMessageReply = ({conversation, message, modifyClass}) => {
-	let interlocutor = getInterlocutor(conversation, message)
+	let interlocutor = getInterlocutorData(conversation, message)
 
 	return (
 		<div className={classNames({

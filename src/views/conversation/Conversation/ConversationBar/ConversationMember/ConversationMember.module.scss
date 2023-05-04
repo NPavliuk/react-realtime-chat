@@ -23,6 +23,10 @@
     }
   }
 
+  .admin {
+    @apply fill-gray-600;
+  }
+
   .control {
     @apply hidden;
   }

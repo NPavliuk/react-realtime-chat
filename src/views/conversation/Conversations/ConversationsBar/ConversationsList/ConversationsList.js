@@ -1,22 +1,20 @@
 import styles from './ConversationsList.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { FilterButton } from '@components/ui/buttons'
-import {
-	ConversationsListItem
-} from '@views/conversation/Conversations/ConversationsBar/ConversationsList/ConversationsListItem/ConversationsListItem'
-import {
-	ConversationsListEmptyState
-} from '@views/conversation/Conversations/ConversationsEmptyState/ConversationsListEmptyState'
+import { ConversationsListItem } from '@views/conversation/Conversations/ConversationsBar/ConversationsList/ConversationsListItem/ConversationsListItem'
+import { ConversationsListEmptyState } from '@views/conversation/Conversations/ConversationsEmptyState/ConversationsListEmptyState'
 import { setConversationFilter } from '@store/reducers/conversationsReducer/conversationsActions'
-import { filterConversations } from '@helpers/filters'
-
+import { filterConversations } from '@helpers/filterConversations'
+import { sortConversations } from '@helpers/sortConversations'
 
 export const ConversationsList = () => {
 	const dispatch = useDispatch()
 	const conversations = useSelector(state => state.conversations.conversations)
 	const conversationsFilters = useSelector(state => state.conversations.filters)
-	const filteredConversations = filterConversations(conversations, conversationsFilters)
 	const currentFilter = conversationsFilters.filter(f => f.checked === true)
+
+	const filteredConversations = filterConversations(conversations, conversationsFilters)
+	const sortedConversations = sortConversations(filteredConversations)
 
 	const useFilterHandler = (e) => {
 		dispatch(setConversationFilter(e.target.id))
@@ -34,13 +32,13 @@ export const ConversationsList = () => {
 
 			<div className={styles.list}>
 				{
-					filteredConversations.length > 0
-						? filteredConversations.map((conversation) => <ConversationsListItem key={conversation.id} conversation={conversation}/>)
-						: !filteredConversations.length > 0 && currentFilter[0].id === 'conversations-all'
+					sortedConversations.length > 0
+						? sortedConversations.map((conversation) => <ConversationsListItem key={conversation.id} conversation={conversation}/>)
+						: !sortedConversations.length > 0 && currentFilter[0].id === 'conversations-all'
 							? <ConversationsListEmptyState text={'conversations'}/>
-							: !filteredConversations.length > 0 && currentFilter[0].id === 'conversations-direct'
+							: !sortedConversations.length > 0 && currentFilter[0].id === 'conversations-direct'
 								? <ConversationsListEmptyState text={'direct conversations'}/>
-								: !filteredConversations.length > 0 && currentFilter[0].id === 'conversations-group'
+								: !sortedConversations.length > 0 && currentFilter[0].id === 'conversations-group'
 									? <ConversationsListEmptyState text={'group conversations'}/>
 									: null
 				}

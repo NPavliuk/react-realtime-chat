@@ -11,7 +11,7 @@ import {
 import { CloseButton, MessageSendButton } from '@components/ui/buttons'
 import { MessageEditor } from '@components/ui/editors'
 import { RiPencilLine, RiReplyLine } from 'react-icons/ri'
-import { getConversationalistsIDs } from '@helpers/conversations'
+import { getConversationalistsIDs } from '@helpers/getConversationalistsIDs'
 
 export const ConversationInput = () => {
 	const dispatch = useDispatch()

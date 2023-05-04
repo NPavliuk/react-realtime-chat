@@ -14,5 +14,5 @@ module.exports = {
       '@constants': resolvePath('./src/utils/constants'),
       '@views': resolvePath('./src/views'),
     }
-  }
+	}
 }

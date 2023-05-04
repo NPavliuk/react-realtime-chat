@@ -3,7 +3,7 @@ import { db } from '@api/firebase'
 
 export const setUserToDb = async (userData) => {
 	const userID = userData.uid
-	const docRef = doc(db, 'users', userID)
+	const userRef = doc(db, 'users', userID)
 
 	const user = {
 		id: userID,
@@ -12,7 +12,7 @@ export const setUserToDb = async (userData) => {
 	}
 
 	try {
-		await setDoc(docRef, user)
+		await setDoc(userRef, user)
 	} catch (error) {
 		return error.message
 	}

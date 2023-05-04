@@ -1,5 +1,6 @@
 import { getAuth } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'
+import { getDatabase } from "firebase/database";
 import { initializeApp } from 'firebase/app'
 
 const firebaseConfig = {
@@ -9,11 +10,13 @@ const firebaseConfig = {
   storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_ID,
-  measurementId: process.env.REACT_APP_MEASUREMENT_ID
+  measurementId: process.env.REACT_APP_MEASUREMENT_ID,
+	databaseURL: process.env.REACT_APP_DATABASE_URL,
 }
 
 const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
 const db = getFirestore(app)
+const rtdb = getDatabase(app)
 
-export { auth, db }
+export { auth, db, rtdb }

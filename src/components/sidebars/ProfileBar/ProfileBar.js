@@ -15,8 +15,7 @@ export const ProfileBar = () => {
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 	const userID = useSelector(state => state.auth.id)
-	const profile = useSelector(state => state.profile.data)
-	const isOpen = useSelector(state => state.profile.sidebar)
+	const profile = useSelector(state => state.profile)
 
 	const closeHandler = () => {
 		dispatch(closeProfileBar())
@@ -25,7 +24,7 @@ export const ProfileBar = () => {
 	const messageClickHandler = () => {
 		const data = {
 			userID: userID,
-			interlocutorID: profile.id,
+			interlocutorID: profile.data.id,
 			navigate: navigate
 		}
 		dispatch(createDirectConversationStart(data))
@@ -34,7 +33,7 @@ export const ProfileBar = () => {
 	return (
 		<div className={classNames({
 			[styles.wrapper]: true,
-			[styles.active]: isOpen
+			[styles.active]: profile.sidebar
 		})}>
 			<div className={styles.header}>
 				<h3 className={styles.title}>Profile</h3>
@@ -45,19 +44,19 @@ export const ProfileBar = () => {
 
 			<div>
 				<div className={styles.avatar}>
-					<UserAvatar name={profile.name} image={profile.avatar} modifyClass={'big'}/>
+					<UserAvatar name={profile.data.name} image={profile.data.avatar} modifyClass={'big'}/>
 				</div>
 
 				<div className={styles.info}>
-					<h4 className={styles.name}>{profile.name}</h4>
+					<h4 className={styles.name}>{profile.data.name}</h4>
 					{
-						profile.role ?
-							<p className={styles.description}>{profile.role}</p>
+						profile.data.role ?
+							<p className={styles.description}>{profile.data.role}</p>
 							: null
 					}
 				</div>
 				{
-					userID !== profile.id ?
+					userID !== profile.data.id ?
 						<div className={styles.controls}>
 							<PrimaryButton handler={messageClickHandler} title={'Message'}/>
 						</div>
@@ -67,43 +66,43 @@ export const ProfileBar = () => {
 						</div>
 				}
 				{
-					profile.email || profile.phone ?
+					profile.data.email || profile.data.phone ?
 						<div className={styles.contacts}>
 							<h5 className={styles.title}>Contact information</h5>
 							{
-								profile.email ?
+								profile.data.email ?
 									<div className={styles.item}>
 										<div className={styles.icon}>
 											<RiMailLine/>
 										</div>
 										<div className={styles.itemInfo}>
 											<p className={styles.label}>Email Address</p>
-											<a className={styles.link} href={`mailto:${profile.email}`}>{profile.email}</a>
+											<a className={styles.link} href={`mailto:${profile.data.email}`}>{profile.data.email}</a>
 										</div>
 									</div>
 									: null
 							}
 							{
-								profile.phone ?
+								profile.data.phone ?
 									<div className={styles.item}>
 										<div className={styles.icon}>
 											<RiPhoneLine/>
 										</div>
 										<div className={styles.itemInfo}>
 											<p className={styles.label}>Phone</p>
-											<a className={styles.link} href={`tel:${profile.phone}`}>{profile.phone}</a>
+											<a className={styles.link} href={`tel:${profile.data.phone}`}>{profile.data.phone}</a>
 										</div>
 									</div> : null
 							}
 						</div> : null
 				}
 				{
-					profile.bio || profile.birthday ?
+					profile.data.bio || profile.data.birthday ?
 						<div className={styles.contacts}>
 							<h5 className={styles.title}>About me</h5>
 
 							{
-								profile.birthday ?
+								profile.data.birthday ?
 									<div className={styles.item}>
 										<div className={styles.icon}>
 											<FaBirthdayCake/>
@@ -111,15 +110,15 @@ export const ProfileBar = () => {
 										<div className={styles.itemInfo}>
 											<p className={styles.label}>Birth day</p>
 											<p className={styles.text}>
-												<Moment format="DD MMMM YYYY">{profile.birthday}</Moment>
+												<Moment format="DD MMMM YYYY">{profile.data.birthday}</Moment>
 											</p>
 										</div>
 									</div> : null
 							}
 							{
-								profile.bio ?
+								profile.data.bio ?
 									<div className={styles.item}>
-										<p className={styles.text}>{profile.bio}</p>
+										<p className={styles.text}>{profile.data.bio}</p>
 									</div>
 									: null
 							}

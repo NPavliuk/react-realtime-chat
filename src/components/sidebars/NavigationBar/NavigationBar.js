@@ -11,6 +11,7 @@ import { checkIfMobile } from '@helpers/checkResolution'
 import { routeNames } from '@constants/routeNames'
 import { isUnreadConversations } from '@helpers/messages'
 import { closeConversationBar } from '@store/reducers/conversationReducer/conversationActions'
+import { checkUserStatus } from '@helpers/checkUserStatus'
 
 export const NavigationBar = () => {
 	const dispatch = useDispatch()
@@ -19,6 +20,7 @@ export const NavigationBar = () => {
   const isMobile = checkIfMobile()
 
 	const user = useSelector(state => state.user.data)
+	const onlineUsers = useSelector(state => state.users.onlineUsers)
 	const conversationID =  useSelector(state => state.conversation.id)
 	const conversations = useSelector(state => state.conversations.conversations)
 
@@ -54,6 +56,7 @@ export const NavigationBar = () => {
 		dispatch(closeConversationBar())
   }
 
+	const userStatus = checkUserStatus(user.id, onlineUsers)
 	const isUnread = isUnreadConversations(conversations, user.id)
 
   return (
@@ -66,7 +69,7 @@ export const NavigationBar = () => {
           {open ? <GrFormPrevious/> : <GrFormNext/>}
         </div>
         <div className={styles.mainBarItem}>
-          <UserAvatar name={user.name} image={user.avatar} status={'online'} handler={() => {handleClick(); openProfileBarHandler()}}/>
+          <UserAvatar name={user.name} image={user.avatar} status={userStatus} handler={() => {handleClick(); openProfileBarHandler()}}/>
         </div>
         <div className={styles.mainBarNav}>
           <div className={styles.mainBarItem}>

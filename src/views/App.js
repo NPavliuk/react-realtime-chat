@@ -1,10 +1,11 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setLocalSession, watchSessionStart } from '@store/reducers/authReducer/authActions'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { PrivateLayout, PublicLayout } from '@components/layouts'
 import { PrivateRouter, PublicRouter } from '@components/routers'
+import { setLocalSession, watchSessionStart } from '@store/reducers/authReducer/authActions'
+import { watchUsersStatusStart } from '@store/reducers/usersReducer/usersActions'
 import { getSessionFromLocalStorage } from '@helpers/localStorage'
-import { useLocation, useNavigate } from 'react-router-dom'
 import { routeNames } from '@constants/routeNames'
 
 function App() {
@@ -27,7 +28,9 @@ function App() {
 		}
 
 		dispatch(watchSessionStart())
+		dispatch(watchUsersStatusStart())
 	}, [])
+
 
 	return (
 		session ?

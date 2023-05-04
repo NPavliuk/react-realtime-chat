@@ -18,9 +18,7 @@ export const UserAvatar = ({name, image, status, handler, modifyClass}) => {
         }
         {status ? <span className={classNames({
           [styles.indicator]: true,
-          [styles.online]: status === 'online',
-          [styles.offline]: status === 'offline',
-          [styles.out]: status === 'pending'
+          [styles.online]: status,
         })}></span> : null}
       </div>
     </div>

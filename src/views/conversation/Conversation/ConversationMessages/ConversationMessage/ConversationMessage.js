@@ -22,12 +22,19 @@ import { getNewLastMessage, isLastMessage, isUnreadMessage } from '@helpers/mess
 import { classNames } from '@helpers/classNames'
 import { checkLiked } from '@helpers/checkLiked'
 import { getInterlocutorData } from '@helpers/getInterlocutorData'
+import { checkUserStatus } from '@helpers/checkUserStatus'
 
 export const ConversationMessage = ({message, conversation, messages}) => {
 	const dispatch = useDispatch()
 	const userID = useSelector(state => state.auth.id)
+	const onlineUsers = useSelector(state => state.users.onlineUsers)
 	const isLiked = checkLiked(message.likes, userID)
 	let interlocutor = getInterlocutorData(conversation, message)
+
+	let userStatus
+	if (interlocutor) {
+		userStatus = checkUserStatus(interlocutor.id, onlineUsers)
+	}
 
 	useEffect(() => {
 		const isUnread = isUnreadMessage(message, userID)
@@ -135,7 +142,8 @@ export const ConversationMessage = ({message, conversation, messages}) => {
 					}
 				</div>
 			</div>
-			<UserAvatar name={interlocutor ? interlocutor.name : ''} image={interlocutor ? interlocutor.avatar : ''}
+			<UserAvatar name={interlocutor ? interlocutor.name : ''} status={userStatus}
+									image={interlocutor ? interlocutor.avatar : ''}
 									handler={openProfileBarHandler}/>
 		</div>
 	)

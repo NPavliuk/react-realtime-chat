@@ -4,10 +4,17 @@ import { MessageControlButton } from '@components/ui/buttons'
 import { RiDeleteBin7Line, RiAdminLine } from 'react-icons/ri'
 import { useDispatch, useSelector } from 'react-redux'
 import { removeInterlocutorStart } from '@store/reducers/conversationReducer/conversationActions'
+import { checkUserStatus } from '@helpers/checkUserStatus'
 
 export const ConversationMember = ({interlocutor, conversation}) => {
 	const dispatch = useDispatch()
 	const userID = useSelector(state => state.auth.id)
+	const onlineUsers = useSelector(state => state.users.onlineUsers)
+
+	let userStatus
+	if (interlocutor) {
+		userStatus = checkUserStatus(interlocutor.id, onlineUsers)
+	}
 
 	const removeConversationMember = () => {
 		const data = {
@@ -21,7 +28,7 @@ export const ConversationMember = ({interlocutor, conversation}) => {
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.content}>
-				<UserAvatar name={interlocutor.name} image={interlocutor.avatar ? interlocutor.avatar : ''} modifyClass={'small'}/>
+				<UserAvatar name={interlocutor.name} image={interlocutor.avatar ? interlocutor.avatar : ''} status={userStatus} modifyClass={'small'}/>
 				<div className={styles.info}>
 					<h5 className={styles.name}>{interlocutor.name}</h5>
 					<h5 className={styles.email}>{interlocutor.email}</h5>

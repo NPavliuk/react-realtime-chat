@@ -1,7 +1,7 @@
 import toast from 'react-hot-toast'
 import { signOut } from 'firebase/auth'
 import { call, put, takeLatest, cancelled, take } from 'redux-saga/effects'
-import { auth } from '@api/firebase'
+import { auth, rtdb } from '@api/firebase'
 import { setUserToDb } from '@api/user/setUser'
 import { signUpWithEmailPassword } from '@api/auth/signUp'
 import { signInWithEmailPassword } from '@api/auth/signIn'
@@ -23,6 +23,8 @@ import { watchAuthSession } from '@api/auth/watchAuthSession'
 import { getUserDataStart } from '@store/reducers/userReducer/userActions'
 import { routeNames } from '@constants/routeNames'
 import { removeSessionFromLocalStorage, saveSessionToLocalStorage } from '@helpers/localStorage'
+import { onDisconnect, onValue, ref, serverTimestamp, set } from 'firebase/database'
+import { watchUserStatus } from '@api/user/watchUserStatus'
 
 export function* signUpWithEmailPasswordSaga(props) {
 	const name = props.payload.name
@@ -111,6 +113,7 @@ export function* watchAuthSessionSaga() {
 			if (user !== 'null') {
 				yield put(watchSessionSuccess(user.uid))
 				yield put(getUserDataStart(user.uid))
+				yield call(watchUserStatus(user.uid))
 			}
 		}
 	} catch (error) {

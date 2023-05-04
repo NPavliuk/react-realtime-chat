@@ -18,7 +18,6 @@ import { ConversationEdit } from '@views/conversation/Conversation/ConversationE
 export const ConversationBar = () => {
 	const dispatch = useDispatch()
 	const userID = useSelector(state => state.auth.id)
-	const isOpen = useSelector(state => state.conversation.sidebar)
 	const conversation = useSelector(state => state.conversation)
 
 	const closeSidebarHandler = () => {
@@ -45,7 +44,7 @@ export const ConversationBar = () => {
 	return (
 		<div className={classNames({
 			[styles.wrapper]: true,
-			[styles.active]: isOpen
+			[styles.active]: conversation.sidebar
 		})}>
 			<div className={styles.header}>
 				<h3 className={styles.title}>Conversation</h3>

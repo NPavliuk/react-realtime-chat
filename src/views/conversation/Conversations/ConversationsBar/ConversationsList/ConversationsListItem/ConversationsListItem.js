@@ -8,12 +8,20 @@ import { routeNames } from '@constants/routeNames'
 import { isUnreadMessage } from '@helpers/messages'
 import { FiUsers } from 'react-icons/fi'
 import { closeConversationBar } from '@store/reducers/conversationReducer/conversationActions'
+import { checkUserStatus } from '@helpers/checkUserStatus'
 
 export const ConversationsListItem = ({conversation}) => {
 	const dispatch = useDispatch()
 	const userID = useSelector(state => state.auth.id)
+	const onlineUsers = useSelector(state => state.users.onlineUsers)
 	const conversationalists = conversation.conversationalists.filter(c => c.id !== userID)
 	const isUnread = isUnreadMessage(conversation.lastMessage, userID)
+
+	let userStatus
+	if (conversationalists[0]) {
+		userStatus = checkUserStatus(conversationalists[0].id, onlineUsers)
+	}
+
 
 	const closeConversationBarHandler = () => {
 		dispatch(closeConversationBar())
@@ -21,12 +29,14 @@ export const ConversationsListItem = ({conversation}) => {
 
 	return (
 		conversation.directConversation ?
-			<NavLink to={`${routeNames.CONVERSATIONS}/${conversation.id}`} onClick={closeConversationBarHandler} className={({isActive}) => classNames({
-				[styles.wrapper]: true,
-				[styles.active]: isActive
-			})}>
+			<NavLink to={`${routeNames.CONVERSATIONS}/${conversation.id}`} onClick={closeConversationBarHandler}
+							 className={({isActive}) => classNames({
+								 [styles.wrapper]: true,
+								 [styles.active]: isActive
+							 })}>
 				<div className={styles.head}>
-					<UserAvatar name={conversationalists[0].name} image={conversationalists[0].avatar} modifyClass={'small'} />
+					<UserAvatar name={conversationalists[0].name} image={conversationalists[0].avatar} status={userStatus}
+											modifyClass={'small'}/>
 					<div className={styles.info}>
 						<h5 className={styles.name}>{conversationalists[0].name}</h5>
 						{
@@ -55,7 +65,8 @@ export const ConversationsListItem = ({conversation}) => {
 				[styles.active]: isActive
 			})}>
 				<div className={styles.head}>
-					<UserAvatar name={conversation.name} image={conversation.avatar ? conversation.avatar : null} modifyClass={'small'}/>
+					<UserAvatar name={conversation.name} image={conversation.avatar ? conversation.avatar : null}
+											modifyClass={'small'}/>
 					<div className={styles.info}>
 						<h5 className={styles.name}>{conversation.name}</h5>
 						{

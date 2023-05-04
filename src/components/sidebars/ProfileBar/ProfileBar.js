@@ -25,8 +25,10 @@ export const ProfileBar = () => {
 		const data = {
 			userID: userID,
 			interlocutorID: profile.data.id,
-			navigate: navigate
+			navigate: navigate,
+			sidebar: true,
 		}
+
 		dispatch(createDirectConversationStart(data))
 	}
 

@@ -6,25 +6,27 @@ import { ConversationDate } from '@views/conversation/Conversation/ConversationM
 import { generateMessages } from '@helpers/messages'
 
 export const ConversationMessages = () => {
-	const messagesListEndRef = useRef()
+	const messagesRef = useRef()
 	const conversation = useSelector(state => state.conversation)
 	const messages = useSelector(state => state.messages.messages)
 	const generatedMessages = generateMessages(messages)
 
 	useEffect(() => {
-		messagesListEndRef.current.scrollIntoView()
+		if (messagesRef.current) {
+			messagesRef.current.scrollTop = messagesRef.current.scrollHeight
+		}
 	})
 
 	return (
-		<div className={styles.wrapper}>
+		<div className={styles.wrapper} ref={messagesRef}>
 			{
 				messages
 					? generatedMessages.map(message => message.type !== 'day'
-						? <ConversationMessage key={message.id} message={message} conversation={conversation} messages={generatedMessages}/>
-						: <ConversationDate key={message.id} date={message.date} />)
+						? <ConversationMessage key={message.id} message={message} conversation={conversation}
+																	 messages={generatedMessages}/>
+						: <ConversationDate key={message.id} date={message.date}/>)
 					: null
 			}
-			<div ref={messagesListEndRef}></div>
 		</div>
 	)
 }

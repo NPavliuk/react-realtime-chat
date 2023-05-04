@@ -2,7 +2,7 @@ import { messages } from '@constants/validationMessages'
 import { classNames } from '@helpers/classNames'
 import styles from './TextInput.module.scss'
 
-export const TextInput = ({register, errors, id, title, placeholder, label, defaultValue, required}) => {
+export const TextInput = ({register, errors, id, title, placeholder, label, defaultValue, required, maxLength}) => {
   return (
     <div className={styles.group}>
       <label className={classNames({
@@ -15,7 +15,8 @@ export const TextInput = ({register, errors, id, title, placeholder, label, defa
              placeholder={placeholder ? placeholder : title}
              defaultValue={defaultValue ? defaultValue : ''}
              {...register(id, {
-               required: required ? messages.requiredField : false
+               required: required ? messages.requiredField : false,
+							 maxLength: maxLength ? {value: maxLength, message: messages.toManyCharacters} : false
              })}/>
       {errors?.[id] && <p className={styles.error}>{errors?.[id]?.message}</p>}
     </div>

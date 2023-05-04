@@ -3,8 +3,9 @@ import { UserAvatar } from '@components/ui/avatars'
 import { MessageControlButton } from '@components/ui/buttons'
 import { RiDeleteBin7Line, RiAdminLine } from 'react-icons/ri'
 import { useDispatch, useSelector } from 'react-redux'
-import { removeInterlocutorStart } from '@store/reducers/conversationReducer/conversationActions'
+import { closeConversationBar, removeInterlocutorStart } from '@store/reducers/conversationReducer/conversationActions'
 import { checkUserStatus } from '@helpers/checkUserStatus'
+import { getProfileInfoStart, openProfileBar } from '@store/reducers/profileReducer/profileActions'
 
 export const ConversationMember = ({interlocutor, conversation}) => {
 	const dispatch = useDispatch()
@@ -25,24 +26,32 @@ export const ConversationMember = ({interlocutor, conversation}) => {
 		dispatch(removeInterlocutorStart(data))
 	}
 
+	const openProfileBarHandler = () => {
+		dispatch(closeConversationBar())
+		dispatch(openProfileBar())
+		dispatch(getProfileInfoStart(interlocutor.id))
+	}
+
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.content}>
-				<UserAvatar name={interlocutor.name} image={interlocutor.avatar ? interlocutor.avatar : ''} status={userStatus} modifyClass={'small'}/>
+				<UserAvatar name={interlocutor.name} image={interlocutor.avatar ? interlocutor.avatar : ''} status={userStatus}
+										modifyClass={'small'} handler={openProfileBarHandler}/>
 				<div className={styles.info}>
 					<h5 className={styles.name}>{interlocutor.name}</h5>
 					<h5 className={styles.email}>{interlocutor.email}</h5>
 				</div>
 				{
 					interlocutor.id === userID
-						?	<div className={styles.admin}><RiAdminLine /></div>
-						:	null
+						? <div className={styles.admin}><RiAdminLine/></div>
+						: null
 				}
 				<div className={styles.control}>
 					{
 						interlocutor.id !== userID
-							? <MessageControlButton icon={<RiDeleteBin7Line />} handler={removeConversationMember} modifyClass={'danger'} />
-							:	null
+							? <MessageControlButton icon={<RiDeleteBin7Line/>} handler={removeConversationMember}
+																			modifyClass={'danger'}/>
+							: null
 					}
 				</div>
 			</div>

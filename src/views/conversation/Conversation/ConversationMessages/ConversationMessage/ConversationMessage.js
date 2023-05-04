@@ -6,7 +6,7 @@ import {
 	ConversationMessageReply
 } from '@views/conversation/Conversation/ConversationMessages/ConversationMessage/ConversationMessageReply/ConversationMessageReply'
 import { getProfileInfoStart, openProfileBar } from '@store/reducers/profileReducer/profileActions'
-import { setConversationInput } from '@store/reducers/conversationReducer/conversationActions'
+import { closeConversationBar, setConversationInput } from '@store/reducers/conversationReducer/conversationActions'
 import {
 	openEditMessageMode,
 	likeMessageStart,
@@ -91,6 +91,7 @@ export const ConversationMessage = ({message, conversation, messages}) => {
 	}
 
 	const openProfileBarHandler = () => {
+		dispatch(closeConversationBar())
 		dispatch(openProfileBar())
 		dispatch(getProfileInfoStart(message.senderId))
 	}

@@ -9,7 +9,6 @@ export const ConversationEdit = ({closeHandler}) => {
 	const dispatch = useDispatch()
 	const conversation = useSelector(state => state.conversation)
 	const {register, handleSubmit, formState: {errors, isDirty}} = useForm({
-		mode: 'onBlur',
 		defaultValues: conversation.data
 	})
 
@@ -33,8 +32,8 @@ export const ConversationEdit = ({closeHandler}) => {
 											 placeholder={'Enter group avatar URL'}/>
 					</div>
 					<div className={styles.item}>
-						<TextInput register={register} title={'Description (optional)'} id={'description'} label={true}
-											 placeholder={'Enter group description'}/>
+						<TextInput register={register} errors={errors} title={'Short description (optional)'} id={'description'} label={true}
+											 placeholder={'Enter group description'} maxLength={50}/>
 					</div>
 					<div className={styles.controls}>
 						<PrimaryButton title={'Cancel'} modifyClass={'cancel'} handler={closeHandler}/>

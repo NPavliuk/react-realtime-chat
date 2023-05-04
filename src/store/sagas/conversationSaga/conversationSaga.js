@@ -42,6 +42,7 @@ export function* createDirectConversationSaga(props) {
 	const userID = props.payload.userID
 	const interlocutorID = props.payload.interlocutorID
 	const navigate = props.payload.navigate
+	const sidebar = props.payload.sidebar
 
 	const conversation = {
 		id: uuid(),
@@ -73,7 +74,9 @@ export function* createDirectConversationSaga(props) {
 			const conversationID = userConversation[0]
 			yield call(navigate, `${routeNames.CONVERSATIONS}/${conversationID}`)
 			yield put(closeAddConversationModal())
-			yield call(toast.error, messages.conversationAlreadyExist)
+			if (!sidebar) {
+				yield call(toast.error, messages.conversationAlreadyExist)
+			}
 			createAndDispatchFocusEvent()
 		} else {
 			yield put(createDirectConversationFail(messages.conversationAlreadyExist))

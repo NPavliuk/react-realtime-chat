@@ -4,29 +4,29 @@ import { ProfileSettingsForm } from '@views/settings/ProfileSettings/ProfileSett
 import { checkIfMobile } from '@helpers/checkResolution'
 
 export const ProfileSettings = () => {
-  const isMobile = checkIfMobile()
+	const isMobile = checkIfMobile()
 
-  return (
-    isMobile ?
-      <div className={styles.wrapper}>
-        <div className={styles.header}>
-          <h1 className={styles.title}>Profile</h1>
-          <p className={styles.description}>This information will be displayed publicly so be careful what you share</p>
-        </div>
+	const outputHTML = () => {
+		return (
+			<div className={styles.wrapper}>
+				<div className={styles.header}>
+					<h1 className={styles.title}>Profile</h1>
+					<p className={styles.description}>This information will be displayed publicly so be careful what you share</p>
+				</div>
 
-        <ProfileSettingsForm/>
-      </div>
-      :
-      <Settings>
-        <div className={styles.wrapper}>
-          <div className={styles.header}>
-            <h1 className={styles.title}>Profile</h1>
-            <p className={styles.description}>This information will be displayed publicly so be careful what you
-              share</p>
-          </div>
+				<ProfileSettingsForm/>
+			</div>
+		)
+	}
 
-          <ProfileSettingsForm/>
-        </div>
-      </Settings>
-  )
+	return (
+		isMobile ?
+			<>
+				{outputHTML()}
+			</>
+			:
+			<Settings>
+				{outputHTML()}
+			</Settings>
+	)
 }

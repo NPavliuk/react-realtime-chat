@@ -7,8 +7,11 @@ module.exports = {
     extend: {
       colors: {
         'background': '#F7F7F7',
-      }
-    }
+      },
+			maxWidth: {
+				'sidebar': '325px',
+			}
+		}
   },
   plugins: [
     require('tailwindcss'),

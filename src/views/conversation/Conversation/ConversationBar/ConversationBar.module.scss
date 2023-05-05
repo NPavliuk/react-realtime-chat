@@ -4,7 +4,7 @@
   hover:scrollbar-thumb-gray-400 scrollbar-track-transparent;
 
   @media (min-width: theme('screens.sm')) {
-    @apply relative max-w-[325px];
+    @apply relative max-w-sidebar;
   }
 
   &.active {

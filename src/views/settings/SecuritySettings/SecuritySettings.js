@@ -4,28 +4,30 @@ import { SecuritySettingsForm } from '@views/settings/SecuritySettings/SecurityS
 import { checkIfMobile } from '@helpers/checkResolution'
 
 export const SecuritySettings = () => {
-  const isMobile = checkIfMobile()
+	const isMobile = checkIfMobile()
 
-  return (
-    isMobile ?
-      <div className={styles.wrapper}>
-        <div className={styles.header}>
-          <h1 className={styles.title}>Security</h1>
-          <p className={styles.description}>This information will be displayed publicly so be careful what you share</p>
-        </div>
 
-        <SecuritySettingsForm />
-      </div>
-      :
-      <Settings>
-        <div className={styles.wrapper}>
-          <div className={styles.header}>
-            <h1 className={styles.title}>Security</h1>
-            <p className={styles.description}>This information will be displayed publicly so be careful what you share</p>
-          </div>
+	const outputHTML = () => {
+		return (
+			<div className={styles.wrapper}>
+				<div className={styles.header}>
+					<h1 className={styles.title}>Security</h1>
+					<p className={styles.description}>This information will be displayed publicly so be careful what you share</p>
+				</div>
 
-          <SecuritySettingsForm />
-        </div>
-      </Settings>
-  )
+				<SecuritySettingsForm/>
+			</div>
+		)
+	}
+
+	return (
+		isMobile ?
+			<>
+				{outputHTML()}
+			</>
+			:
+			<Settings>
+				{outputHTML()}
+			</Settings>
+	)
 }

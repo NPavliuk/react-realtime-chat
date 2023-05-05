@@ -46,64 +46,47 @@ export const Conversation = () => {
 		dispatch(closeEditConversationModal())
 	}
 
+	const outputHTML = () => {
+		return (
+			<>
+				<div className={styles.wrapper}>
+					<ConversationHead/>
+					<ConversationMessages/>
+					<ConversationInput/>
+				</div>
+				<ConversationBar/>
+				{
+					conversation.addModal ?
+						<PrimaryModal isOpen={conversation.addModal}
+													closeHandler={closeAddInterlocutorModalHandler}
+						>
+							<AddInterlocutor closeHandler={closeAddInterlocutorModalHandler}/>
+						</PrimaryModal>
+						:
+						null
+				}
+				{
+					conversation.editModal ?
+						<PrimaryModal isOpen={conversation.editModal}
+													closeHandler={closeEditConversationModalHandler}
+						>
+							<ConversationEdit closeHandler={closeEditConversationModalHandler}/>
+						</PrimaryModal>
+						:
+						null
+				}
+			</>
+		)
+	}
+
 	return (
 		isTablet ?
 			<div className={styles.mobileWrapper}>
-				<div className={styles.wrapper}>
-					<ConversationHead/>
-					<ConversationMessages/>
-					<ConversationInput/>
-				</div>
-				<ConversationBar/>
-				{
-					conversation.addModal ?
-						<PrimaryModal isOpen={conversation.addModal}
-													closeHandler={closeAddInterlocutorModalHandler}
-						>
-							<AddInterlocutor closeHandler={closeAddInterlocutorModalHandler}/>
-						</PrimaryModal>
-						:
-						null
-				}
-				{
-					conversation.editModal ?
-						<PrimaryModal isOpen={conversation.editModal}
-													closeHandler={closeEditConversationModalHandler}
-						>
-							<ConversationEdit closeHandler={closeEditConversationModalHandler}/>
-						</PrimaryModal>
-						:
-						null
-				}
+				{outputHTML()}
 			</div>
 			:
 			<Conversations>
-				<div className={styles.wrapper}>
-					<ConversationHead/>
-					<ConversationMessages/>
-					<ConversationInput/>
-				</div>
-				<ConversationBar/>
-				{
-					conversation.addModal ?
-						<PrimaryModal isOpen={conversation.addModal}
-													closeHandler={closeAddInterlocutorModalHandler}
-						>
-							<AddInterlocutor closeHandler={closeAddInterlocutorModalHandler}/>
-						</PrimaryModal>
-						:
-						null
-				}
-				{
-					conversation.editModal ?
-						<PrimaryModal isOpen={conversation.editModal}
-													closeHandler={closeEditConversationModalHandler}
-						>
-							<ConversationEdit closeHandler={closeEditConversationModalHandler}/>
-						</PrimaryModal>
-						:
-						null
-				}
+				{outputHTML()}
 			</Conversations>
 	)
 }

@@ -1,5 +1,14 @@
 .wrapper {
-  @apply w-full lg:h-screen min-w-[calc(100vw-8px)] sm:min-w-0 lg:max-w-[325px] py-3 px-4 overflow-y-auto sm:border-b lg:border-b-0 lg:border-r border-gray-200 bg-background;
+  @apply w-full min-w-[calc(100vw-8px)] py-3 px-4 overflow-y-auto border-gray-200 bg-background;
+
+  @media (min-width: theme('screens.sm')) {
+    @apply min-w-0 border-b;
+  }
+
+  @media (min-width: theme('screens.lg')) {
+    @apply h-screen max-w-sidebar border-b-0 border-r;
+  }
+
 
   .header {
     @apply mb-3;
@@ -14,6 +23,14 @@
   }
 
   .nav {
-    @apply flex flex-col sm:flex-row lg:flex-col gap-3;
+    @apply flex flex-col gap-3;
+
+    @media (min-width: theme('screens.sm')) {
+      @apply flex-row;
+    }
+
+    @media (min-width: theme('screens.lg')) {
+      @apply flex-col;
+    }
   }
 }

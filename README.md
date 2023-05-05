@@ -1,70 +1,36 @@
-# Getting Started with Create React Index
+# Realtime Chat
+Welcome to React chat app! The application allows users to create accounts, log in, create direct or group conversations. 
+Users can send and receive real-time messages and see when other users is online or offline. 
 
-This project was bootstrapped with [Create React Index](https://github.com/facebook/create-react-app).
+<img src="src/assets/images/preview.png" alt="" width="100%">
 
-## Available Scripts
 
-In the project directory, you can run:
+## Features
+The Chat App includes the following features:
 
-### `npm start`
+1. User authentication: User can register or log in using email and password.
+2. User settings: User can change his personal data in the settings menu.
+3. Direct and group conversations: User can create direct conversation with another user. Also, the user can create a group chat to which he can invite as many users as he wants. A group administrator can change group settings.
+4. Real-time messaging: User can send messages that will arrive to interlocutors in real time.
+5. Message management: User can edit messages, delete and mark favorite messages.
+6. Reply to message: User can reply to the interlocutor's message by attaching his message to his message so as not to lose the context of the conversation.
+7. New message indicator: User receives a visual notification of new messages.
+8. Online users indicator: Users who are currently online receive a corresponding indicator.
+9. Сonversation filter: The user can sort conversations by their type.
+10. Responsive: Responsive design with Tailwind.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Setup project
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. Clone the repository from GitHub `$ git clone https://github.com/NPavliuk/react-realtime-chat.git`
+2. Install the dependencies using `npm install`.
+3. Run the app using `npm run start`.
+4. Navigate to http://localhost:3000 in your browser.
 
-### `npm test`
+## Technologies
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React Index documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web Index
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* React 18.2.0
+* Redux 4.2.0
+* React Router DOM 6.8.0
+* Redux Saga 1.2.2
+* Tailwind CSS 3.2.4
+* Firebase 9.16.0

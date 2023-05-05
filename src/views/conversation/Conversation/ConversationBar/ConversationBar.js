@@ -3,18 +3,14 @@ import { RiCloseFill } from 'react-icons/ri'
 import { useDispatch, useSelector } from 'react-redux'
 import { UserAvatar } from '@components/ui/avatars'
 import { PrimaryButton } from '@components/ui/buttons'
-import { PrimaryModal } from '@components/ui/modals'
 import {
-	closeAddInterlocutorModal,
-	closeConversationBar, closeEditConversationModal,
+	closeConversationBar,
 	openAddInterlocutorModal, openEditConversationModal
 } from '@store/reducers/conversationReducer/conversationActions'
 import { closeProfileBar } from '@store/reducers/profileReducer/profileActions'
 import {
 	ConversationMember
 } from '@views/conversation/Conversation/ConversationBar/ConversationMember/ConversationMember'
-import { AddInterlocutor } from '@views/conversation/Conversation/AddInterlocutor/AddInterlocutor'
-import { ConversationEdit } from '@views/conversation/Conversation/ConversationEdit/ConversationEdit'
 import { classNames } from '@helpers/classNames'
 
 export const ConversationBar = () => {
@@ -31,16 +27,8 @@ export const ConversationBar = () => {
 		dispatch(openAddInterlocutorModal())
 	}
 
-	const closeAddInterlocutorModalHandler = () => {
-		dispatch(closeAddInterlocutorModal())
-	}
-
 	const openEditConversationModalHandler = () => {
 		dispatch(openEditConversationModal())
-	}
-
-	const closeEditConversationModalHandler = () => {
-		dispatch(closeEditConversationModal())
 	}
 
 	return (
@@ -109,26 +97,7 @@ export const ConversationBar = () => {
 				}
 			</div>
 
-			{
-				conversation.addModal ?
-					<PrimaryModal isOpen={conversation.addModal}
-												closeHandler={closeAddInterlocutorModalHandler}
-					>
-						<AddInterlocutor closeHandler={closeAddInterlocutorModalHandler}/>
-					</PrimaryModal>
-					:
-					null
-			}
-			{
-				conversation.editModal ?
-					<PrimaryModal isOpen={conversation.editModal}
-												closeHandler={closeEditConversationModalHandler}
-					>
-						<ConversationEdit closeHandler={closeEditConversationModalHandler}/>
-					</PrimaryModal>
-					:
-					null
-			}
+
 		</div>
 	)
 }

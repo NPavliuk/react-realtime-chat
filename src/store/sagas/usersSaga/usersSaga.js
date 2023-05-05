@@ -25,7 +25,6 @@ export function* watchUsersStatusSaga() {
 	try {
 		while (true) {
 			const usersStatuses = yield take(channel)
-
 			yield put(watchUsersStatusSuccess(usersStatuses))
 		}
 	} catch (error) {

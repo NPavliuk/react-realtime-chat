@@ -9,7 +9,7 @@ import { GrFormNext, GrFormPrevious } from 'react-icons/gr'
 import { RiDiscussLine, RiDiscussFill, RiSettings4Line, RiSettings4Fill } from 'react-icons/ri'
 import { isUnreadConversations } from '@helpers/messages'
 import { checkUserStatus } from '@helpers/checkUserStatus'
-import { checkIfMobile } from '@helpers/checkResolution'
+import { checkIfMobile, checkIfTablet } from '@helpers/checkResolution'
 import { classNames } from '@helpers/classNames'
 import { routeNames } from '@constants/routeNames'
 
@@ -22,6 +22,7 @@ export const NavigationBar = () => {
 	const conversationID = useSelector(state => state.conversation.id)
 	const conversations = useSelector(state => state.conversations.conversations)
 	const isMobile = checkIfMobile()
+	const isTablet = checkIfTablet()
 
 	let isUnread
 	let userStatus
@@ -79,7 +80,7 @@ export const NavigationBar = () => {
 				</div>
 				<div className={styles.nav}>
 					<div className={styles.item}>
-						<NavigationButton route={conversationID && !isMobile ? `${routeNames.CONVERSATIONS}/${conversationID}` : routeNames.CONVERSATIONS}
+						<NavigationButton route={conversationID && !isTablet ? `${routeNames.CONVERSATIONS}/${conversationID}` : routeNames.CONVERSATIONS}
 															icon={<RiDiscussLine/>}
 															activeIcon={<RiDiscussFill/>}
 															indicator={isUnread}

@@ -1,3 +1,7 @@
 .wrapper {
-  @apply mr-[-10px] lg:mr-[-16px] pt-3 mb-3 overflow-y-auto lg:scrollbar lg:scrollbar-w-[6px] lg:scrollbar-thumb-rounded-lg lg:scrollbar-thumb-gray-300 lg:hover:scrollbar-thumb-gray-400 lg:scrollbar-track-transparent;
+  @apply mr-[-10px] pt-3 mb-3 overflow-y-auto;
+
+  @media (min-width: theme('screens.md')) {
+    @apply mr-[-16px] scrollbar scrollbar-w-[6px] scrollbar-thumb-rounded-lg scrollbar-thumb-gray-300 hover:scrollbar-thumb-gray-400 scrollbar-track-transparent;
+  }
 }

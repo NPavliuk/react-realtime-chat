@@ -15,12 +15,10 @@ export const ConversationMessages = () => {
 		if (messagesRef.current) {
 			messagesRef.current.scrollTop = messagesRef.current.scrollHeight
 		}
-	})
+	}, [messages.length])
 
 	return (
-		<div className={styles.wrapper}
-				 ref={messagesRef}
-		>
+		<div className={styles.wrapper} ref={messagesRef}>
 			{
 				messages
 					? generatedMessages.map(message => message.type !== 'day'

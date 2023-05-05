@@ -1,7 +1,7 @@
 import { eventChannel } from 'redux-saga'
 import { call, put, takeLatest, take, cancelled } from 'redux-saga/effects'
-import { watchConversationsFail, watchConversationsSuccess } from '@store/reducers/conversationsReducer/conversationsActions'
 import { watchConversations } from '@api/conversations/watchConversations'
+import { watchConversationsFail, watchConversationsSuccess } from '@store/reducers/conversationsReducer/conversationsActions'
 import { actionTypes } from '@constants/actionTypes'
 
 function* watchConversationsSaga(props) {

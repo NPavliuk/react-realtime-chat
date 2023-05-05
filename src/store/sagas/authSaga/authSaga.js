@@ -1,11 +1,15 @@
 import toast from 'react-hot-toast'
-import { signOut } from 'firebase/auth'
+import { eventChannel } from 'redux-saga'
 import { call, put, takeLatest, cancelled, take } from 'redux-saga/effects'
-import { auth, rtdb } from '@api/firebase'
+import { signOut } from 'firebase/auth'
+import { auth } from '@api/firebase'
 import { setUserToDb } from '@api/user/setUser'
 import { signUpWithEmailPassword } from '@api/auth/signUp'
 import { signInWithEmailPassword } from '@api/auth/signIn'
 import { updateUserPassword } from '@api/auth/updatePassword'
+import { watchUserStatus } from '@api/user/watchUserStatus'
+import { watchAuthSession } from '@api/auth/watchAuthSession'
+import { getUserDataStart } from '@store/reducers/userReducer/userActions'
 import {
 	signUpFail,
 	signUpSuccess,
@@ -16,15 +20,10 @@ import {
 	updatePasswordFail,
 	updatePasswordSuccess, watchSessionSuccess, watchSessionFail
 } from '@store/reducers/authReducer/authActions'
+import { removeSessionFromLocalStorage, saveSessionToLocalStorage } from '@helpers/localStorage'
+import { routeNames } from '@constants/routeNames'
 import { actionTypes } from '@constants/actionTypes'
 import { messages } from '@constants/validationMessages'
-import { eventChannel } from 'redux-saga'
-import { watchAuthSession } from '@api/auth/watchAuthSession'
-import { getUserDataStart } from '@store/reducers/userReducer/userActions'
-import { routeNames } from '@constants/routeNames'
-import { removeSessionFromLocalStorage, saveSessionToLocalStorage } from '@helpers/localStorage'
-import { onDisconnect, onValue, ref, serverTimestamp, set } from 'firebase/database'
-import { watchUserStatus } from '@api/user/watchUserStatus'
 
 export function* signUpWithEmailPasswordSaga(props) {
 	const name = props.payload.name

@@ -1,31 +1,40 @@
 .container {
-  @apply flex min-h-screen items-center justify-center py-4 sm:py-12 px-4 sm:px-6 lg:px-8;
-}
+  @apply flex min-h-screen items-center justify-center py-4 px-4;
 
-.block {
-  @apply flex items-center justify-center;
-}
-
-.article {
-  @apply text-center;
-}
-
-.illustration {
-  @apply mb-10;
-
-  svg {
-    @apply max-w-sm w-full h-auto m-auto;
+  @media (min-width: theme('screens.lg')) {
+    @apply px-8;
   }
-}
 
-.title {
-  @apply text-lg sm:text-2xl font-bold;
-}
+  @media (min-width: theme('screens.sm')) {
+    @apply py-12 px-6;
+  }
 
-.paragraph {
-  @apply mt-2 mb-8 text-sm sm:text-base text-gray-400;
-}
+  .block {
+    @apply flex items-center justify-center;
 
-.button {
-  @apply flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white  hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2;
+    .article {
+      @apply text-center;
+
+      .illustration {
+        @apply mb-10;
+
+        svg {
+          @apply max-w-sm w-full h-auto m-auto;
+        }
+      }
+
+      .title {
+        @apply text-lg sm:text-2xl font-bold;
+      }
+
+      .paragraph {
+        @apply mt-2 mb-8 text-sm sm:text-base text-gray-400;
+      }
+
+      .button {
+        @apply flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white  hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2;
+      }
+
+    }
+  }
 }

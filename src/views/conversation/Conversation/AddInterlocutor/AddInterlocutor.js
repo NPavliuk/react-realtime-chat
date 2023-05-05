@@ -1,13 +1,13 @@
 import styles from './AddInterlocutor.module.scss'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Controller, useForm } from 'react-hook-form'
 import { SingleContactSelect } from '@components/ui/form/selects'
-import { messages } from '@constants/validationMessages'
 import { PrimaryButton } from '@components/ui/buttons'
-import { useDispatch, useSelector } from 'react-redux'
-import { createSelectOptions } from '@helpers/createSelectOptions'
-import { useEffect } from 'react'
 import { getUsersStart } from '@store/reducers/usersReducer/usersActions'
 import { addInterlocutorStart } from '@store/reducers/conversationReducer/conversationActions'
+import { createSelectOptions } from '@helpers/createSelectOptions'
+import { messages } from '@constants/validationMessages'
 
 export const AddInterlocutor = ({closeHandler}) => {
 	const dispatch = useDispatch()
@@ -37,10 +37,12 @@ export const AddInterlocutor = ({closeHandler}) => {
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.content}>
-				<h3 className={styles.title}>Add interlocutor</h3>
+				<h3 className={styles.title}>Add people</h3>
 				<p className={styles.note}>Please select the person you want to add to the conversation</p>
 
-				<form className={styles.form} onSubmit={handleSubmit(addInterlocutorSubmitHandler)}>
+				<form className={styles.form}
+							onSubmit={handleSubmit(addInterlocutorSubmitHandler)}
+				>
 					<div className={styles.select}>
 						<Controller render={({field: {onChange, value}, fieldState: {error}}) => (
 							<SingleContactSelect options={selectOptions}
@@ -54,8 +56,13 @@ export const AddInterlocutor = ({closeHandler}) => {
 					</div>
 
 					<div className={styles.controls}>
-						<PrimaryButton title={'Cancel'} modifyClass={'cancel'} handler={closeHandler}/>
-						<PrimaryButton title={'Add'} type={'submit'}/>
+						<PrimaryButton title={'Cancel'}
+													 modifyClass={'cancel'}
+													 handler={closeHandler}
+						/>
+						<PrimaryButton title={'Add'}
+													 type={'submit'}
+						/>
 					</div>
 				</form>
 			</div>

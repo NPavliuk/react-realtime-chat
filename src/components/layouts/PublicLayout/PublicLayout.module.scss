@@ -1,7 +1,7 @@
 .page {
-  @apply flex flex-col w-full min-h-screen p-0 m-0 overflow-x-hidden bg-secondary;
-}
+  @apply flex flex-col w-full min-h-screen p-0 m-0 overflow-x-hidden bg-background;
 
-.content {
-  @apply flex-auto;
+  .content {
+    @apply flex-auto;
+  }
 }

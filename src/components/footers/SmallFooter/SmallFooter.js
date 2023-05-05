@@ -1,6 +1,6 @@
+import styles from './SmallFooter.module.scss'
 import { Link } from 'react-router-dom'
 import { links } from '@constants/additionalLinks'
-import styles from './SmallFooter.module.scss'
 
 export const SmallFooter = () => {
   const currentYear = new Date().getFullYear()

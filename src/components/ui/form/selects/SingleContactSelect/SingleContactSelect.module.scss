@@ -1,8 +1,16 @@
 .control {
-  @apply text-left shadow-none rounded-md border border-gray-300 text-sm text-gray-900 placeholder-gray-500 hover:border-gray-300 hover:cursor-text;
+  @apply text-left shadow-none rounded-md border border-gray-300 text-sm text-gray-900 placeholder-gray-500;
+
+  &:hover{
+    @apply border-gray-300 cursor-text;
+  }
 
   &.focused {
-    @apply shadow-none outline-none border border-indigo-500 ring-indigo-500 hover:border-indigo-500;
+    @apply shadow-none outline-none border border-indigo-500 ring-indigo-500;
+
+    &:hover{
+      @apply border-indigo-500;
+    }
   }
 }
 
@@ -40,7 +48,11 @@
   }
 
   &.selected {
-    @apply bg-indigo-700 hover:bg-indigo-700 #{!important};
+    @apply bg-indigo-700 #{!important};
+
+    &:hover {
+      @apply bg-indigo-700 #{!important}
+    }
 
     .content {
       .title {

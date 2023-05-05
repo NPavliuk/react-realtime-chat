@@ -1,8 +1,8 @@
 import styles from './ConversationEdit.module.scss'
 import { useForm } from 'react-hook-form'
+import { useDispatch, useSelector } from 'react-redux'
 import { PrimaryButton } from '@components/ui/buttons'
 import { TextInput } from '@components/ui/form/inputs'
-import { useDispatch, useSelector } from 'react-redux'
 import { editConversationStart } from '@store/reducers/conversationReducer/conversationActions'
 
 export const ConversationEdit = ({closeHandler}) => {
@@ -21,31 +21,51 @@ export const ConversationEdit = ({closeHandler}) => {
 			<div className={styles.content}>
 				<h3 className={styles.title}>Edit conversation</h3>
 				<p className={styles.note}>Be sure to confirm the changes before exiting the modal window</p>
-				<form className={styles.form} onSubmit={handleSubmit(editConversationSubmitHandler)}>
+				<form className={styles.form}
+							onSubmit={handleSubmit(editConversationSubmitHandler)}
+				>
 					<div className={styles.item}>
-						<TextInput register={register} errors={errors} title={'Group Name'} id={'name'} label={true}
+						<TextInput id={'name'}
+											 title={'Group Name'}
 											 placeholder={'e.g rest'}
-											 required={true}/>
+											 errors={errors}
+											 register={register}
+											 label={true}
+											 required={true}
+						/>
 					</div>
 					<div className={styles.item}>
-						<TextInput register={register} title={'Avatar (optional)'} id={'avatar'} label={true}
-											 placeholder={'Enter group avatar URL'}/>
+						<TextInput id={'avatar'}
+											 title={'Avatar (optional)'}
+											 placeholder={'Enter group avatar URL'}
+											 register={register}
+											 label={true}
+						/>
 					</div>
 					<div className={styles.item}>
-						<TextInput register={register} errors={errors} title={'Short description (optional)'} id={'description'} label={true}
-											 placeholder={'Enter group description'} maxLength={50}/>
+						<TextInput id={'description'}
+											 title={'Short description (optional)'}
+											 placeholder={'Enter group description'}
+											 errors={errors}
+											 register={register}
+											 maxLength={50}
+											 label={true}
+						/>
 					</div>
 					<div className={styles.controls}>
-						<PrimaryButton title={'Cancel'} modifyClass={'cancel'} handler={closeHandler}/>
+						<PrimaryButton title={'Cancel'}
+													 modifyClass={'cancel'}
+													 handler={closeHandler}
+						/>
 						{
 							isDirty ?
-								<PrimaryButton title={'Edit'} type={'submit'}/>
+								<PrimaryButton title={'Edit'}
+															 type={'submit'}
+								/>
 								: null
 						}
 					</div>
-
 				</form>
-
 			</div>
 		</div>
 	)

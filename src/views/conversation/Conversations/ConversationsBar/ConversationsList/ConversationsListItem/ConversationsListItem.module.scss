@@ -1,5 +1,6 @@
 .wrapper {
-  @apply grid grid-cols-[32px_1fr_16px] gap-x-2 w-full bg-white rounded-lg p-2 pb-3 pr-3 mb-2.5 last-of-type:mb-0 cursor-pointer hover:shadow;
+  @apply grid grid-cols-[32px_1fr_16px] gap-x-2 w-full bg-white rounded-lg p-2 pb-3 pr-3 mb-2.5 last-of-type:mb-0
+  cursor-pointer hover:shadow;
 
   .head {
     @apply grid grid-cols-[32px_1fr_16px] gap-x-2 col-start-1 col-end-4 items-center;

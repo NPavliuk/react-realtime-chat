@@ -3,12 +3,12 @@ import Moment from 'react-moment'
 import { NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { UserAvatar } from '@components/ui/avatars'
-import { classNames } from '@helpers/classNames'
-import { routeNames } from '@constants/routeNames'
-import { isUnreadMessage } from '@helpers/messages'
 import { FiUsers } from 'react-icons/fi'
 import { closeConversationBar } from '@store/reducers/conversationReducer/conversationActions'
+import { isUnreadMessage } from '@helpers/messages'
 import { checkUserStatus } from '@helpers/checkUserStatus'
+import { classNames } from '@helpers/classNames'
+import { routeNames } from '@constants/routeNames'
 
 export const ConversationsListItem = ({conversation}) => {
 	const dispatch = useDispatch()
@@ -22,7 +22,6 @@ export const ConversationsListItem = ({conversation}) => {
 		userStatus = checkUserStatus(conversationalists[0].id, onlineUsers)
 	}
 
-
 	const closeConversationBarHandler = () => {
 		dispatch(closeConversationBar())
 	}
@@ -35,8 +34,11 @@ export const ConversationsListItem = ({conversation}) => {
 								 [styles.active]: isActive
 							 })}>
 				<div className={styles.head}>
-					<UserAvatar name={conversationalists[0].name} image={conversationalists[0].avatar} status={userStatus}
-											modifyClass={'small'}/>
+					<UserAvatar name={conversationalists[0].name}
+											image={conversationalists[0].avatar}
+											status={userStatus}
+											modifyClass={'small'}
+					/>
 					<div className={styles.info}>
 						<h5 className={styles.name}>{conversationalists[0].name}</h5>
 						{
@@ -65,8 +67,10 @@ export const ConversationsListItem = ({conversation}) => {
 				[styles.active]: isActive
 			})}>
 				<div className={styles.head}>
-					<UserAvatar name={conversation.name} image={conversation.avatar ? conversation.avatar : null}
-											modifyClass={'small'}/>
+					<UserAvatar name={conversation.name}
+											image={conversation.avatar ? conversation.avatar : null}
+											modifyClass={'small'}
+					/>
 					<div className={styles.info}>
 						<h5 className={styles.name}>{conversation.name}</h5>
 						{

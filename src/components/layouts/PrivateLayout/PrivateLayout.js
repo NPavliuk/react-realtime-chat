@@ -1,7 +1,7 @@
+import styles from './PrivateLayout.module.scss'
 import { Helmet } from 'react-helmet'
 import { NavigationBar, ProfileBar } from '@components/sidebars'
 import { ToasterNotification } from '@components/ui/notifications'
-import styles from './PrivateLayout.module.scss'
 
 export const PrivateLayout = ({children}) => {
   const appTitle = 'Chat'

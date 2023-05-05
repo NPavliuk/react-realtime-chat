@@ -1,11 +1,11 @@
 import styles from './ConversationMember.module.scss'
+import { useDispatch, useSelector } from 'react-redux'
 import { UserAvatar } from '@components/ui/avatars'
 import { MessageControlButton } from '@components/ui/buttons'
 import { RiDeleteBin7Line, RiAdminLine } from 'react-icons/ri'
-import { useDispatch, useSelector } from 'react-redux'
+import { getProfileInfoStart, openProfileBar } from '@store/reducers/profileReducer/profileActions'
 import { closeConversationBar, removeInterlocutorStart } from '@store/reducers/conversationReducer/conversationActions'
 import { checkUserStatus } from '@helpers/checkUserStatus'
-import { getProfileInfoStart, openProfileBar } from '@store/reducers/profileReducer/profileActions'
 
 export const ConversationMember = ({interlocutor, conversation}) => {
 	const dispatch = useDispatch()
@@ -35,8 +35,12 @@ export const ConversationMember = ({interlocutor, conversation}) => {
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.content}>
-				<UserAvatar name={interlocutor.name} image={interlocutor.avatar ? interlocutor.avatar : ''} status={userStatus}
-										modifyClass={'small'} handler={openProfileBarHandler}/>
+				<UserAvatar name={interlocutor.name}
+										image={interlocutor.avatar ? interlocutor.avatar : ''}
+										status={userStatus}
+										modifyClass={'small'}
+										handler={openProfileBarHandler}
+				/>
 				<div className={styles.info}>
 					<h5 className={styles.name}>{interlocutor.name}</h5>
 					<h5 className={styles.email}>{interlocutor.email}</h5>
@@ -48,8 +52,9 @@ export const ConversationMember = ({interlocutor, conversation}) => {
 				}
 				<div className={styles.control}>
 					{
-						interlocutor.id !== userID
-							? <MessageControlButton icon={<RiDeleteBin7Line/>} handler={removeConversationMember}
+						interlocutor.id !== userID && userID === conversation.data.admin
+							? <MessageControlButton icon={<RiDeleteBin7Line/>}
+																			handler={removeConversationMember}
 																			modifyClass={'danger'}/>
 							: null
 					}

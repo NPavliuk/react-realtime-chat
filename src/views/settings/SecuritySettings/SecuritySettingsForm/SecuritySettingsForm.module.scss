@@ -1,5 +1,9 @@
 .form {
-  @apply w-full lg:max-w-xl pb-5;
+  @apply w-full pb-5;
+
+  @media (min-width: theme('screens.lg')) {
+    @apply max-w-xl;
+  }
 
   .group {
     @apply mb-8;

@@ -10,26 +10,38 @@ import { classNames } from '@helpers/classNames'
 import { closeProfileBar } from '@store/reducers/profileReducer/profileActions'
 import { createDirectConversationStart } from '@store/reducers/conversationReducer/conversationActions'
 import { useNavigate } from 'react-router-dom'
+import { checkIfMobile } from '@helpers/checkResolution'
 
 export const ProfileBar = () => {
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 	const userID = useSelector(state => state.auth.id)
 	const profile = useSelector(state => state.profile)
+	const isMobile = checkIfMobile()
 
-	const closeHandler = () => {
+	const closeProfileBarHandler = () => {
 		dispatch(closeProfileBar())
 	}
 
-	const messageClickHandler = () => {
+	const messageButtonHandler = () => {
 		const data = {
 			userID: userID,
 			interlocutorID: profile.data.id,
 			navigate: navigate,
-			sidebar: true,
+			sidebar: true
+		}
+
+		if (isMobile) {
+			dispatch(closeProfileBar())
 		}
 
 		dispatch(createDirectConversationStart(data))
+	}
+
+	const profileEditButtonHandler = () => {
+		if (isMobile) {
+			dispatch(closeProfileBar())
+		}
 	}
 
 	return (
@@ -39,16 +51,19 @@ export const ProfileBar = () => {
 		})}>
 			<div className={styles.header}>
 				<h3 className={styles.title}>Profile</h3>
-				<button className={styles.button} onClick={closeHandler}>
+				<button className={styles.button}
+								onClick={closeProfileBarHandler}>
 					<RiCloseFill/>
 				</button>
 			</div>
 
 			<div>
 				<div className={styles.avatar}>
-					<UserAvatar name={profile.data.name} image={profile.data.avatar} modifyClass={'big'}/>
+					<UserAvatar name={profile.data.name}
+											image={profile.data.avatar}
+											modifyClass={'big'}
+					/>
 				</div>
-
 				<div className={styles.info}>
 					<h4 className={styles.name}>{profile.data.name}</h4>
 					{
@@ -60,11 +75,16 @@ export const ProfileBar = () => {
 				{
 					userID !== profile.data.id ?
 						<div className={styles.controls}>
-							<PrimaryButton handler={messageClickHandler} title={'Message'}/>
+							<PrimaryButton title={'Message'}
+														 handler={messageButtonHandler}
+							/>
 						</div>
 						:
 						<div className={styles.controls}>
-							<PrimaryButton link={routeNames.PROFILE_SETTINGS} title={'Edit Profile'}/>
+							<PrimaryButton title={'Edit Profile'}
+														 link={routeNames.PROFILE_SETTINGS}
+														 handler={profileEditButtonHandler}
+							/>
 						</div>
 				}
 				{

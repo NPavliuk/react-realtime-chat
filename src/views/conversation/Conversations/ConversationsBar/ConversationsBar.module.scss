@@ -1,5 +1,13 @@
 .wrapper {
-  @apply flex flex-col w-full lg:h-screen min-w-[calc(100vw-8px)] sm:min-w-0 lg:max-w-[325px] py-3 pl-4 sm:border-b lg:border-b-0 lg:border-r border-gray-200 bg-secondary;
+  @apply flex flex-col w-full min-w-[calc(100vw-8px)] sm:min-w-0  py-3 pl-4 border-gray-200 bg-background;
+
+  @media (min-width: theme('screens.lg')) {
+    @apply h-screen max-w-[325px] border-b-0 border-r;
+  }
+
+  @media (min-width: theme('screens.sm')) {
+    @apply border-b;
+  }
 
   .header {
     @apply mb-3 pr-4;

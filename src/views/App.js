@@ -29,8 +29,7 @@ function App() {
 
 		dispatch(watchSessionStart())
 		dispatch(watchUsersStatusStart())
-	}, [])
-
+	}, [session])
 
 	return (
 		session ?

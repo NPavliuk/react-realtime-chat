@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react'
 import styles from './PrimaryModal.module.scss'
+import { useEffect, useRef } from 'react'
 
 export const PrimaryModal = ({children, isOpen, closeHandler}) => {
   const modalRef = useRef()

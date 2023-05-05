@@ -1,5 +1,13 @@
 .wrapper {
-  @apply w-full lg:h-screen py-3 px-3 sm:py-3 sm:px-4 lg:overflow-y-auto;
+  @apply w-full py-3 px-3;
+
+  @media (min-width: theme('screens.lg')) {
+    @apply h-screen overflow-y-auto;
+  }
+
+  @media (min-width: theme('screens.sm')) {
+    @apply py-3 px-4;
+  }
 
   .header {
     @apply mb-5;

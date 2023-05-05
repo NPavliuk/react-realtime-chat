@@ -12,7 +12,6 @@ export const ConversationsList = () => {
 	const conversations = useSelector(state => state.conversations.conversations)
 	const conversationsFilters = useSelector(state => state.conversations.filters)
 	const currentFilter = conversationsFilters.filter(f => f.checked === true)
-
 	const filteredConversations = filterConversations(conversations, conversationsFilters)
 	const sortedConversations = sortConversations(filteredConversations)
 
@@ -24,8 +23,11 @@ export const ConversationsList = () => {
 		<div className={styles.wrapper}>
 			<div className={styles.filter}>
 				{
-					conversationsFilters.map(filter => <FilterButton key={filter.id} name={filter.name} id={filter.id}
-																													 title={filter.title} checked={filter.checked}
+					conversationsFilters.map(filter => <FilterButton key={filter.id}
+																													 name={filter.name}
+																													 id={filter.id}
+																													 title={filter.title}
+																													 checked={filter.checked}
 																													 handler={useFilterHandler}/>)
 				}
 			</div>
@@ -33,7 +35,8 @@ export const ConversationsList = () => {
 			<div className={styles.list}>
 				{
 					sortedConversations.length > 0
-						? sortedConversations.map((conversation) => <ConversationsListItem key={conversation.id} conversation={conversation}/>)
+						? sortedConversations.map((conversation) => <ConversationsListItem key={conversation.id}
+																																							 conversation={conversation}/>)
 						: !sortedConversations.length > 0 && currentFilter[0].id === 'conversations-all'
 							? <ConversationsListEmptyState text={'conversations'}/>
 							: !sortedConversations.length > 0 && currentFilter[0].id === 'conversations-direct'

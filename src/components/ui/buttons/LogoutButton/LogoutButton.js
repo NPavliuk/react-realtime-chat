@@ -1,8 +1,8 @@
+import styles from './LogoutButton.module.scss'
 import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { signOutStart } from '@store/reducers/authReducer/authActions'
 import { RiLogoutCircleLine } from 'react-icons/ri'
-import styles from './LogoutButton.module.scss'
-import { useNavigate } from 'react-router-dom'
 
 export const LogoutButton = () => {
 	const navigate = useNavigate()

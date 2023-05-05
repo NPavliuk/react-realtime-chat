@@ -1,19 +1,21 @@
 import styles from './ConversationBar.module.scss'
-import { classNames } from '@helpers/classNames'
 import { RiCloseFill } from 'react-icons/ri'
 import { useDispatch, useSelector } from 'react-redux'
 import { UserAvatar } from '@components/ui/avatars'
 import { PrimaryButton } from '@components/ui/buttons'
-import { ConversationMember } from '@views/conversation/Conversation/ConversationBar/ConversationMember/ConversationMember'
+import { PrimaryModal } from '@components/ui/modals'
 import {
 	closeAddInterlocutorModal,
 	closeConversationBar, closeEditConversationModal,
 	openAddInterlocutorModal, openEditConversationModal
 } from '@store/reducers/conversationReducer/conversationActions'
 import { closeProfileBar } from '@store/reducers/profileReducer/profileActions'
-import { PrimaryModal } from '@components/ui/modals'
+import {
+	ConversationMember
+} from '@views/conversation/Conversation/ConversationBar/ConversationMember/ConversationMember'
 import { AddInterlocutor } from '@views/conversation/Conversation/AddInterlocutor/AddInterlocutor'
 import { ConversationEdit } from '@views/conversation/Conversation/ConversationEdit/ConversationEdit'
+import { classNames } from '@helpers/classNames'
 
 export const ConversationBar = () => {
 	const dispatch = useDispatch()
@@ -48,14 +50,19 @@ export const ConversationBar = () => {
 		})}>
 			<div className={styles.header}>
 				<h3 className={styles.title}>Conversation</h3>
-				<button className={styles.button} onClick={closeSidebarHandler}>
+				<button className={styles.button}
+								onClick={closeSidebarHandler}
+				>
 					<RiCloseFill/>
 				</button>
 			</div>
 
 			<div>
 				<div className={styles.avatar}>
-					<UserAvatar name={conversation.data.name} image={conversation.data.avatar ? conversation.data.avatar : ''} modifyClass={'big'}/>
+					<UserAvatar name={conversation.data.name}
+											image={conversation.data.avatar ? conversation.data.avatar : ''}
+											modifyClass={'big'}
+					/>
 				</div>
 				<div className={styles.info}>
 					<h4 className={styles.name}>{conversation.data.name}</h4>
@@ -66,9 +73,11 @@ export const ConversationBar = () => {
 					}
 				</div>
 				{
-					conversation.data.admin === userID   ?
+					conversation.data.admin === userID ?
 						<div className={styles.controls}>
-							<PrimaryButton title={'Edit Conversation'} handler={openEditConversationModalHandler} />
+							<PrimaryButton title={'Edit Conversation'}
+														 handler={openEditConversationModalHandler}
+							/>
 						</div>
 						:
 						<div className={styles.controls}>
@@ -81,12 +90,17 @@ export const ConversationBar = () => {
 							<h5 className={styles.title}>Members</h5>
 							{
 								conversation.data.conversationalists.map(interlocutor =>
-									<ConversationMember key={interlocutor.id} interlocutor={interlocutor} conversation={conversation} />)
+									<ConversationMember key={interlocutor.id}
+																			interlocutor={interlocutor}
+																			conversation={conversation}
+									/>)
 							}
 							{
 								conversation.data.admin === userID ?
 									<div className={styles.controls}>
-										<PrimaryButton handler={openAddInterlocutorModalHandler} title={'Add People'}/>
+										<PrimaryButton title={'Add People'}
+																	 handler={openAddInterlocutorModalHandler}
+										/>
 									</div>
 									: null
 							}
@@ -97,7 +111,9 @@ export const ConversationBar = () => {
 
 			{
 				conversation.addModal ?
-					<PrimaryModal isOpen={conversation.addModal} closeHandler={closeAddInterlocutorModalHandler}>
+					<PrimaryModal isOpen={conversation.addModal}
+												closeHandler={closeAddInterlocutorModalHandler}
+					>
 						<AddInterlocutor closeHandler={closeAddInterlocutorModalHandler}/>
 					</PrimaryModal>
 					:
@@ -105,7 +121,9 @@ export const ConversationBar = () => {
 			}
 			{
 				conversation.editModal ?
-					<PrimaryModal isOpen={conversation.editModal} closeHandler={closeEditConversationModalHandler}>
+					<PrimaryModal isOpen={conversation.editModal}
+												closeHandler={closeEditConversationModalHandler}
+					>
 						<ConversationEdit closeHandler={closeEditConversationModalHandler}/>
 					</PrimaryModal>
 					:

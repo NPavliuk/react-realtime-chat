@@ -1,5 +1,9 @@
 .button {
-  @apply flex pt-3 pb-4 px-3 border rounded-lg hover:shadow-lg;
+  @apply flex pt-3 pb-4 px-3 border rounded-lg;
+
+  &:hover {
+    @apply shadow-lg;
+  }
 
   &.active {
     @apply border-indigo-600 bg-indigo-600;

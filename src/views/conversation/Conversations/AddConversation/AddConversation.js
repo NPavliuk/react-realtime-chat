@@ -1,9 +1,9 @@
 import styles from './AddConversation.module.scss'
 import { useState } from 'react'
 import { PrimaryButton, TypeButton } from '@components/ui/buttons'
+import { RiUserLine, RiGroupLine } from 'react-icons/ri'
 import { AddDirectConversationForm } from '@views/conversation/Conversations/AddConversation/AddDirectConversationForm/AddDirectConversationForm'
 import { AddGroupConversationForm, } from '@views/conversation/Conversations/AddConversation/AddGroupConversationForm/AddGroupConversationForm'
-import { RiUserLine, RiGroupLine } from 'react-icons/ri'
 
 export const AddConversation = ({closeHandler}) => {
 	const [directForm, setDirectForm] = useState(false)
@@ -32,14 +32,22 @@ export const AddConversation = ({closeHandler}) => {
 					<div className={styles.content}>
 						<h3 className={styles.title}>New conversation</h3>
 						<p className={styles.note}>Please select the type of conversation you want to create</p>
-
 						<div className={styles.controls}>
-							<TypeButton title={'Direct conversation'} icon={<RiUserLine/>} handler={directButtonClickHandler}
-													description={'A direct conversation refers to a conversation between two people'}/>
-							<TypeButton title={'Group conversation'} icon={<RiGroupLine/>} handler={groupButtonClickHandler}
-													description={'Group conversations involve multiple participants'}/>
+							<TypeButton title={'Direct conversation'}
+													icon={<RiUserLine/>}
+													handler={directButtonClickHandler}
+													description={'A direct conversation refers to a conversation between two people'}
+							/>
+							<TypeButton title={'Group conversation'}
+													icon={<RiGroupLine/>}
+													handler={groupButtonClickHandler}
+													description={'Group conversations involve multiple participants'}
+							/>
 							<div className={styles.cancel}>
-								<PrimaryButton title={'Cancel'} modifyClass={'cancel'} handler={closeButtonClickHandler}/>
+								<PrimaryButton title={'Cancel'}
+															 modifyClass={'cancel'}
+															 handler={closeButtonClickHandler}
+								/>
 							</div>
 						</div>
 					</div>

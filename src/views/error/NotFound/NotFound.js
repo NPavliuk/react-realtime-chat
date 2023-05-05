@@ -1,9 +1,9 @@
+import styles from './NotFound.module.scss'
 import { Helmet } from 'react-helmet'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { NotFoundIllustration } from '@components/ui/illustrations/NotFoundIllustration'
 import { routeNames } from '@constants/routeNames'
-import styles from './NotFound.module.scss'
-import { useSelector } from 'react-redux'
 
 const data = {
 	title: 'Conversations - Page Not Found'

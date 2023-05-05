@@ -1,7 +1,7 @@
+import styles from './SingleContactSelect.module.scss'
 import Select, { components } from 'react-select'
 import { UserAvatar } from '@components/ui/avatars'
 import { classNames } from '@helpers/classNames'
-import styles from './SingleContactSelect.module.scss'
 
 export const SingleContactSelect = ({options, value, handleChange, error}) => {
   const selectStyles = {
@@ -34,7 +34,9 @@ export const SingleContactSelect = ({options, value, handleChange, error}) => {
   const CustomOption = (props) => {
     return (
       <components.Option {...props}>
-        <UserAvatar name={props.data.user.name} image={props.data.user.avatar}/>
+        <UserAvatar name={props.data.user.name}
+										image={props.data.user.avatar}
+				/>
         <div className={styles.content}>
           <p className={styles.title}>{props.data.user.name}</p>
           <p className={styles.email}>{props.data.user.email}</p>
@@ -54,10 +56,14 @@ export const SingleContactSelect = ({options, value, handleChange, error}) => {
 
   return (
     <div>
-      <Select components={{Option: CustomOption}} options={options} classNames={selectStyles}
-              placeholder={'Choose contact'} noOptionsMessage={() => EmptyState()}
+      <Select components={{Option: CustomOption}}
+							options={options}
+							classNames={selectStyles}
+              placeholder={'Choose contact'}
+							noOptionsMessage={() => EmptyState()}
               value={options.find(o => o.value === value)}
-              onChange={val => handleChange(val.value)}/>
+              onChange={val => handleChange(val.value)}
+			/>
       {error && <p className={styles.error}>{error.message}</p>}
     </div>
   )

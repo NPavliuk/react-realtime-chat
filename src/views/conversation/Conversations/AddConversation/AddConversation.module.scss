@@ -1,8 +1,14 @@
 .wrapper {
-  @apply sm:flex sm:items-start;
+  @media (min-width: theme('screens.sm')) {
+    @apply flex items-start;
+  }
 
   .content {
-    @apply mt-3 sm:mt-0 w-full text-center sm:text-left;
+    @apply mt-3 w-full text-left;
+
+    @media (min-width: theme('screens.sm')) {
+      @apply mt-0;
+    }
 
     .title {
       @apply text-lg font-medium leading-6 text-gray-900;

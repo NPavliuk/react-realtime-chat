@@ -20,7 +20,9 @@ export const ConversationsBar = () => {
 			<ConversationsList/>
 
 			<div className={styles.button}>
-				<PrimaryButton title={'New conversation'} handler={openAddConversationModalHandler}/>
+				<PrimaryButton title={'New conversation'}
+											 handler={openAddConversationModalHandler}
+				/>
 			</div>
 		</aside>
 	)

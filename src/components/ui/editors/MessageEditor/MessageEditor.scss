@@ -31,7 +31,9 @@
   }
 
   .ck-content {
-    @apply max-h-[150px] mb-[-1px] text-gray-900 rounded-tr-lg rounded-tl-lg rounded-br-none rounded-bl-none border-b-0 scrollbar scrollbar-w-[6px] scrollbar-thumb-rounded-lg scrollbar-thumb-gray-300 hover:scrollbar-thumb-gray-400 scrollbar-track-transparent #{!important};
+    @apply max-h-[150px] mb-[-1px] text-gray-900 rounded-tr-lg rounded-tl-lg rounded-br-none rounded-bl-none border-b-0
+    scrollbar scrollbar-w-[6px] scrollbar-thumb-rounded-lg scrollbar-thumb-gray-300 scrollbar-track-transparent
+    hover:scrollbar-thumb-gray-400 #{!important};
 
     &.ck-focused {
       @apply shadow-none drop-shadow-none border-gray-300 #{!important};

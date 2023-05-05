@@ -3,9 +3,9 @@ import { useEffect } from 'react'
 import { Helmet } from 'react-helmet'
 import { useDispatch, useSelector } from 'react-redux'
 import { PrimaryModal } from '@components/ui/modals'
-import { ConversationsBar } from './ConversationsBar/ConversationsBar'
-import { AddConversation } from '@views/conversation/Conversations/AddConversation/AddConversation'
 import { closeAddConversationModal, watchConversationsStart } from '@store/reducers/conversationsReducer/conversationsActions'
+import { AddConversation } from '@views/conversation/Conversations/AddConversation/AddConversation'
+import { ConversationsBar } from '@views/conversation/Conversations/ConversationsBar/ConversationsBar'
 
 const data = {
 	title: 'Chat - Conversations'
@@ -34,7 +34,9 @@ export const Conversations = ({children}) => {
 					{children}
 				{
 					addConversationModal ?
-						<PrimaryModal isOpen={addConversationModal} closeHandler={closeAddConversationModalHandler}>
+						<PrimaryModal isOpen={addConversationModal}
+													closeHandler={closeAddConversationModalHandler}
+						>
 							<AddConversation closeHandler={closeAddConversationModalHandler}/>
 						</PrimaryModal>
 						:

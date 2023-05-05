@@ -18,13 +18,20 @@ export const ConversationMessages = () => {
 	})
 
 	return (
-		<div className={styles.wrapper} ref={messagesRef}>
+		<div className={styles.wrapper}
+				 ref={messagesRef}
+		>
 			{
 				messages
 					? generatedMessages.map(message => message.type !== 'day'
-						? <ConversationMessage key={message.id} message={message} conversation={conversation}
-																	 messages={generatedMessages}/>
-						: <ConversationDate key={message.id} date={message.date}/>)
+						? <ConversationMessage key={message.id}
+																	 message={message}
+																	 conversation={conversation}
+																	 messages={generatedMessages}
+						/>
+						: <ConversationDate key={message.id}
+																date={message.date}
+						/>)
 					: null
 			}
 		</div>

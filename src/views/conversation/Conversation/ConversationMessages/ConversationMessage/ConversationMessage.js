@@ -2,9 +2,9 @@ import styles from './ConversationMessage.module.scss'
 import Moment from 'react-moment'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-	ConversationMessageReply
-} from '@views/conversation/Conversation/ConversationMessages/ConversationMessage/ConversationMessageReply/ConversationMessageReply'
+import { UserAvatar } from '@components/ui/avatars'
+import { MessageControlButton } from '@components/ui/buttons/MessageControlButton/MessageControlButton'
+import { RiDeleteBin7Line, RiPencilLine, RiHeartLine, RiHeartFill, RiReplyLine } from 'react-icons/ri'
 import { getProfileInfoStart, openProfileBar } from '@store/reducers/profileReducer/profileActions'
 import { closeConversationBar, setConversationInput } from '@store/reducers/conversationReducer/conversationActions'
 import {
@@ -15,14 +15,14 @@ import {
 	unlikeMessageStart,
 	openReplyMessageMode
 } from '@store/reducers/messagesReducer/messagesActions'
-import { MessageControlButton } from '@components/ui/buttons/MessageControlButton/MessageControlButton'
-import { UserAvatar } from '@components/ui/avatars'
-import { RiDeleteBin7Line, RiPencilLine, RiHeartLine, RiHeartFill, RiReplyLine } from 'react-icons/ri'
+import {
+	ConversationMessageReply
+} from '@views/conversation/Conversation/ConversationMessages/ConversationMessage/ConversationMessageReply/ConversationMessageReply'
 import { getNewLastMessage, isLastMessage, isUnreadMessage } from '@helpers/messages'
-import { classNames } from '@helpers/classNames'
-import { checkLiked } from '@helpers/checkLiked'
 import { getInterlocutorData } from '@helpers/getInterlocutorData'
 import { checkUserStatus } from '@helpers/checkUserStatus'
+import { classNames } from '@helpers/classNames'
+import { checkLiked } from '@helpers/checkLiked'
 
 export const ConversationMessage = ({message, conversation, messages}) => {
 	const dispatch = useDispatch()
@@ -38,7 +38,6 @@ export const ConversationMessage = ({message, conversation, messages}) => {
 
 	useEffect(() => {
 		const isUnread = isUnreadMessage(message, userID)
-
 		if (isUnread) {
 			const data = {
 				userID: userID,
@@ -46,7 +45,6 @@ export const ConversationMessage = ({message, conversation, messages}) => {
 				conversationID: conversation.id,
 				lastMessage: conversation.data.lastMessage
 			}
-
 			dispatch(setReadedMessageStart(data))
 		}
 	}, [message])
@@ -57,7 +55,6 @@ export const ConversationMessage = ({message, conversation, messages}) => {
 			conversationID: conversation.id,
 			lastMessage: isLastMessage(messages, message) ? getNewLastMessage(messages, message) : null
 		}
-
 		dispatch(removeMessageStart(data))
 	}
 
@@ -72,7 +69,6 @@ export const ConversationMessage = ({message, conversation, messages}) => {
 			conversationID: conversation.id,
 			message: message
 		}
-
 		dispatch(likeMessageStart(data))
 	}
 
@@ -82,7 +78,6 @@ export const ConversationMessage = ({message, conversation, messages}) => {
 			conversationID: conversation.id,
 			message: message
 		}
-
 		dispatch(unlikeMessageStart(data))
 	}
 
@@ -97,7 +92,7 @@ export const ConversationMessage = ({message, conversation, messages}) => {
 	}
 
 	return (
-		<div className={classNames({
+		<article className={classNames({
 			[styles.message]: true,
 			[styles.incoming]: userID !== message.senderId
 		})}>
@@ -106,8 +101,10 @@ export const ConversationMessage = ({message, conversation, messages}) => {
 					<div className={styles.messageContent}>
 						{
 							message.replyMessage
-								? <ConversationMessageReply conversation={conversation} message={message}
-																						modifyClass={userID !== message.senderId ? 'incoming' : null}/>
+								? <ConversationMessageReply conversation={conversation}
+																						message={message}
+																						modifyClass={userID !== message.senderId ? 'incoming' : null}
+								/>
 								: null
 						}
 						<div dangerouslySetInnerHTML={{__html: message.text}}></div>
@@ -115,20 +112,28 @@ export const ConversationMessage = ({message, conversation, messages}) => {
 					<div className={styles.controls}>
 						<MessageControlButton icon={isLiked ? <RiHeartFill/> : <RiHeartLine/>}
 																	handler={isLiked ? unlikeMessageHandler : likeMessageHandler}
-																	modifyClass={isLiked ? 'like' : null}/>
-						<MessageControlButton icon={<RiReplyLine/>} handler={replyMessageHandler}/>
+																	modifyClass={isLiked ? 'like' : null}
+						/>
+						<MessageControlButton icon={<RiReplyLine/>}
+																	handler={replyMessageHandler}
+						/>
 						{
 							message.senderId === userID
-								? <MessageControlButton icon={<RiPencilLine/>} handler={editMessageHandler}/>
+								? <MessageControlButton icon={<RiPencilLine/>}
+																				handler={editMessageHandler}
+								/>
 								: null
 						}
-						<MessageControlButton icon={<RiDeleteBin7Line/>} handler={removeMessageHandler} modifyClass={'danger'}/>
+						<MessageControlButton icon={<RiDeleteBin7Line/>}
+																	handler={removeMessageHandler}
+																	modifyClass={'danger'}
+						/>
 					</div>
 				</div>
-				<div className={styles.messageInfo}>
-					<span className={styles.messageTime}>
+				<footer className={styles.messageInfo}>
+					<time className={styles.messageTime}>
 						<Moment format={'hh:mm A'}>{message.date.toDate()}</Moment>
-					</span>
+					</time>
 					{
 						message.edited
 							? <span className={styles.messageEdited}>edited</span>
@@ -141,11 +146,13 @@ export const ConversationMessage = ({message, conversation, messages}) => {
 							</span>
 							: null
 					}
-				</div>
+				</footer>
 			</div>
-			<UserAvatar name={interlocutor ? interlocutor.name : ''} status={userStatus}
+			<UserAvatar name={interlocutor ? interlocutor.name : ''}
+									status={userStatus}
 									image={interlocutor ? interlocutor.avatar : ''}
-									handler={openProfileBarHandler}/>
-		</div>
+									handler={openProfileBarHandler}
+			/>
+		</article>
 	)
 }

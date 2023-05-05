@@ -8,6 +8,14 @@
 
     }
 
+    .backButton {
+      @apply flex items-center;
+
+      svg {
+        @apply w-5 h-5;
+      }
+    }
+
     .userName {
       @apply text-base font-bold text-gray-600 leading-5 line-clamp-1;
     }

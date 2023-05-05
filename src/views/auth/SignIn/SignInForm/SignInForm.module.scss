@@ -10,7 +10,11 @@
   }
 
   .link {
-    @apply block text-sm font-medium text-indigo-600 hover:text-indigo-500;
+    @apply block text-sm font-medium text-indigo-600;
+
+    &:hover {
+      @apply text-indigo-500;
+    }
   }
 
   .button {

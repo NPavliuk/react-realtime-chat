@@ -2,7 +2,11 @@
   @apply mt-6;
 
   .link {
-    @apply block mb-7 text-sm font-medium text-indigo-600 hover:text-indigo-500;
+    @apply block mb-7 text-sm font-medium text-indigo-600;
+
+    &:hover {
+      @apply text-indigo-500;
+    }
   }
 
   .item {

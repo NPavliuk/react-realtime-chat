@@ -1,7 +1,7 @@
+import styles from './PublicLayout.module.scss'
 import { Helmet } from 'react-helmet'
 import { SmallFooter } from '@components/footers'
 import { ToasterNotification } from '@components/ui/notifications'
-import styles from './PublicLayout.module.scss'
 
 export const PublicLayout = ({children}) => {
   const appTitle = 'Chat'

@@ -1,10 +1,10 @@
-import { classNames } from '@helpers/classNames'
 import styles from './UserAvatar.module.scss'
+import { classNames } from '@helpers/classNames'
 
 export const UserAvatar = ({name, image, status, handler, modifyClass}) => {
   return (
     <div className={classNames({
-      [styles.avatarWrapper]: true,
+      [styles.wrapper]: true,
       [styles.pointer]: handler,
       [styles.small]: modifyClass === 'small',
       [styles.little]: modifyClass === 'little',
@@ -13,8 +13,8 @@ export const UserAvatar = ({name, image, status, handler, modifyClass}) => {
     })} onClick={handler ? handler : null}>
       <div className={styles.avatar}>
         {image
-          ? <img className={styles.avatarImage} src={image} alt={name}/>
-          : <span className={styles.avatarPlaceholder}>{name ? name.charAt(0) : null}</span>
+          ? <img className={styles.image} src={image} alt={name}/>
+          : <span className={styles.placeholder}>{name ? name.charAt(0) : null}</span>
         }
         {status ? <span className={classNames({
           [styles.indicator]: true,

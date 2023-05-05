@@ -4,6 +4,10 @@
   }
 
   .controls {
-    @apply flex flex-col-reverse sm:flex-row gap-2 sm:gap-3 mt-4;
+    @apply flex flex-col-reverse gap-2 mt-4;
+
+    @media (min-width: theme('screens.sm')) {
+      @apply flex-row gap-3;
+    }
   }
 }

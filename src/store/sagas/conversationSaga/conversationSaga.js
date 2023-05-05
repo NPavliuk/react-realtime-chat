@@ -1,8 +1,8 @@
+import toast from 'react-hot-toast'
 import { eventChannel } from 'redux-saga'
 import { call, put, takeLatest, take, cancelled, all } from 'redux-saga/effects'
 import { v4 as uuid } from 'uuid'
 import { Timestamp } from 'firebase/firestore'
-import toast from 'react-hot-toast'
 import { getUsers } from '@api/users/getUsers'
 import { watchConversation } from '@api/conversation/watchConversation'
 import { checkConversation } from '@api/conversation/checkConversation'
@@ -33,10 +33,10 @@ import {
 	leaveConversationSuccess, leaveConversationFail
 } from '@store/reducers/conversationReducer/conversationActions'
 import { closeAddConversationModal } from '@store/reducers/conversationsReducer/conversationsActions'
+import { createAndDispatchFocusEvent } from '@helpers/customEvents'
 import { actionTypes } from '@constants/actionTypes'
 import { routeNames } from '@constants/routeNames'
 import { messages } from '@constants/validationMessages'
-import { createAndDispatchFocusEvent } from '@helpers/customEvents'
 
 export function* createDirectConversationSaga(props) {
 	const userID = props.payload.userID

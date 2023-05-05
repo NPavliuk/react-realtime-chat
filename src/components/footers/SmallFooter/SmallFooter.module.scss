@@ -1,11 +1,17 @@
 .footer {
-  @apply p-4 md:px-6 md:py-8;
-}
+  @apply p-4;
 
-.copyright {
-  @apply block text-sm text-gray-500 text-center text-gray-400;
-}
+  @media (min-width: theme('screens.md')) {
+    @apply px-6 py-8;
+  }
 
-.link {
-  @apply hover:underline;
+  .copyright {
+    @apply block text-sm text-center text-gray-400;
+  }
+
+  .link {
+    &:hover {
+      @apply underline;
+    }
+  }
 }

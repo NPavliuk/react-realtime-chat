@@ -1,7 +1,7 @@
-import { NavLink, useLocation } from 'react-router-dom'
-import { classNames } from '@helpers/classNames'
-import { checkLocationParent } from '@helpers/checkLocation'
 import styles from './NavigationButton.module.scss'
+import { NavLink, useLocation } from 'react-router-dom'
+import { checkLocationParent } from '@helpers/checkLocation'
+import { classNames } from '@helpers/classNames'
 
 export const NavigationButton = ({icon, activeIcon, route, indicator, handler}) => {
   const location = useLocation()

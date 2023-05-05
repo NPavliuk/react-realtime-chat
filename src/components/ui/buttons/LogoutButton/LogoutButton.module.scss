@@ -1,5 +1,9 @@
 .button {
-  @apply flex justify-center items-center w-10 h-10 opacity-80 hover:opacity-100;
+  @apply flex justify-center items-center w-10 h-10 opacity-80;
+
+  &:hover {
+    @apply opacity-100
+  }
 
   svg {
     @apply w-5 h-5 fill-white;

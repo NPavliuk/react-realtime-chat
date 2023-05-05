@@ -6,12 +6,14 @@ export const ConversationMessageReply = ({conversation, message, modifyClass}) =
 	let interlocutor = getInterlocutorData(conversation, message)
 
 	return (
-		<div className={classNames({
+		<article className={classNames({
 			[styles.message]: true,
 			[styles.incoming]: modifyClass === 'incoming'
 		})}>
-			<span className={styles.name}>{interlocutor ? interlocutor.name : ''}</span>
-			<blockquote className={styles.text} dangerouslySetInnerHTML={{__html:message.replyMessage.text}}></blockquote>
-		</div>
+			<h5 className={styles.name}>{interlocutor ? interlocutor.name : ''}</h5>
+			<blockquote className={styles.text}
+									dangerouslySetInnerHTML={{__html:message.replyMessage.text}}
+			></blockquote>
+		</article>
 	)
 }

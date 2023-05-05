@@ -9,6 +9,7 @@ import { signInWithEmailPassword } from '@api/auth/signIn'
 import { updateUserPassword } from '@api/auth/updatePassword'
 import { watchUserStatus } from '@api/user/watchUserStatus'
 import { watchAuthSession } from '@api/auth/watchAuthSession'
+import { setUserOfflineStatus } from '@api/user/setUserOfflineStatus'
 import { getUserDataStart } from '@store/reducers/userReducer/userActions'
 import {
 	signUpFail,
@@ -36,9 +37,9 @@ export function* signUpWithEmailPasswordSaga(props) {
 			const user = yield call(signUpWithEmailPassword, email, password)
 			user.name = name
 			yield call(setUserToDb, user)
+			navigate(routeNames.CONVERSATIONS)
 			yield call(saveSessionToLocalStorage, user.uid)
 			yield put(signUpSuccess(user.uid))
-			navigate(routeNames.CONVERSATIONS)
 			yield call(toast.success, messages.signUpSuccess)
 		}
 	} catch (err) {
@@ -57,8 +58,8 @@ export function* signInWithEmailPasswordSaga(props) {
 			const res = yield call(signInWithEmailPassword, email, password)
 			if (res.uid) {
 				yield put(signInSuccess(res.uid))
-				yield call(saveSessionToLocalStorage, res.uid)
 				navigate(routeNames.CONVERSATIONS)
+				yield call(saveSessionToLocalStorage, res.uid)
 				yield call(toast.success, messages.signInSuccess)
 			} else {
 				yield put(signInFail(res))
@@ -72,10 +73,12 @@ export function* signInWithEmailPasswordSaga(props) {
 }
 
 export function* signOutSaga(props) {
-	const navigate = props.payload
+	const navigate = props.payload.navigate
+	const userID = props.payload.userID
 
 	try {
 		yield call(signOut, auth)
+		yield call(setUserOfflineStatus, userID)
 		yield call(removeSessionFromLocalStorage)
 		yield put(signOutSuccess())
 		navigate(routeNames.HOME)

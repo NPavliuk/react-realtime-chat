@@ -9,7 +9,7 @@ export const PrimaryDropdown = ({children, icon}) => {
 	useEffect(() => {
 		const checkIfClickedOutside = (e) => {
 			if (isOpen && menuRef.current && !menuRef.current.contains(e.target)) {
-				toggleOpenHandler()
+				setIsOpen(!isOpen)
 			}
 		}
 		document.addEventListener('mousedown', checkIfClickedOutside)

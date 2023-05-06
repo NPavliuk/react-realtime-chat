@@ -1,0 +1,11 @@
+.spinner {
+  @apply flex justify-center items-center h-[calc(100%-50px)];
+
+  .icon {
+    @apply w-8 h-8 mr-2 text-gray-200 animate-spin fill-indigo-700;
+  }
+
+  &.screen {
+    @apply h-[calc(100vh-50px)] w-full;
+  }
+}

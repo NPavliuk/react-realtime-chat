@@ -1,0 +1,11 @@
+.spinner {
+  @apply flex justify-center items-center w-screen h-screen;
+
+  .icon {
+    @apply w-12 h-12 fill-indigo-700 animate-bounce;
+
+    @media (min-width: theme('screens.sm')) {
+      @apply w-20 h-20;
+    }
+  }
+}

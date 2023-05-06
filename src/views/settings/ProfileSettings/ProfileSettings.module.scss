@@ -2,7 +2,8 @@
   @apply w-full py-3 px-3;
 
   @media (min-width: theme('screens.lg')) {
-    @apply h-screen overflow-y-auto;
+    @apply h-screen overflow-y-auto scrollbar scrollbar-w-[6px] scrollbar-thumb-rounded-lg scrollbar-thumb-gray-300
+    scrollbar-track-transparent hover:scrollbar-thumb-gray-400;
   }
 
   @media (min-width: theme('screens.sm')) {

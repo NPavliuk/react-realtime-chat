@@ -2,16 +2,13 @@ import { actionTypes } from '@constants/actionTypes'
 
 const initialState = {
   id: null,
-  loading: false,
+  loading: true,
   error: null,
 }
 
 export const authReducer = (state = initialState, {type, payload}) => {
   switch (type) {
-    case actionTypes.SIGN_IN_START:
-    case actionTypes.SIGN_UP_START:
-    case actionTypes.SIGN_OUT_START:
-    case actionTypes.UPDATE_USER_DATA_START:
+		case actionTypes.WATCH_SESSION_START:
       return {
         ...state,
         loading: true

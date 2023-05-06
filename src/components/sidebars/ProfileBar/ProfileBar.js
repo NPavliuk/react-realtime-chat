@@ -11,6 +11,7 @@ import { closeProfileBar } from '@store/reducers/profileReducer/profileActions'
 import { createDirectConversationStart } from '@store/reducers/conversationReducer/conversationActions'
 import { useNavigate } from 'react-router-dom'
 import { checkIfMobile } from '@helpers/checkResolution'
+import { PrimarySpinner } from '@components/ui/spinners'
 
 export const ProfileBar = () => {
 	const navigate = useNavigate()
@@ -57,96 +58,104 @@ export const ProfileBar = () => {
 				</button>
 			</div>
 
-			<div>
-				<div className={styles.avatar}>
-					<UserAvatar name={profile.data.name}
-											image={profile.data.avatar}
-											modifyClass={'big'}
-					/>
-				</div>
-				<div className={styles.info}>
-					<h4 className={styles.name}>{profile.data.name}</h4>
-					{
-						profile.data.role ?
-							<p className={styles.description}>{profile.data.role}</p>
-							: null
-					}
-				</div>
-				{
-					userID !== profile.data.id ?
-						<div className={styles.controls}>
-							<PrimaryButton title={'Message'}
-														 handler={messageButtonHandler}
-							/>
-						</div>
-						:
-						<div className={styles.controls}>
-							<PrimaryButton title={'Edit Profile'}
-														 link={routeNames.PROFILE_SETTINGS}
-														 handler={profileEditButtonHandler}
-							/>
-						</div>
-				}
-				{
-					profile.data.email || profile.data.phone ?
-						<div className={styles.contacts}>
-							<h5 className={styles.title}>Contact information</h5>
+			{
+				profile.loading
+					? <PrimarySpinner/>
+					: <>
+						<div>
+							<div className={styles.avatar}>
+								<UserAvatar name={profile.data.name}
+														image={profile.data.avatar}
+														modifyClass={'big'}
+								/>
+							</div>
+							<div className={styles.info}>
+								<h4 className={styles.name}>{profile.data.name}</h4>
+								{
+									profile.data.role ?
+										<p className={styles.description}>{profile.data.role}</p>
+										: null
+								}
+							</div>
 							{
-								profile.data.email ?
-									<div className={styles.item}>
-										<div className={styles.icon}>
-											<RiMailLine/>
-										</div>
-										<div className={styles.itemInfo}>
-											<p className={styles.label}>Email Address</p>
-											<a className={styles.link} href={`mailto:${profile.data.email}`}>{profile.data.email}</a>
-										</div>
+								userID !== profile.data.id ?
+									<div className={styles.controls}>
+										<PrimaryButton title={'Message'}
+																	 handler={messageButtonHandler}
+										/>
 									</div>
-									: null
+									:
+									<div className={styles.controls}>
+										<PrimaryButton title={'Edit Profile'}
+																	 link={routeNames.PROFILE_SETTINGS}
+																	 handler={profileEditButtonHandler}
+										/>
+									</div>
 							}
 							{
-								profile.data.phone ?
-									<div className={styles.item}>
-										<div className={styles.icon}>
-											<RiPhoneLine/>
-										</div>
-										<div className={styles.itemInfo}>
-											<p className={styles.label}>Phone</p>
-											<a className={styles.link} href={`tel:${profile.data.phone}`}>{profile.data.phone}</a>
-										</div>
+								profile.data.email || profile.data.phone ?
+									<div className={styles.contacts}>
+										<h5 className={styles.title}>Contact information</h5>
+										{
+											profile.data.email ?
+												<div className={styles.item}>
+													<div className={styles.icon}>
+														<RiMailLine/>
+													</div>
+													<div className={styles.itemInfo}>
+														<p className={styles.label}>Email Address</p>
+														<a className={styles.link} href={`mailto:${profile.data.email}`}>{profile.data.email}</a>
+													</div>
+												</div>
+												: null
+										}
+										{
+											profile.data.phone ?
+												<div className={styles.item}>
+													<div className={styles.icon}>
+														<RiPhoneLine/>
+													</div>
+													<div className={styles.itemInfo}>
+														<p className={styles.label}>Phone</p>
+														<a className={styles.link} href={`tel:${profile.data.phone}`}>{profile.data.phone}</a>
+													</div>
+												</div> : null
+										}
 									</div> : null
 							}
-						</div> : null
-				}
-				{
-					profile.data.bio || profile.data.birthday ?
-						<div className={styles.contacts}>
-							<h5 className={styles.title}>About me</h5>
+							{
+								profile.data.bio || profile.data.birthday ?
+									<div className={styles.contacts}>
+										<h5 className={styles.title}>About me</h5>
 
-							{
-								profile.data.birthday ?
-									<div className={styles.item}>
-										<div className={styles.icon}>
-											<FaBirthdayCake/>
-										</div>
-										<div className={styles.itemInfo}>
-											<p className={styles.label}>Birth day</p>
-											<p className={styles.text}>
-												<Moment format="DD MMMM YYYY">{profile.data.birthday}</Moment>
-											</p>
-										</div>
+										{
+											profile.data.birthday ?
+												<div className={styles.item}>
+													<div className={styles.icon}>
+														<FaBirthdayCake/>
+													</div>
+													<div className={styles.itemInfo}>
+														<p className={styles.label}>Birth day</p>
+														<p className={styles.text}>
+															<Moment format="DD MMMM YYYY">{profile.data.birthday}</Moment>
+														</p>
+													</div>
+												</div> : null
+										}
+										{
+											profile.data.bio ?
+												<div className={styles.item}>
+													<p className={styles.text}>{profile.data.bio}</p>
+												</div>
+												: null
+										}
 									</div> : null
 							}
-							{
-								profile.data.bio ?
-									<div className={styles.item}>
-										<p className={styles.text}>{profile.data.bio}</p>
-									</div>
-									: null
-							}
-						</div> : null
-				}
-			</div>
+						</div>
+					</>
+
+			}
+
 		</div>
 	)
 }

@@ -1,4 +1,4 @@
-import { doc, deleteDoc, collection, getDocs } from 'firebase/firestore'
+import { deleteDoc, collection, getDocs } from 'firebase/firestore'
 import { db } from '@api/firebase'
 
 export const removeMessages = async ( conversationID) => {

@@ -15,6 +15,7 @@ const initialState = {
 export const conversationsReducer = (state = initialState, {type, payload}) => {
 	switch (type) {
 		case actionTypes.GET_CONVERSATIONS_START:
+		case actionTypes.WATCH_CONVERSATIONS_START:
 			return {
 				...state,
 				loading: true
@@ -24,7 +25,7 @@ export const conversationsReducer = (state = initialState, {type, payload}) => {
 			return {
 				...state,
 				conversations: payload,
-				loading: true
+				loading: false
 			}
 		case actionTypes.WATCH_CONVERSATIONS_FAIL:
 		case actionTypes.GET_CONVERSATIONS_FAIL:

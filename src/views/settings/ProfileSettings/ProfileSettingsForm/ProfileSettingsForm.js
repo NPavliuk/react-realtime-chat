@@ -11,6 +11,10 @@ export const ProfileSettingsForm = () => {
 	const user = useSelector(state => state.user.data)
 	const {register, handleSubmit, reset, formState: {errors, isDirty}} = useForm({mode: 'onBlur', defaultValues: user})
 
+	useEffect(() => {
+		reset(user)
+	}, [user])
+
 	const submitFormHandler = (data) => {
 		if (JSON.stringify(data) !== JSON.stringify(user)) {
 			dispatch(updateUserDataStart(data))
@@ -20,10 +24,6 @@ export const ProfileSettingsForm = () => {
 	const cancelFormHandler = () => {
 		reset(user)
 	}
-
-	useEffect(() => {
-		cancelFormHandler()
-	}, [user])
 
 	return (
 		<form className={styles.form} onSubmit={handleSubmit(submitFormHandler)}>

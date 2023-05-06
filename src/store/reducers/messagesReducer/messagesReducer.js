@@ -16,6 +16,11 @@ const initialState = {
 
 export const messagesReducer = (state = initialState, {type, payload}) => {
 	switch (type) {
+		case actionTypes.WATCH_MESSAGES_START:
+			return {
+				...state,
+				loading: true,
+			}
 		case actionTypes.WATCH_MESSAGES_SUCCESS:
 			return {
 				...state,

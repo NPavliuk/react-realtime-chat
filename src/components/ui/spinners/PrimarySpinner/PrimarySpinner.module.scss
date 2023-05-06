@@ -1,5 +1,5 @@
 .spinner {
-  @apply flex justify-center items-center h-[calc(100%-50px)];
+  @apply h-[calc(100%-50px)] flex justify-center items-center;
 
   .icon {
     @apply w-8 h-8 mr-2 text-gray-200 animate-spin fill-indigo-700;

@@ -8,6 +8,7 @@ import { setLocalSession, watchSessionStart } from '@store/reducers/authReducer/
 import { watchUsersStatusStart } from '@store/reducers/usersReducer/usersActions'
 import { getSessionFromLocalStorage } from '@helpers/localStorage'
 import { routeNames } from '@constants/routeNames'
+import { watchConversationsStart } from '@store/reducers/conversationsReducer/conversationsActions'
 
 function App() {
 	const navigate = useNavigate()
@@ -27,6 +28,10 @@ function App() {
 
 		dispatch(watchSessionStart())
 		dispatch(watchUsersStatusStart())
+
+		if (session.id) {
+			dispatch(watchConversationsStart(session.id))
+		}
 	}, [session.id])
 
 	return (

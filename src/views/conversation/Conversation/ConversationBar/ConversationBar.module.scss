@@ -1,10 +1,10 @@
 .wrapper {
-  @apply hidden absolute z-10 top-0 left-0 w-full min-w-[calc(100vw-8px)] sm:min-w-0 h-screen overflow-y-auto py-3 px-4
+  @apply hidden absolute z-10 top-0 left-0 w-full min-w-[calc(100vw-8px)] h-screen overflow-y-auto py-3 px-4
   border-l border-gray-200 bg-background scrollbar scrollbar-w-[6px] scrollbar-thumb-rounded-lg scrollbar-thumb-gray-300
   hover:scrollbar-thumb-gray-400 scrollbar-track-transparent;
 
   @media (min-width: theme('screens.sm')) {
-    @apply relative max-w-sidebar;
+    @apply relative max-w-sidebar min-w-0;
   }
 
   &.active {
@@ -19,7 +19,11 @@
     }
 
     .button {
-      @apply text-xl hover:text-indigo-700 cursor-pointer;
+      @apply text-xl cursor-pointer;
+
+      &:hover{
+        @apply text-indigo-700;
+      }
     }
   }
 

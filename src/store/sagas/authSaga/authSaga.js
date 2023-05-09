@@ -37,7 +37,7 @@ export function* signUpWithEmailPasswordSaga(props) {
 			const user = yield call(signUpWithEmailPassword, email, password)
 			user.name = name
 			yield call(setUserToDb, user)
-			navigate(routeNames.CONVERSATIONS)
+			yield call(navigate, routeNames.CONVERSATIONS)
 			yield call(saveSessionToLocalStorage, user.uid)
 			yield put(signUpSuccess(user.uid))
 			yield call(toast.success, messages.signUpSuccess)
@@ -57,8 +57,8 @@ export function* signInWithEmailPasswordSaga(props) {
 		if (email && password) {
 			const res = yield call(signInWithEmailPassword, email, password)
 			if (res.uid) {
+				yield call(navigate, routeNames.CONVERSATIONS)
 				yield put(signInSuccess(res.uid))
-				navigate(routeNames.CONVERSATIONS)
 				yield call(saveSessionToLocalStorage, res.uid)
 				yield call(toast.success, messages.signInSuccess)
 			} else {
@@ -81,7 +81,7 @@ export function* signOutSaga(props) {
 		yield call(setUserOfflineStatus, userID)
 		yield call(removeSessionFromLocalStorage)
 		yield put(signOutSuccess())
-		navigate(routeNames.HOME)
+		yield call(navigate, routeNames.HOME)
 	} catch (err) {
 		yield put(signOutFail(err.message))
 		yield call(toast.error, messages.somethingWrong)

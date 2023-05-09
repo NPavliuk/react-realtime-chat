@@ -111,7 +111,7 @@ export function* createGroupConversationSaga(props) {
 		yield call(setConversation, userID, conversation.id)
 		yield put(createGroupConversationSuccess())
 		yield put(closeAddConversationModal())
-		navigate(`${routeNames.CONVERSATIONS}/${conversation.id}`)
+		yield call(navigate, `${routeNames.CONVERSATIONS}/${conversation.id}`)
 	} catch (err) {
 		yield put(createGroupConversationFail(err.message))
 	}
@@ -126,7 +126,7 @@ export function* removeConversationSaga(props) {
 		yield call(removeConversation, conversationID)
 		yield all(conversationalists.map(interlocutor => call(removeUserConversation, interlocutor.id, conversationID)))
 		yield put(removeConversationSuccess())
-		navigate(routeNames.CONVERSATIONS)
+		yield call(navigate, routeNames.CONVERSATIONS)
 		yield call(toast.success, messages.conversationRemoveSuccess)
 	} catch (err) {
 		yield put(removeConversationFail(err.message))
@@ -206,7 +206,7 @@ export function* leaveConversationSaga(props) {
 		yield call(removeUserConversation, userID, conversationID)
 		yield call(removeUserFromConversation, userID, conversationID)
 		yield put(leaveConversationSuccess())
-		navigate(routeNames.CONVERSATIONS)
+		yield call(navigate, routeNames.CONVERSATIONS)
 		yield call(toast.success, messages.leaveConversationSuccess)
 	} catch (err) {
 		yield put(leaveConversationFail(err.message))

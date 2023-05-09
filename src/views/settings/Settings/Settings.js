@@ -1,6 +1,6 @@
+import styles from './Settings.module.scss'
 import { Helmet } from 'react-helmet'
 import { SettingsBar } from './SettingsBar/SettingsBar'
-import styles from './Settings.module.scss'
 
 export const Settings = ({children}) => {
   const data = {

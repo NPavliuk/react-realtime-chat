@@ -4,11 +4,11 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { PrivateLayout, PublicLayout } from '@components/layouts'
 import { PrivateRouter, PublicRouter } from '@components/routers'
 import { LogoSpinner } from '@components/ui/spinners'
+import { watchConversationsStart } from '@store/reducers/conversationsReducer/conversationsActions'
 import { setLocalSession, watchSessionStart } from '@store/reducers/authReducer/authActions'
 import { watchUsersStatusStart } from '@store/reducers/usersReducer/usersActions'
 import { getSessionFromLocalStorage } from '@helpers/localStorage'
 import { routeNames } from '@constants/routeNames'
-import { watchConversationsStart } from '@store/reducers/conversationsReducer/conversationsActions'
 
 function App() {
 	const navigate = useNavigate()

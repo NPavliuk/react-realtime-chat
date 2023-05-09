@@ -1,3 +1,7 @@
 .wrapper {
-  @apply lg:flex h-screen w-full overflow-y-auto;
+  @apply h-screen w-full overflow-y-auto;
+
+  @media (min-width: theme('screens.lg')) {
+    @apply flex;
+  }
 }

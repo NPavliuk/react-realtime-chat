@@ -1,8 +1,8 @@
+import styles from './SettingsBar.module.scss'
 import { NavigationSettingButton } from '@components/ui/buttons'
 import { RiUserSettingsLine } from 'react-icons/ri'
 import { VscKey } from 'react-icons/vsc'
 import { routeNames } from '@constants/routeNames'
-import styles from './SettingsBar.module.scss'
 
 export const SettingsBar = () => {
   return (
@@ -13,12 +13,16 @@ export const SettingsBar = () => {
       </div>
 
       <nav className={styles.nav}>
-        <NavigationSettingButton route={routeNames.PROFILE_SETTINGS} title={'Profile'}
+        <NavigationSettingButton route={routeNames.PROFILE_SETTINGS}
+																 title={'Profile'}
                                  description={'Here you can manage and customize your personal info information'}
-                                 icon={<RiUserSettingsLine/>}/>
-        <NavigationSettingButton route={routeNames.SECURITY_SETTINGS} title={'Security'}
+                                 icon={<RiUserSettingsLine/>}
+				/>
+        <NavigationSettingButton route={routeNames.SECURITY_SETTINGS}
+																 title={'Security'}
                                  description={'Here you can update your login credentials such as password and email'}
-                                 icon={<VscKey/>}/>
+                                 icon={<VscKey/>}
+				/>
       </nav>
     </aside>
   )

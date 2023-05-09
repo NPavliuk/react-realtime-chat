@@ -1,23 +1,27 @@
 import styles from './ConversationBar.module.scss'
-import { RiCloseFill } from 'react-icons/ri'
 import { useDispatch, useSelector } from 'react-redux'
 import { UserAvatar } from '@components/ui/avatars'
 import { PrimaryButton } from '@components/ui/buttons'
+import { PrimarySpinner } from '@components/ui/spinners'
+import { RiCloseFill } from 'react-icons/ri'
 import {
 	closeConversationBar,
-	openAddInterlocutorModal, openEditConversationModal
+	openAddInterlocutorModal,
+	openEditConversationModal
 } from '@store/reducers/conversationReducer/conversationActions'
 import { closeProfileBar } from '@store/reducers/profileReducer/profileActions'
 import {
 	ConversationMember
 } from '@views/conversation/Conversation/ConversationBar/ConversationMember/ConversationMember'
+import { checkIfMobile } from '@helpers/checkResolution'
 import { classNames } from '@helpers/classNames'
-import { PrimarySpinner } from '@components/ui/spinners'
+import { createAndDispatchFocusEvent } from '@helpers/customEvents'
 
 export const ConversationBar = () => {
 	const dispatch = useDispatch()
 	const userID = useSelector(state => state.auth.id)
 	const conversation = useSelector(state => state.conversation)
+	const isMobile = checkIfMobile()
 
 	const closeSidebarHandler = () => {
 		dispatch(closeProfileBar())
@@ -30,6 +34,14 @@ export const ConversationBar = () => {
 
 	const openEditConversationModalHandler = () => {
 		dispatch(openEditConversationModal())
+	}
+
+	const messageButtonHandler = () => {
+		if (isMobile) {
+			dispatch(closeConversationBar())
+		}
+
+		createAndDispatchFocusEvent()
 	}
 
 	return (
@@ -74,7 +86,9 @@ export const ConversationBar = () => {
 									</div>
 									:
 									<div className={styles.controls}>
-										<PrimaryButton title={'Message'}/>
+										<PrimaryButton title={'Message'}
+																	 handler={messageButtonHandler}
+										/>
 									</div>
 							}
 							{

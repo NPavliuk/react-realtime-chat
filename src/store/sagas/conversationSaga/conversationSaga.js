@@ -62,22 +62,22 @@ export function* createDirectConversationSaga(props) {
 			yield put(createDirectConversationSuccess())
 			yield put(closeAddConversationModal())
 			createAndDispatchFocusEvent()
-			yield call(navigate, `${routeNames.CONVERSATIONS}/${conversation.id}`)
+			navigate(`${routeNames.CONVERSATIONS}/${conversation.id}`)
 		} else if (userConversation.length === 0 && interlocutorConversation.length > 0) {
 			const conversationID = interlocutorConversation[0]
 			yield call(setConversation, userID, conversationID)
 			yield put(createDirectConversationSuccess())
 			yield put(closeAddConversationModal())
 			createAndDispatchFocusEvent()
-			yield call(navigate, `${routeNames.CONVERSATIONS}/${conversation.id}`)
+			navigate(`${routeNames.CONVERSATIONS}/${conversation.id}`)
 		} else if (userConversation.length > 0) {
 			const conversationID = userConversation[0]
-			yield call(navigate, `${routeNames.CONVERSATIONS}/${conversationID}`)
+			navigate(`${routeNames.CONVERSATIONS}/${conversationID}`)
+			createAndDispatchFocusEvent()
 			yield put(closeAddConversationModal())
 			if (!sidebar) {
 				yield call(toast.error, messages.conversationAlreadyExist)
 			}
-			createAndDispatchFocusEvent()
 		} else {
 			yield put(createDirectConversationFail(messages.conversationAlreadyExist))
 			yield call(toast.error, messages.conversationAlreadyExist)
@@ -111,7 +111,7 @@ export function* createGroupConversationSaga(props) {
 		yield call(setConversation, userID, conversation.id)
 		yield put(createGroupConversationSuccess())
 		yield put(closeAddConversationModal())
-		yield call(navigate, `${routeNames.CONVERSATIONS}/${conversation.id}`)
+		navigate(`${routeNames.CONVERSATIONS}/${conversation.id}`)
 	} catch (err) {
 		yield put(createGroupConversationFail(err.message))
 	}
@@ -126,7 +126,7 @@ export function* removeConversationSaga(props) {
 		yield call(removeConversation, conversationID)
 		yield all(conversationalists.map(interlocutor => call(removeUserConversation, interlocutor.id, conversationID)))
 		yield put(removeConversationSuccess())
-		yield call(navigate, routeNames.CONVERSATIONS)
+		navigate(routeNames.CONVERSATIONS)
 		yield call(toast.success, messages.conversationRemoveSuccess)
 	} catch (err) {
 		yield put(removeConversationFail(err.message))
@@ -206,7 +206,7 @@ export function* leaveConversationSaga(props) {
 		yield call(removeUserConversation, userID, conversationID)
 		yield call(removeUserFromConversation, userID, conversationID)
 		yield put(leaveConversationSuccess())
-		yield call(navigate, routeNames.CONVERSATIONS)
+		navigate(routeNames.CONVERSATIONS)
 		yield call(toast.success, messages.leaveConversationSuccess)
 	} catch (err) {
 		yield put(leaveConversationFail(err.message))

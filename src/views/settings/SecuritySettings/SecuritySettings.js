@@ -6,7 +6,6 @@ import { checkIfMobile } from '@helpers/checkResolution'
 export const SecuritySettings = () => {
 	const isMobile = checkIfMobile()
 
-
 	const outputHTML = () => {
 		return (
 			<div className={styles.wrapper}>

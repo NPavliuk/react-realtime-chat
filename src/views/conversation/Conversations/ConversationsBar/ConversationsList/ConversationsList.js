@@ -38,7 +38,7 @@ export const ConversationsList = () => {
 
 			<div className={styles.list}>
 				{
-					conversations.loading
+					conversations.loading && conversations.conversations.length === 0
 						? <PrimarySpinner/>
 						: sortedConversations.length > 0
 							? sortedConversations.map((conversation) => <ConversationsListItem key={conversation.id}

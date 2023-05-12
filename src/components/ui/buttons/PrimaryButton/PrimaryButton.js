@@ -8,13 +8,15 @@ export const PrimaryButton = ({handler, title, modifyClass, link, type}) => {
       <Link to={link} onClick={handler ? handler : null} className={classNames({
         [styles.button]: true,
         [styles.auto]: modifyClass === 'auto',
-				[styles.cancel]: modifyClass === 'cancel'
+				[styles.cancel]: modifyClass === 'cancel',
+				[styles.danger]: modifyClass === 'danger'
       })}>{title}</Link>
       :
       <button type={type ? type : 'button'} onClick={handler ? handler : null} className={classNames({
         [styles.button]: true,
 				[modifyClass]: modifyClass === 'auto',
-				[styles.cancel]: modifyClass === 'cancel'
+				[styles.cancel]: modifyClass === 'cancel',
+				[styles.danger]: modifyClass === 'danger'
       })}>{title}</button>
   )
 }

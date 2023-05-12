@@ -9,6 +9,7 @@ import { SecuritySettings } from '@views/settings/SecuritySettings/SecuritySetti
 export const privateRoutes = [
   {path: routeNames.ANY, exact: true, element: <NotFound/>},
   {path: routeNames.CONVERSATION, exact: true, element: <Conversation/>},
+	{path: routeNames.HOME, exact: true, element: <Conversations/>},
   {path: routeNames.CONVERSATIONS, exact: true, element: <Conversations/>},
   {path: routeNames.SETTINGS, exact: true, element: <Settings/>},
   {path: routeNames.PROFILE_SETTINGS, exact: true, element: <ProfileSettings/>},

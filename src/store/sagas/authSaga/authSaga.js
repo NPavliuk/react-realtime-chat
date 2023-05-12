@@ -80,8 +80,8 @@ export function* signOutSaga(props) {
 		yield call(signOut, auth)
 		yield call(setUserOfflineStatus, userID)
 		yield call(removeSessionFromLocalStorage)
-		yield put(signOutSuccess())
 		navigate(routeNames.HOME)
+		yield put(signOutSuccess())
 	} catch (err) {
 		yield put(signOutFail(err.message))
 		yield call(toast.error, messages.somethingWrong)

@@ -32,7 +32,9 @@ import {
 	closeEditConversationModal,
 	leaveConversationSuccess, leaveConversationFail
 } from '@store/reducers/conversationReducer/conversationActions'
-import { closeAddConversationModal } from '@store/reducers/conversationsReducer/conversationsActions'
+import {
+	closeAddConversationModal, watchConversationsRestart, watchConversationsStart
+} from '@store/reducers/conversationsReducer/conversationsActions'
 import { createAndDispatchFocusEvent } from '@helpers/customEvents'
 import { actionTypes } from '@constants/actionTypes'
 import { routeNames } from '@constants/routeNames'
@@ -205,6 +207,7 @@ export function* leaveConversationSaga(props) {
 	try {
 		yield call(removeUserConversation, userID, conversationID)
 		yield call(removeUserFromConversation, userID, conversationID)
+		yield put(watchConversationsRestart(userID))
 		yield put(leaveConversationSuccess())
 		navigate(routeNames.CONVERSATIONS)
 		yield call(toast.success, messages.leaveConversationSuccess)

@@ -27,3 +27,12 @@ export const watchConversationsFail = (error) => ({
 	type: actionTypes.WATCH_CONVERSATIONS_FAIL,
 	payload: error
 })
+
+export const watchConversationsCancel = () => ({
+	type: actionTypes.WATCH_CONVERSATIONS_CANCEL,
+})
+
+export const watchConversationsRestart = (id) => ({
+	type: actionTypes.WATCH_CONVERSATIONS_RESTART,
+	payload: id
+})

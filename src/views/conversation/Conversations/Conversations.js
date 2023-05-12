@@ -2,7 +2,9 @@ import styles from './Conversations.module.scss'
 import { Helmet } from 'react-helmet'
 import { useDispatch, useSelector } from 'react-redux'
 import { PrimaryModal } from '@components/ui/modals'
-import { closeAddConversationModal } from '@store/reducers/conversationsReducer/conversationsActions'
+import {
+	closeAddConversationModal,
+} from '@store/reducers/conversationsReducer/conversationsActions'
 import { AddConversation } from '@views/conversation/Conversations/AddConversation/AddConversation'
 import { ConversationsBar } from '@views/conversation/Conversations/ConversationsBar/ConversationsBar'
 

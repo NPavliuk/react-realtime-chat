@@ -164,6 +164,7 @@ export function* clearMessagesSaga(props) {
 
 	try {
 		yield call(removeMessages, conversationID)
+		yield call(setLastMessage, null, conversationID)
 		yield put(clearMessagesSuccess())
 		yield call(toast.success, messages.conversationMessagesRemoveSuccess)
 	} catch (err) {

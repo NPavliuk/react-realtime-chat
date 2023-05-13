@@ -33,7 +33,7 @@ import {
 	leaveConversationSuccess, leaveConversationFail
 } from '@store/reducers/conversationReducer/conversationActions'
 import {
-	closeAddConversationModal, watchConversationsRestart, watchConversationsStart
+	closeAddConversationModal, watchConversationsRestart
 } from '@store/reducers/conversationsReducer/conversationsActions'
 import { createAndDispatchFocusEvent } from '@helpers/customEvents'
 import { actionTypes } from '@constants/actionTypes'

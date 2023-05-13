@@ -12,14 +12,11 @@ function* watchConversationsSaga(props) {
 		while (true) {
 			const conversations = yield take(userConversationsChannel)
 			yield put(watchConversationsSuccess(conversations))
-			console.log(1)
 		}
 	} catch (error) {
 		yield put(watchConversationsFail(error))
 	} finally {
-		console.log(2)
 		if (yield cancelled()) {
-			console.log(3)
 			userConversationsChannel.close()
 		}
 	}

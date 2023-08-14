@@ -1,6 +1,6 @@
 # Realtime Chat
 Welcome to React chat app! The application allows users to create accounts, log in, create direct or group conversations. 
-Users can send and receive real-time messages and see when other users is online or offline. You can try it here https://react-realtime-chat-494a3.web.app/.
+Users can send and receive real-time messages and see when other users is online or offline. You can try it here https://react-realtime-chat-bc869.web.app/.
 
 <img src="src/assets/images/preview.png" alt="" width="100%">
 

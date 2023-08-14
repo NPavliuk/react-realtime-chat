@@ -2,13 +2,7 @@
 Welcome to React chat app! The application allows users to create accounts, log in, create direct or group conversations. 
 Users can send and receive real-time messages and see when other users is online or offline. You can try it here https://react-realtime-chat-bc869.web.app/.
 
-Test users: 
-* John Doe - email: john.doe@gmail.com; password: Password123;
-* Jane Doe - email: jane.doe@gmail.com; password: Password123
-* Jessica Doe - email: jessica.doe@gmail.com; password: Password123
-
 <img src="src/assets/images/preview.png" alt="" width="100%">
-
 
 ## Features
 The Chat App includes the following features:
@@ -30,6 +24,12 @@ The Chat App includes the following features:
 2. Install the dependencies using `npm install`.
 3. Run the app using `npm run start`.
 4. Navigate to http://localhost:3000 in your browser.
+
+## Test users:
+To familiarize yourself with the project, use pre-created users or create your own.
+* John Doe - email: john.doe@gmail.com; password: Password123;
+* Jane Doe - email: jane.doe@gmail.com; password: Password123
+* Jessica Doe - email: jessica.doe@gmail.com; password: Password123
 
 ## Technologies
 
